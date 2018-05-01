@@ -55,7 +55,7 @@ public class IndexController {
         model.addAttribute("pageBean",pageBean);
         model.addAttribute("userList",userList);
         model.addAttribute("hotUserList",hotUserList);
-        return "index";
+        return "listTopic";
     }
 
 

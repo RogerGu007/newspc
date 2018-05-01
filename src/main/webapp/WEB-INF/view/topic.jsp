@@ -62,6 +62,7 @@
 		<div class="main-right">
 			
 			<div class="hot-user">
+
 				<div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;推荐网站</div></div>
 				<ul class="hot-user-list">
 					<li class="clearfix">

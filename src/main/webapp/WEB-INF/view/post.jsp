@@ -22,32 +22,32 @@
 			<!-- 帖子内容板块 -->
 			<div class="post-content">
 				<div class="post-title">
-					<span class="glyphicon glyphicon-th"></span>&nbsp;${post.title}
+					<span class="glyphicon glyphicon-th"></span>&nbsp;${newsdetail.subject}
 				</div>
 				<div class="post-user clearfix">
-					<div class="user-image"><a href="toProfile.do?uid=${post.user.uid}"><img src="${post.user.headUrl}"></a></div>
+					<div class="user-image"><a href="toProfile.do?uid=${newsdetail.publisher_id}"><img src="${newsdetail.publisher_avatar_url}"></a></div>
 					<div class="user-info">
-						<div class="user-name">${post.user.username}</div>
-						<div class="post-time">编辑于 ${post.publishTime}</div>
+						<div class="user-name">${newsdetail.publisher_name}</div>
+						<div class="post-time">编辑于 ${newsdetail.postDate}</div>
 					</div>
 					<div class="other-count">
-						<span class="reply-count"><a href="#">回复 ${post.replyCount}</a></span>&nbsp;
+						<%--<span class="reply-count"><a href="#">回复 ${newsdetail.}</a></span>&nbsp;--%>
                         <c:choose>
                             <c:when test="${sessionScope.uid==null}">
-                                <span class="up-count"><a>赞 ${post.likeCount}</a></span>&nbsp;
+                                <%--<span class="up-count"><a>赞 ${newsdetail.}</a></span>&nbsp;--%>
                             </c:when>
                             <c:when test="${liked==true}">
-                                <span class="up-count"><a style="color:#2e6da4;">已赞 ${post.likeCount}</a></span>&nbsp;
+                                <%--<span class="up-count"><a style="color:#2e6da4;">已赞 ${newsdetail.likeCount}</a></span>&nbsp;--%>
                             </c:when>
                             <c:when test="${sessionScope.uid!=null}">
-                                <span class="up-count"><a href="#" id="like-button">赞 ${post.likeCount}</a></span>&nbsp;
+                                <%--<span class="up-count"><a href="#" id="like-button">赞 ${newsdetail.likeCount}</a></span>&nbsp;--%>
                             </c:when>
                         </c:choose>
-						<span class="scan-count"><a href="#">浏览 ${post.scanCount}</a></span>
+						<%--<span class="scan-count"><a href="#">浏览 ${newsdetail.}</a></span>--%>
 					</div>
 				</div>
 				<div class="post-desc">
-					${post.content}
+					${newsdetail.detailContent}
 				</div>
 			</div>
 
@@ -57,8 +57,9 @@
 			<div class="post-reply">
 				<!-- 回复区标题 -->
 				<div class="post-reply-title">
-					<h2 class="reply-count"><span class="glyphicon glyphicon-th"></span>&nbsp;${post.replyCount}条回帖</h2>
-					<a href="#reply-area">回复</a>
+					<%--<h2 class="reply-count"><span class="glyphicon glyphicon-th"></span>&nbsp;${post.replyCount}条回帖</h2>--%>
+                    <h2 class="reply-count"><span class="glyphicon glyphicon-th"></span>&nbsp;1条回帖</h2>
+                    <a href="#reply-area">回复</a>
 				</div>
 				<!-- 回复区内容 -->
 				<div class="post-reply-content">
@@ -92,7 +93,7 @@
                                     <!-- 楼中楼的回复框 -->
                                     <div class="reply-input">
                                         <form action="comment.do" method="post">
-                                            <input type="hidden" name="pid" value="${post.pid}"/>
+                                            <input type="hidden" name="pid" value="${newsdetail.newsID}"/>
                                             <input type="hidden" name="rid" value="${reply.rid}"/>
                                             <textarea id="s${status.count}" name="content"></textarea>
                                             <button type="submit">回复</button>
@@ -116,7 +117,7 @@
 			<div id="reply-area" class="post-reply-textarea">
 				<div style="width: 650px;margin: 10px 20px">
 					<form action="reply.do" method="post" enctype="multipart/form-data">
-						<input type="hidden" name="pid" value="${post.pid}" />
+						<input type="hidden" name="pid" value="${newsdetail.newsID}" />
 						<textarea name="content" id="textarea" style="height: 200px;max-height: 1000px;"></textarea>
 						<button class="reply-button">回帖</button>
 					</form>
@@ -216,7 +217,7 @@
         $.ajax({
             type:"GET",
             url:"ajaxClickLike.do",
-            data:{pid:${post.pid}},
+            data:{pid:${newsdetail.newsID}},
             success:function(response,status,xhr){
                 likeButton.text("赞 "+response);
                 likeButton.removeAttr("href");

@@ -6,11 +6,13 @@
 
 <div class="header clearfix">
     <div class="w">
-        <h1 class="logo"><a href="toIndex.do">211社区</a></h1>
+        <h1 class="logo">
+            <a href="listTopic.do">211社区</a>
+        </h1>
         <ul class="left-nav">
             <li class="current-nav"><a href="listTopic.do">首页</a></li>
-            <li><a href="toIndex.do">招聘</a></li>
-            <li><a href="listImage.do">鹊桥</a></li>
+            <li><a href="listPostByTime.do?curPage=0&location=21&newsType=2&subNewsType=0">招聘</a></li>
+            <li><a href="listPostByTime.do?curPage=0&location=21&newsType=3&subNewsType=0">鹊桥</a></li>
             <%--<li><a href="toMessage.do">消息</a></li>--%>
         </ul>
 

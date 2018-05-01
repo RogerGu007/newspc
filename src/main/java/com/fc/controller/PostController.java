@@ -8,12 +8,14 @@ import com.fc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -51,8 +53,17 @@ public class PostController {
 
     //按时间，倒序，列出帖子
     @RequestMapping("/listPostByTime.do")
-    public String listPostByTime(int curPage,Model model){
-        PageBean<Post> pageBean = postService.listPostByTime(curPage);
+    public String listPostByTime(int location, int newsType, int curPage, int subNewsType, Model model){
+        if (StringUtils.isEmpty(String.valueOf(location)))
+            location = 21;
+        if (StringUtils.isEmpty(String.valueOf(newsType)))
+            newsType = 2;
+        if (StringUtils.isEmpty(String.valueOf(curPage)))
+            curPage = 1;
+        if (StringUtils.isEmpty(String.valueOf(subNewsType)))
+            subNewsType = 0;
+//        PageBean<Post> pageBean = postService.listPostByTime(curPage);
+        PageBean<NewsDTO> pageBean = postService.listPostByTime(location, newsType, subNewsType, curPage);
         List<User> userList = userService.listUserByTime();
         List<User> hotUserList = userService.listUserByHot();
         model.addAttribute("pageBean",pageBean);
@@ -63,22 +74,22 @@ public class PostController {
 
     //去帖子详情页面
     @RequestMapping("/toPost.do")
-    public String toPost(int pid,Model model,HttpSession session){
+    public String toPost(int newsid, Long userid, Model model, HttpSession session){
         Integer sessionUid = (Integer) session.getAttribute("uid");
         //获取帖子信息
-        Post post = postService.getPostByPid(pid);
+        NewsDetailDTO newsDetailDTO = postService.getPostDetail(newsid, userid);
         //获取评论信息
-        List<Reply> replyList = replyService.listReply(pid);
+//        List<Reply> replyList = replyService.listReply(newsid);
+        List<Reply> replyList = new ArrayList<>();
 
         //判断用户是否已经点赞
-
         boolean liked = false;
-        if(sessionUid!=null){
-            liked = postService.getLikeStatus(pid,sessionUid);
+        if(sessionUid != null){
+            liked = postService.getLikeStatus(newsid, sessionUid);
         }
         //向模型中添加数据
-        model.addAttribute("post",post);
-        model.addAttribute("replyList",replyList);
+        model.addAttribute("newsdetail", newsDetailDTO);
+        model.addAttribute("replyList", replyList);
         model.addAttribute("liked",liked);
         return "post";
     }
