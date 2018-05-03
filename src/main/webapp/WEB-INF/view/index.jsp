@@ -88,11 +88,11 @@
                     <nav class="col-md-10 col-md-offset-2">
                         <ul class="pagination pagination-sm">
                             <%--首页--%>
-                            <li><a href="listTopic.d">首页</a></li>
+                            <li><a href="listPostByTime.do?curPage=1&newsType=${param.get('newsType')}&location=${param.get('location')}&subNewsType=${param.get('subNewsType')}">首页</a></li>
                             <%--上一页--%>
                             <c:choose>
                                 <c:when test="${pageBean.curPage!=1 }">
-                                    <li><a href="listPostByTime.do?curPage=${pageBean.curPage-1 }"><span>&laquo;</span></a></li>
+                                    <li><a href="listPostByTime.do?curPage=${pageBean.curPage-1}&newsType=${param.get('newsType')}&location=${param.get('location')}&subNewsType=${param.get('subNewsType')}"><span>&laquo;</span></a></li>
                                 </c:when>
                                 <c:otherwise>
                                     <li><span>&laquo;</span></li>
@@ -102,36 +102,36 @@
                             <c:choose>
                                 <c:when test="${pageBean.allPage<=10 }">
                                     <c:forEach begin="1" end="${pageBean.allPage}" var="i">
-                                        <li class="pageNum"><a href="listPostByTime.do?curPage=${i }">${i }</a></li>
+                                        <li class="pageNum"><a href="listPostByTime.do?curPage=${i}&newsType=${param.get('newsType')}&location=${param.get('location')}&subNewsType=${param.get('subNewsType')}">${i}</a></li>
                                     </c:forEach>
                                 </c:when>
-                                <c:when test="${pageBean.curPage<=5 }">
+                                <c:when test="${pageBean.curPage<=5}">
                                     <c:forEach begin="1" end="10" var="i">
-                                        <li class="pageNum"><a href="listPostByTime.do?curPage=${i }">${i }</a></li>
+                                        <li class="pageNum"><a href="listPostByTime.do?curPage=${i}&newsType=${param.get('newsType')}&location=${param.get('location')}&subNewsType=${param.get('subNewsType')}">${i }</a></li>
                                     </c:forEach>
                                 </c:when>
-                                <c:when test="${pageBean.allPage-pageBean.curPage<5 }">
-                                    <c:forEach begin="${pageBean.allPage-9 }" end="${ pageBean.allPage}" var="i">
-                                        <li class="pageNum"><a href="listPostByTime.do?curPage=${i }">${i }</a></li>
+                                <c:when test="${pageBean.allPage-pageBean.curPage<5}">
+                                    <c:forEach begin="${pageBean.allPage-9}" end="${pageBean.allPage}" var="i">
+                                        <li class="pageNum"><a href="listPostByTime.do?curPage=${i}&newsType=${param.get('newsType')}&location=${param.get('location')}&subNewsType=${param.get('subNewsType')}">${i}</a></li>
                                     </c:forEach>
                                 </c:when>
                                 <c:otherwise>
                                     <c:forEach begin="${pageBean.curPage-4 }" end="${ pageBean.curPage+5}" var="i">
-                                        <li class="pageNum"><a href="listPostByTime.do?curPage=${i }">${i }</a></li>
+                                        <li class="pageNum"><a href="listPostByTime.do?curPage=${i}&newsType=${param.get('newsType')}&location=${param.get('location')}&subNewsType=${param.get('subNewsType')}">${i }</a></li>
                                     </c:forEach>
                                 </c:otherwise>
                             </c:choose>
                             <%--下一页--%>
                             <c:choose>
-                                <c:when test="${pageBean.curPage!=pageBean.allPage }">
-                                    <li><a href="listPostByTime.do?curPage=${pageBean.curPage+1 }"><span>&raquo;</span></a></li>
+                                <c:when test="${pageBean.curPage!=pageBean.allPage}">
+                                    <li><a href="listPostByTime.do?curPage=${pageBean.curPage+1}&newsType=${param.get('newsType')}&location=${param.get('location')}&subNewsType=${param.get('subNewsType')}"><span>&raquo;</span></a></li>
                                 </c:when>
                                 <c:otherwise>
                                     <li><span>&raquo;</span></li>
                                 </c:otherwise>
                             </c:choose>
                             <%--尾页--%>
-                            <li><a href="listPostByTime.do?curPage=${pageBean.allPage}">尾页</a></li>
+                            <li><a href="listPostByTime.do?curPage=${pageBean.allPage}&newsType=${param.get('newsType')}&location=${param.get('location')}&subNewsType=${param.get('subNewsType')}">尾页</a></li>
                         </ul>
                     </nav>
 

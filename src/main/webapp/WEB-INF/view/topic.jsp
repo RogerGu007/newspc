@@ -23,9 +23,36 @@
 			<div class="topic-root">
 				<div class="topic-root-wrap">
 					<c:forEach items="${topicList}" var="topic">
-                        <a href="#">${topic.name}</a>
+						<c:choose>
+							<c:when test="${topic.name eq '招聘'}">
+								<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0">${topic.name}</a>
+							</c:when>
+							<c:when test="${topic.name eq '鹊桥'}">
+								<a href="listPostByTime.do?curPage=1&location=21&newsType=3&subNewsType=0">${topic.name}</a>
+							</c:when>
+							<c:when test="${topic.name eq '实习/兼职'}">
+								<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=2">${topic.name}</a>
+							</c:when>
+							<c:when test="${topic.name eq '全职'}">
+								<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=1">${topic.name}</a>
+							</c:when>
+							<c:when test="${topic.name eq '上海'}">
+								<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0">${topic.name}</a>
+							</c:when>
+							<c:when test="${topic.name eq '北京'}">
+								<a href="listPostByTime.do?curPage=1&location=10&newsType=2&subNewsType=0">${topic.name}</a>
+							</c:when>
+							<c:when test="${topic.name eq '杭州'}">
+								<a href="listPostByTime.do?curPage=1&location=571&newsType=2&subNewsType=0">${topic.name}</a>
+							</c:when>
+							<c:when test="${topic.name eq '南京'}">
+								<a href="listPostByTime.do?curPage=1&location=25&newsType=2&subNewsType=0">${topic.name}</a>
+							</c:when>
+							<c:when test="${topic.name eq '武汉'}">
+								<a href="listPostByTime.do?curPage=1&location=27&newsType=2&subNewsType=0">${topic.name}</a>
+							</c:when>
+						</c:choose>
                     </c:forEach>
-
 				</div>
 			</div>
 			<%--话题列表--%>
@@ -37,8 +64,36 @@
                                 <div class="topic-odd relative">
                                     <a href="#" class="topic-image"><img src="${topic.image}"></a>
                                     <div class="topic-content">
-                                        <a href="#" class="topic-name">${topic.name}</a>
-                                        <a href="#" class="topic-desc">${topic.content}</a>
+										<c:choose>
+											<c:when test="${topic.name eq '招聘'}">
+												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0">${topic.name}</a>
+											</c:when>
+											<c:when test="${topic.name eq '鹊桥'}">
+												<a href="listPostByTime.do?curPage=1&location=21&newsType=3&subNewsType=0">${topic.name}</a>
+											</c:when>
+											<c:when test="${topic.name eq '实习/兼职'}">
+												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=2">${topic.name}</a>
+											</c:when>
+											<c:when test="${topic.name eq '全职'}">
+												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=1">${topic.name}</a>
+											</c:when>
+											<c:when test="${topic.name eq '上海'}">
+												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0">${topic.name}</a>
+											</c:when>
+											<c:when test="${topic.name eq '北京'}">
+												<a href="listPostByTime.do?curPage=1&location=10&newsType=2&subNewsType=0">${topic.name}</a>
+											</c:when>
+											<c:when test="${topic.name eq '杭州'}">
+												<a href="listPostByTime.do?curPage=1&location=571&newsType=2&subNewsType=0">${topic.name}</a>
+											</c:when>
+											<c:when test="${topic.name eq '南京'}">
+												<a href="listPostByTime.do?curPage=1&location=25&newsType=2&subNewsType=0">${topic.name}</a>
+											</c:when>
+											<c:when test="${topic.name eq '武汉'}">
+												<a href="listPostByTime.do?curPage=1&location=27&newsType=2&subNewsType=0">${topic.name}</a>
+											</c:when>
+										</c:choose>
+										<a href="#" class="topic-desc">${topic.content}</a>
                                     </div>
                                 </div>
                             </c:when>
@@ -46,8 +101,36 @@
                                 <div class="topic-even relative">
                                     <a href="#" class="topic-image"><img src="${topic.image}"></a>
                                     <div class="topic-content">
-                                        <a href="#" class="topic-name">${topic.name}</a>
-                                        <a href="#" class="topic-desc">${topic.content}</a>
+										<c:choose>
+											<c:when test="${topic.name eq '招聘'}">
+												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0">${topic.name}</a>
+											</c:when>
+											<c:when test="${topic.name eq '鹊桥'}">
+												<a href="listPostByTime.do?curPage=1&location=21&newsType=3&subNewsType=0">${topic.name}</a>
+											</c:when>
+											<c:when test="${topic.name eq '实习/兼职'}">
+												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=2">${topic.name}</a>
+											</c:when>
+											<c:when test="${topic.name eq '全职'}">
+												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=1">${topic.name}</a>
+											</c:when>
+											<c:when test="${topic.name eq '上海'}">
+												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0">${topic.name}</a>
+											</c:when>
+											<c:when test="${topic.name eq '北京'}">
+												<a href="listPostByTime.do?curPage=1&location=10&newsType=2&subNewsType=0">${topic.name}</a>
+											</c:when>
+											<c:when test="${topic.name eq '杭州'}">
+												<a href="listPostByTime.do?curPage=1&location=571&newsType=2&subNewsType=0">${topic.name}</a>
+											</c:when>
+											<c:when test="${topic.name eq '南京'}">
+												<a href="listPostByTime.do?curPage=1&location=25&newsType=2&subNewsType=0">${topic.name}</a>
+											</c:when>
+											<c:when test="${topic.name eq '武汉'}">
+												<a href="listPostByTime.do?curPage=1&location=27&newsType=2&subNewsType=0">${topic.name}</a>
+											</c:when>
+										</c:choose>
+										<a href="#" class="topic-desc">${topic.content}</a>
                                     </div>
                                 </div>
                             </c:otherwise>
@@ -56,7 +139,7 @@
 				</div>
 			</div>
 			<div class="topic-more">
-				<a href="#">更多</a>
+				<%--<a href="#">更多</a>--%>
 			</div>
 		</div>
 		<div class="main-right">
@@ -135,6 +218,7 @@
 			uponMask.hide();
 		});
 	});
+
 </script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.fc.service;
 
 import com.fc.async.MessageTask;
+import com.fc.gson.NewsCountResultGson;
 import com.fc.gson.NewsDetailResultGson;
 import com.fc.gson.NewsSubjectResultGson;
 import com.fc.mapper.MessageMapper;
@@ -29,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.fc.entity.Constant.GET_NEWS_COUNT;
 import static com.fc.entity.Constant.GET_NEWS_DETAIL;
 import static com.fc.entity.Constant.GET_NEWS_LIST_SUBJECTS_BY_PAGE;
 import static com.fc.entity.RetCode.RET_CODE_OK;
@@ -84,14 +86,36 @@ public class PostService {
 
     //按时间列出帖子
     public PageBean<NewsDTO> listPostByTime(int location, int newsType, int subNewsType, int curPage) {
+        //每页记录数，从哪开始
+        int limit = 20;
+        int offset = (curPage-1) * limit;
+        //获得总记录数，总页数
         Map<String, String> newsMap = new HashMap<>();
         newsMap.put("location", String.valueOf(location));
         newsMap.put("newstype", String.valueOf(newsType));
-        newsMap.put("page", String.valueOf(curPage));
+        newsMap.put("page", String.valueOf(curPage-1));
+        int allCount = 0;
+        try {
+            String getCountResp = httpClientOperateService.doGet(GET_NEWS_COUNT, newsMap);
+            NewsCountResultGson countResultGson = GsonUtils.fromJson(getCountResp, NewsCountResultGson.class);
+            if (countResultGson != null && countResultGson.getRetCode() == RET_CODE_OK)
+                allCount = countResultGson.getCount();
+        } catch (Exception e) {
+            logger.error(GET_NEWS_COUNT + " 获取news总数失败! " + e.getMessage());
+        }
+
+        int allPage = 0;
+        if (allCount <= limit) {
+            allPage = 1;
+        } else if (allCount / limit == 0) {
+            allPage = allCount / limit;
+        } else {
+            allPage = allCount / limit + 1;
+        }
+        PageBean<NewsDTO> pageBean = new PageBean<>(allPage, curPage);
+
         if (subNewsType != 0)
             newsMap.put("subnewstype", String.valueOf(subNewsType));
-
-        PageBean<NewsDTO> pageBean = new PageBean<>(10, curPage);
         try {
             String response = httpClientOperateService.doGet(GET_NEWS_LIST_SUBJECTS_BY_PAGE, newsMap);
             NewsSubjectResultGson resultGson = GsonUtils.fromJson(response, NewsSubjectResultGson.class);
