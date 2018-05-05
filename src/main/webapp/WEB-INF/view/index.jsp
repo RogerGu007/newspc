@@ -59,7 +59,7 @@
 						<c:forEach items="${pageBean.list}" var="post">
                             <li class="clearfix">
                                 <div class="post-image">
-                                    <a href="toProfile.do?uid=${post.linkUrl}"><img src="${post.linkUrl}"></a>
+                                    <a href="toProfile.do?uid=${post.linkUrl}"><img src="${post.publishSource}"></a>
                                 </div>
                                 <div class="post-content">
                                     <div class="post-title"><a href="toPost.do?newsid=${post.id}&userid=${post.publisherId}">${post.subject}</a></div>

@@ -1,14 +1,21 @@
 package com.fc.service;
 
 import com.fc.async.MailTask;
+import com.fc.gson.HttpResult;
+import com.fc.gson.LoginRegisterGson;
+import com.fc.gson.RetResultGson;
+import com.fc.gson.UserInfoResultGson;
 import com.fc.mapper.UserMapper;
 import com.fc.model.User;
+import com.fc.util.GsonUtils;
 import com.fc.util.MyConstant;
 import com.fc.util.MyUtil;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import sun.nio.cs.US_ASCII;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -17,9 +24,14 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.fc.entity.Constant.GET_USERINFO;
+import static com.fc.entity.Constant.LOGIN_REGISTER;
+import static com.fc.entity.Constant.SEND_SMS;
+import static com.fc.entity.RetCode.RET_CODE_FAILURE;
+import static com.fc.entity.RetCode.RET_CODE_OK;
+
 @Service
 public class LoginService {
-
 
     @Autowired
     private UserMapper userMapper;
@@ -27,6 +39,11 @@ public class LoginService {
     private JavaMailSender javaMailSender;
     @Autowired
     private TaskExecutor taskExecutor;
+
+    @Autowired
+    private HttpClientOperateService httpClientOperateService;
+
+    private Logger logger = Logger.getLogger(LoginService.class.getName());
 
     //注册
     public String register(User user,String repassword) {
@@ -73,8 +90,6 @@ public class LoginService {
         return "ok";
     }
 
-
-
     //登录
     public Map<String,Object> login(User user) {
 
@@ -103,5 +118,42 @@ public class LoginService {
 
     public void activate(String activateCode) {
         userMapper.updateActived(activateCode);
+    }
+
+    public RetResultGson getSmsCode(String phoneNo) {
+        RetResultGson retResultGson = new RetResultGson(RET_CODE_OK, "");
+        Map<String, String> cond = new HashMap<>();
+        cond.put("phone", phoneNo);
+        try {
+            HttpResult response = httpClientOperateService.doPost(SEND_SMS, cond);
+            retResultGson = GsonUtils.fromJson(response.getContent(), RetResultGson.class);
+        } catch (Exception e) {
+            logger.error("获取验证码失败！");
+        }
+        return retResultGson;
+    }
+
+    //登录
+    public LoginRegisterGson login(String phoneNo, String smsCode) {
+        Map<String, String> cond = new HashMap<>();
+        cond.put("phoneNo", phoneNo);
+        cond.put("smsCode", smsCode);
+//        RetResultGson retResultGson = new RetResultGson(RET_CODE_OK, "SUCCESS");
+        LoginRegisterGson loginRegisterGson = new LoginRegisterGson(RET_CODE_OK, "SUCCESS");
+        try {
+            HttpResult resp = httpClientOperateService.doPost(LOGIN_REGISTER, cond);
+            loginRegisterGson = GsonUtils.fromJson(resp.getContent(), LoginRegisterGson.class);
+            if (loginRegisterGson.getRetCode() == RET_CODE_OK) {
+                String userResp =
+                        httpClientOperateService.doGet(String.format(GET_USERINFO, loginRegisterGson.getUserId()));
+                UserInfoResultGson userinfo = GsonUtils.fromJson(userResp, UserInfoResultGson.class);
+                if (userinfo.getRetCode() == RET_CODE_OK)
+                    loginRegisterGson.setAvatarUrl(userinfo.getAvatarUrl());
+            }
+        } catch (Exception e) {
+            loginRegisterGson.setRetCode(RET_CODE_FAILURE);
+            loginRegisterGson.setMessage("LOGIN FAILURE");
+        }
+        return loginRegisterGson;
     }
 }

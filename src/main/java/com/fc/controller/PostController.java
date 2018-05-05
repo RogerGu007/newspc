@@ -80,8 +80,7 @@ public class PostController {
         NewsDetailDTO newsDetailDTO = postService.getPostDetail(newsid, userid);
         //获取评论信息
 //        List<Reply> replyList = replyService.listReply(newsid);
-        List<Reply> replyList = new ArrayList<>();
-
+        List<FirstLevelCommentDTO> replyList = replyService.listReply(newsid, 0);
         //判断用户是否已经点赞
         boolean liked = false;
         if(sessionUid != null){

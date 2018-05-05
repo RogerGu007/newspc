@@ -1,9 +1,13 @@
 package com.fc.service;
 
 import com.fc.async.MailTask;
+import com.fc.gson.HttpResult;
+import com.fc.gson.RetResultGson;
 import com.fc.mapper.UserMapper;
 import com.fc.model.Info;
 import com.fc.model.User;
+import com.fc.util.GsonUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,7 +16,12 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Transaction;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.fc.entity.Constant.SEND_SMS;
+import static com.fc.entity.RetCode.RET_CODE_OK;
 
 
 @Service

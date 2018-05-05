@@ -18,9 +18,9 @@
 
         <ul class="right-nav">
             <c:choose>
-                <c:when test="${sessionScope.uid != null}">
+                <c:when test="${sessionScope.isLogin != null && sessionScope.isLogin == '0'}">
                     <li class="login2 relative">
-                        <a href="toMyProfile.do" id="profile"><img src="${sessionScope.headUrl}"></a>
+                        <a href="toMyProfile.do" id="profile"><img src="${sessionScope.avatarUrl}"></a>
                         <ul id="down-menu">
                             <li><a href="toMyProfile.do">个人主页</a></li>
                             <li><a href="logout.do">退出登录</a></li>
@@ -30,8 +30,8 @@
                 <c:otherwise>
                     <li class="login">
                         <a href="toLogin.do">登录</a>
-                        <a href="toLogin.do">/</a>
-                        <a href="toLogin.do#register">注册</a>
+                        <%--<a href="toLogin.do">/</a>--%>
+                        <%--<a href="toLogin.do#register">注册</a>--%>
                     </li>
                 </c:otherwise>
             </c:choose>

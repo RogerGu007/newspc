@@ -52,13 +52,12 @@
 			</div>
 
 
-
 			<!-- 帖子回复内容板块 -->
 			<div class="post-reply">
 				<!-- 回复区标题 -->
 				<div class="post-reply-title">
 					<%--<h2 class="reply-count"><span class="glyphicon glyphicon-th"></span>&nbsp;${post.replyCount}条回帖</h2>--%>
-                    <h2 class="reply-count"><span class="glyphicon glyphicon-th"></span>&nbsp;1条回帖</h2>
+                    <h2 class="reply-count"><span class="glyphicon glyphicon-th"></span>&nbsp;共${replyList.size()}条评论</h2>
                     <a href="#reply-area">回复</a>
 				</div>
 				<!-- 回复区内容 -->
@@ -66,36 +65,35 @@
 					<!-- 回复条目 -->
                     <c:forEach items="${replyList}" var="reply" varStatus="status">
                         <div class="post-reply-item clearfix">
-                            <div class="item-image"><a href="toProfile.do?uid=${reply.user.uid}"><img src="${reply.user.headUrl}"></a></div>
+                            <div class="item-image"><a href="toProfile.do?uid=${reply.userID}"><img src="${reply.avatarUrl}"></a></div>
                             <div class="item-info">
-                                <div class="item-user-name"><a href="#">${reply.user.username}</a></div>
-                                <div class="item-content">${reply.content}</div>
-                                <div class="item-date">发表于 ${reply.replyTime}</div>
+                                <div class="item-user-name"><a href="#">${reply.nickName}</a></div>
+                                <div class="item-content">${reply.comment}</div>
+                                <div class="item-date">发表于 ${reply.createAt}</div>
 
                                 <!-- 楼中楼，即嵌套的回复内容 -->
                                 <div class="item-more">
-                                    <c:forEach items="${reply.commentList}" var="comment">
+                                    <c:forEach items="${reply.secondLevelComments}" var="secondReply">
                                         <%--一个wrap开始--%>
                                         <div class="item-wrap">
                                             <div class="item-more-1">
-                                                <a href="toProfile.do?uid=${comment.user.uid}" class="item-more-user">${comment.user.username}</a>
+                                                <a href="toProfile.do?uid=${secondReply.fromUserID}" class="item-more-user">${secondReply.fromUserNickName}</a>
                                                 <span>：</span>
-                                                <span class="item-more-content">${comment.content}</span>
+                                                <span class="item-more-content">${secondReply.replyComment}</span>
                                             </div>
 
-                                            <div class="item-more-date">${comment.commentTime}</div>
+                                            <div class="item-more-date">${secondReply.createAt}</div>
                                             <div class="item-more-other">
-                                                <a href="#s${status.count}" class="item-more-reply">回复</a>&nbsp;
+                                                <%--<a href="#s${secondReply.fromUserID}" class="item-more-reply">回复</a>&nbsp;--%>
                                             </div>
                                         </div><!-- 一个wrap结束-->
                                     </c:forEach>
-
                                     <!-- 楼中楼的回复框 -->
                                     <div class="reply-input">
                                         <form action="comment.do" method="post">
-                                            <input type="hidden" name="pid" value="${newsdetail.newsID}"/>
-                                            <input type="hidden" name="rid" value="${reply.rid}"/>
-                                            <textarea id="s${status.count}" name="content"></textarea>
+                                            <input type="hidden" name="pid" value="${reply.newsID}"/>
+                                            <input type="hidden" name="rid" value="${reply.id}"/>
+                                            <%--<textarea id="s${status.count}" name="content"></textarea>--%>
                                             <button type="submit">回复</button>
                                         </form>
                                     </div>
@@ -103,7 +101,7 @@
 
                             </div>
                             <div class="item-other">
-                                <a href="#s${status.count}" class="item-reply">回复</a>&nbsp;
+                                <%--<a href="#s${status.count}" class="item-reply">回复</a>&nbsp;--%>
                             </div>
 
                         </div>
@@ -112,14 +110,15 @@
 			</div>
 
 
-
-			<!-- 回复区，付文本编辑器板块 -->
+			<!-- 回复区，副文本编辑器板块 -->
 			<div id="reply-area" class="post-reply-textarea">
 				<div style="width: 650px;margin: 10px 20px">
-					<form action="reply.do" method="post" enctype="multipart/form-data">
-						<input type="hidden" name="pid" value="${newsdetail.newsID}" />
+					<%--<form action="reply.do" method="post" enctype="multipart/form-data">--%>
+                    <form>
+						<input type="hidden" name="newsid" value="${newsdetail.newsID}" />
+                        <input type="hidden" name="userid" value="${newsdetail.publisher_id}" />
 						<textarea name="content" id="textarea" style="height: 200px;max-height: 1000px;"></textarea>
-						<button class="reply-button">回帖</button>
+						<button class="reply-button" id="replybutton">评论</button>
 					</form>
 				</div>
 			</div>
@@ -224,7 +223,38 @@
             }
         });
     });
-    
+
+    $("#replybutton").click(function () {
+        if(getCookie("isLogin") == "1") {
+            //提交评论
+            $.ajax({
+                type:"POST",
+                url:"reply.do",
+                data:{newsid:${newsdetail.newsID}, userid:getCookie("userId"), content:$("#textarea").val()},
+                success:function(response){
+                    if (response.errcode == "0") {
+                        alert("发布成功");
+                        window.location.reload();
+                    } else {
+                        alert(response.errmsg);
+                    }
+                }
+            });
+        } else {
+            alert("需要再次登陆");
+            window.event.returnValue=false;
+            window.location.href = "toLogin.do";
+        }
+    });
+
+    //取cookies函数
+    function getCookie(name){
+        var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+        if (arr != null) {
+            return unescape(arr[2]);
+        }
+        return null;
+    }
 </script>
 </body>
 </html>
