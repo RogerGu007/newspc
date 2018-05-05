@@ -45,8 +45,9 @@
                         <value>/forgetPassword.do</value>
                         <value>/afterForgetPassword.do</value>
                         <value>/verify.do</value>
-			<value>/listImage.do</value>
-
+                        <value>/getsmscode.do</value>
+                        <value>/listImage.do</value>
+                        <value>/reply.do</value>
                     </list>
                 </property>
             </bean>
