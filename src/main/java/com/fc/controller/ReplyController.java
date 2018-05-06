@@ -7,6 +7,7 @@ import com.fc.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,7 +30,7 @@ public class ReplyController {
      * @param content
      * @return
      */
-    @RequestMapping(value = "/reply.do", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/reply.do", produces = "application/json;charset=utf-8")
     public @ResponseBody
     RetFLCommentResultGson reply(String newsid, String userid, String content){
         RetFLCommentResultGson response = replyService.reply(newsid, userid, content);
@@ -37,19 +38,27 @@ public class ReplyController {
     }
 
     /**
-     * 二级评论 todo
+     * 二级评论
      *
-     * @param pid
+     * @param newsid
      * @param rid
+     * @param fromuserid
+     * @param touserid
      * @param content
-     * @param session
      * @return
      */
-    @RequestMapping("/comment.do")
-    public String comment(int pid,int rid, String content, HttpSession session){
-        int sessionUid = (int) session.getAttribute("uid");
-        replyService.comment(pid,sessionUid,rid,content);
-        return "redirect:toPost.do?pid="+pid;
+    @RequestMapping(value = "/comment.do", produces = "application/json;charset=utf-8")
+    public String comment(String newsid, String rid, String fromuserid, String touserid, String content){
+//        int sessionUid = (int) session.getAttribute("uid");
+//        replyService.comment(newsid, 1, rid, content);
+        System.out.println(String.format("nid=%s, rid=%s, fromUser=%s, toUser=%s, content=%s",
+                newsid, rid, fromuserid, touserid, content));
+        if (StringUtils.isEmpty(fromuserid))
+            return "redirect:toLogin.do";
+
+        replyService.secondReply(rid, fromuserid, touserid, content);
+
+        return "redirect:toPost.do?newsid=" + newsid + "&userid=" + touserid;
     }
 }
 

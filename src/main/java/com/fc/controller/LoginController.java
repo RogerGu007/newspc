@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.net.HttpCookie;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -76,12 +74,27 @@ public class LoginController {
 
     /**
      * 注销
-     * @param session
+     * @param request
      * @return
      */
     @RequestMapping(value = "/logout.do",method = RequestMethod.GET)
-    public String logout(HttpSession session) {
-        session.removeAttribute("uid");
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+//        Cookie[] cookies = request.getCookies();
+//        try
+//        {
+//            for(int i=0;i<cookies.length;i++)
+//            {
+//                //System.out.println(cookies[i].getName() + ":" + cookies[i].getValue());
+//                Cookie cookie = new Cookie(cookies[i].getName(), null);
+//                cookie.
+//                cookie.setMaxAge(0);
+//                cookie.setPath(path);//根据你创建cookie的路径进行填写
+//                response.addCookie(cookie);
+//            }
+//        }catch(Exception ex)
+//        {
+//            System.out.println("清空Cookies发生异常！");
+//        }
         return "redirect:listTopic.do";
     }
 

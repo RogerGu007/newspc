@@ -34,7 +34,7 @@
 						<input id="login-sms" type="text" name="smscode" value="${smscode}" required>
 					</div>
 					<button type="button" id="get-smscode">获取验证码</button>
-					<button id="login-submit">立即登录</button>
+					<button type="button" id="login-submit">立即登录</button>
 				</form>
 			</div>
 			<%--<div id="register-area">--%>
@@ -119,8 +119,9 @@
                         setCookie("userId", response.userId);
                         setCookie("avatarUrl", response.avatarUrl);
 //                        window.location.href = "listTopic.do";
-						history.go(-1);
-					}
+//                        window.history.go(-1);
+						window.location.href = document.referrer;
+                    }
                 }
             });
         });

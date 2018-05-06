@@ -58,8 +58,22 @@
 				<div class="post-reply-title">
 					<%--<h2 class="reply-count"><span class="glyphicon glyphicon-th"></span>&nbsp;${post.replyCount}条回帖</h2>--%>
                     <h2 class="reply-count"><span class="glyphicon glyphicon-th"></span>&nbsp;共${replyList.size()}条评论</h2>
-                    <a href="#reply-area">回复</a>
+                    <%--<a href="#reply-area">回复</a>--%>
 				</div>
+
+                <!-- 回复区，副文本编辑器板块 -->
+                <div id="reply-area" class="post-reply-textarea">
+                    <div style="width: 650px;margin: 10px 20px">
+                        <%--<form action="reply.do" method="post" enctype="multipart/form-data">--%>
+                        <form>
+                            <input type="hidden" name="newsid" value="${newsdetail.newsID}" />
+                            <input type="hidden" name="userid" value="${newsdetail.publisher_id}" />
+                            <textarea name="content" id="textarea" style="height: 200px;max-height: 1000px;"></textarea>
+                            <button class="reply-button" id="replybutton">评论</button>
+                        </form>
+                    </div>
+                </div>
+
 				<!-- 回复区内容 -->
 				<div class="post-reply-content">
 					<!-- 回复条目 -->
@@ -91,10 +105,14 @@
                                     <!-- 楼中楼的回复框 -->
                                     <div class="reply-input">
                                         <form action="comment.do" method="post">
-                                            <input type="hidden" name="pid" value="${reply.newsID}"/>
+                                        <%--<button type="submit" id="commentButton" onclick="commentFocus()">回复</button>--%>
+                                        <%--<form>--%>
+                                            <input type="hidden" name="newsid" value="${reply.newsID}"/>
                                             <input type="hidden" name="rid" value="${reply.id}"/>
-                                            <%--<textarea id="s${status.count}" name="content"></textarea>--%>
-                                            <button type="submit">回复</button>
+                                            <input type="hidden" name="fromuserid" value= "${cookie.userId.value}"/>
+                                            <input type="hidden" name="touserid" value="${newsdetail.publisher_id}"/>
+                                            <textarea id="s${reply.id}" name="content" ></textarea>
+                                            <button type="submit" id="commentButton" onclick="$('#textarea').focus()">回复</button>
                                         </form>
                                     </div>
                                 </div><!-- 楼中楼结束 -->
@@ -110,18 +128,18 @@
 			</div>
 
 
-			<!-- 回复区，副文本编辑器板块 -->
-			<div id="reply-area" class="post-reply-textarea">
-				<div style="width: 650px;margin: 10px 20px">
-					<%--<form action="reply.do" method="post" enctype="multipart/form-data">--%>
-                    <form>
-						<input type="hidden" name="newsid" value="${newsdetail.newsID}" />
-                        <input type="hidden" name="userid" value="${newsdetail.publisher_id}" />
-						<textarea name="content" id="textarea" style="height: 200px;max-height: 1000px;"></textarea>
-						<button class="reply-button" id="replybutton">评论</button>
-					</form>
-				</div>
-			</div>
+			<%--<!-- 回复区，副文本编辑器板块 -->--%>
+			<%--<div id="reply-area" class="post-reply-textarea">--%>
+				<%--<div style="width: 650px;margin: 10px 20px">--%>
+					<%--&lt;%&ndash;<form action="reply.do" method="post" enctype="multipart/form-data">&ndash;%&gt;--%>
+                    <%--<form>--%>
+						<%--<input type="hidden" name="newsid" value="${newsdetail.newsID}" />--%>
+                        <%--<input type="hidden" name="userid" value="${newsdetail.publisher_id}" />--%>
+						<%--<textarea name="content" id="textarea" style="height: 200px;max-height: 1000px;"></textarea>--%>
+						<%--<button class="reply-button" id="replybutton">评论</button>--%>
+					<%--</form>--%>
+				<%--</div>--%>
+			<%--</div>--%>
 
 		</div>
 
@@ -225,6 +243,9 @@
     });
 
     $("#replybutton").click(function () {
+        if (nullAlert($.trim($("#textarea").val()), "评论内容不能为空~"))
+            return;
+
         if(getCookie("isLogin") == "1") {
             //提交评论
             $.ajax({
@@ -247,6 +268,29 @@
         }
     });
 
+    <%--$("#commentButton").click(function () {--%>
+        <%--if(getCookie("isLogin") == "1") {--%>
+            <%--//提交评论--%>
+            <%--$.ajax({--%>
+                <%--type:"POST",--%>
+                <%--url:"comment.do",--%>
+                <%--data:{commentId:${newsdetail.newsID}, fromuserid:getCookie("userId"), touserid:${newsdetail.publisher_id}, content:$("#textarea").val()},--%>
+                <%--success:function(response){--%>
+                    <%--if (response.errcode == "0") {--%>
+                        <%--alert("回复成功");--%>
+                        <%--window.location.reload();--%>
+                    <%--} else {--%>
+                        <%--alert(response.errmsg);--%>
+                    <%--}--%>
+                <%--}--%>
+            <%--});--%>
+        <%--} else {--%>
+            <%--alert("需要再次登陆");--%>
+            <%--window.event.returnValue=false;--%>
+            <%--window.location.href = "toLogin.do";--%>
+        <%--}--%>
+    <%--});--%>
+
     //取cookies函数
     function getCookie(name){
         var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
@@ -255,6 +299,16 @@
         }
         return null;
     }
+
+    function nullAlert(value, msg) {
+        if(value == "") {
+            alert(msg);
+            return true;
+        }
+
+        return false;
+    }
+
 </script>
 </body>
 </html>

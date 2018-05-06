@@ -4,6 +4,7 @@ import com.fc.async.MessageTask;
 import com.fc.gson.CommentsResultGson;
 import com.fc.gson.HttpResult;
 import com.fc.gson.RetFLCommentResultGson;
+import com.fc.gson.RetSecCommentResultGson;
 import com.fc.mapper.MessageMapper;
 import com.fc.mapper.PostMapper;
 import com.fc.mapper.ReplyMapper;
@@ -11,6 +12,7 @@ import com.fc.mapper.UserMapper;
 import com.fc.model.*;
 import com.fc.util.GsonUtils;
 import com.fc.util.MyConstant;
+import com.google.gson.Gson;
 import com.sun.org.apache.regexp.internal.RE;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +23,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import static com.fc.entity.Constant.ADD_COMMENT;
 import static com.fc.entity.Constant.GET_COMMENTS;
+import static com.fc.entity.Constant.REPLY_COMMENT;
 import static com.fc.entity.RetCode.RET_CODE_FAILURE;
 import static com.fc.entity.RetCode.RET_CODE_OK;
 
@@ -85,7 +89,6 @@ public class ReplyService {
         postMapper.updateReplyTime(pid);
         //插入一条评论消息
         taskExecutor.execute(new MessageTask(messageMapper,userMapper,postMapper,replyMapper,pid,rid,sessionUid, MyConstant.OPERATION_COMMENT));
-
     }
 
     //根据pid列出回复
@@ -120,7 +123,7 @@ public class ReplyService {
         Map<String, String> contentMap = new HashMap<>();
         contentMap.put("newsID", newsid.toString());
         contentMap.put("userID", userid.toString());
-        contentMap.put("comment", content);
+        contentMap.put("comment", filterHtml(content));
         try {
             HttpResult result = httpClientOperateService.doPost(ADD_COMMENT, contentMap);
             retFLCommentResultGson = GsonUtils.fromJson(result.getContent(), RetFLCommentResultGson.class);
@@ -132,6 +135,31 @@ public class ReplyService {
             logger.error("写入评论失败！");
         }
         return retFLCommentResultGson;
+    }
+
+    //评论
+    public void secondReply(String firstReplyId, String fromUserID, String toUserID, String replyComment) {
+        Map<String, String> replyCond = new HashMap<>();
+        replyCond.put("flID", firstReplyId);
+        replyCond.put("fromUserID", fromUserID);
+        replyCond.put("toUserID", toUserID);
+        replyCond.put("replyComment", filterHtml(replyComment));
+        try {
+            HttpResult httpResult = httpClientOperateService.doPost(REPLY_COMMENT, replyCond);
+            RetSecCommentResultGson resultGson =
+                    GsonUtils.fromJson(httpResult.getContent(), RetSecCommentResultGson.class);
+            if (resultGson.getRetCode() != RET_CODE_OK)
+                throw new Exception(resultGson.getMessage());
+        } catch (Exception e) {
+            logger.error(String.format("回复评论错误 firstReplyId=%s, fromUserID=%s, toUserID=%s  %s",
+                    firstReplyId, fromUserID, toUserID, e.getMessage()));
+        }
+    }
+
+    private String filterHtml(String content) {
+        String regexHtml = "<[^>]+>"; //定义HTML标签的正则表达式
+        return Pattern.compile(regexHtml, Pattern.CASE_INSENSITIVE)
+                .matcher(content).replaceAll("");
     }
 }
 

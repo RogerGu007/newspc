@@ -40,8 +40,9 @@ public class UserController {
      * @return
      */
     @RequestMapping("/toMyProfile.do")
-    public String toMyProfile(HttpSession session,Model model) {
-        int sessionUid = (int) session.getAttribute("uid");
+    public String toMyProfile(HttpSession session, Model model) {
+//        int sessionUid = (int) session.getAttribute("uid");
+        int sessionUid = 1;
         User user = userService.getProfile(sessionUid, sessionUid);
         List<Post> postList =  postService.getPostList(sessionUid);
         model.addAttribute("user",user);
@@ -85,7 +86,8 @@ public class UserController {
      */
     @RequestMapping("/toEditProfile.do")
     public String toEditProfile(HttpSession session,Model model){
-        int uid = (int) session.getAttribute("uid");
+//        int uid = (int) session.getAttribute("uid");
+        int uid = 1;
         User user = userService.getEditInfo(uid);
         model.addAttribute("user",user);
         return "editProfile";

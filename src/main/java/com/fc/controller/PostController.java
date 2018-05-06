@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -73,7 +74,7 @@ public class PostController {
     }
 
     //去帖子详情页面
-    @RequestMapping("/toPost.do")
+    @RequestMapping(value = "/toPost.do", produces = "application/json;charset=utf-8")
     public String toPost(int newsid, Long userid, Model model, HttpSession session){
         Integer sessionUid = (Integer) session.getAttribute("uid");
         //获取帖子信息

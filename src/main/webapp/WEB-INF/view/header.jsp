@@ -18,12 +18,13 @@
 
         <ul class="right-nav">
             <c:choose>
-                <c:when test="${sessionScope.isLogin != null && sessionScope.isLogin == '0'}">
+                <c:when test="${cookie.isLogin != null && cookie.isLogin.value == 1}">
                     <li class="login2 relative">
-                        <a href="toMyProfile.do" id="profile"><img src="${sessionScope.avatarUrl}"></a>
+                        <a href="toMyProfile.do" id="profile"><img src="${cookie.avatarUrl.value}"></a>
                         <ul id="down-menu">
                             <li><a href="toMyProfile.do">个人主页</a></li>
-                            <li><a href="logout.do">退出登录</a></li>
+                            <%--<li><a href="logout.do" >退出登录</a></li>--%>
+                            <li><a id="logout" onclick="logout()">退出登录</a></li>
                         </ul>
                     </li>
                 </c:when>
@@ -44,3 +45,27 @@
         </ul>
     </div>
 </div>
+
+<script type="text/javascript">
+
+    function logout() {
+        clearAllCookie();
+        window.location.reload();
+    }
+
+    //删除cookie
+    function delCookie(name){
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 1);
+        var cval = getCookie(name);
+        if (cval != null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+    }
+
+    function clearAllCookie() {
+        var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+        if(keys) {
+            for(var i = keys.length; i--;)
+                document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
+        }
+    }
+</script>

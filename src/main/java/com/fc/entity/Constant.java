@@ -11,5 +11,5 @@ public class Constant {
     public static String LOGIN_REGISTER = NEWS_REMOTE_ADDRESS + "/login/loginregister";
     public static String GET_USERINFO = NEWS_REMOTE_ADDRESS + "/user/%s/getuserinfo";
     public static String ADD_COMMENT = NEWS_REMOTE_ADDRESS + "/comment/addcomment";
-
+    public static String REPLY_COMMENT = NEWS_REMOTE_ADDRESS + "/comment/replycomment";
 }

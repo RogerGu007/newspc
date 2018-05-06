@@ -153,7 +153,7 @@
 
 .main-left .post-reply .post-reply-item .item-info .item-wrap{
     position: relative;
-    padding: 10px 0;
+    padding: 15px 0;
     border-bottom: 1px solid rgba(204, 204, 204, 0.62);
 }
 
@@ -191,12 +191,13 @@
 /*楼中楼的回复框*/
 .main-left .post-reply .post-reply-item .item-info .item-more .reply-input{
     position: relative;
-    padding: 30px 0;
+    padding: 15px 0;
 }
 
 .main-left .post-reply .post-reply-item .item-info .item-more .reply-input textarea{
     width: 570px;
-    height: 40px;
+    height: 30px;
+    top: 0;
     border: 1px solid #d4d4d4;
     color: #34495e;
     border-radius: 3px;
@@ -206,7 +207,8 @@
 .main-left .post-reply .post-reply-item .item-info .item-more .reply-input button{
     position: absolute;
     right: 0;
-    bottom: 0;
+    /*bottom: 20%;*/
+    bottom: -10px;
     height: 28px;
     width: 70px;
     text-align: center;

@@ -48,6 +48,9 @@
                         <value>/getsmscode.do</value>
                         <value>/listImage.do</value>
                         <value>/reply.do</value>
+                        <value>/comment.do</value>
+                        <value>/toMyProfile.do</value>
+                        <value>/toEditProfile.do</value>
                     </list>
                 </property>
             </bean>
