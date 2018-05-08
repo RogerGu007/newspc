@@ -1,5 +1,8 @@
 package com.fc.controller;
 
+import com.fc.gson.RetResultGson;
+import com.fc.gson.UserInfoGson;
+import com.fc.model.NewsDTO;
 import com.fc.model.Post;
 import com.fc.model.User;
 import com.fc.service.PostService;
@@ -14,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+
+import static com.fc.entity.RetCode.RET_CODE_OK;
 
 @Controller
 @RequestMapping("/")
@@ -40,13 +46,15 @@ public class UserController {
      * @return
      */
     @RequestMapping("/toMyProfile.do")
-    public String toMyProfile(HttpSession session, Model model) {
+    public String toMyProfile(String userid, HttpSession session, Model model) {
 //        int sessionUid = (int) session.getAttribute("uid");
-        int sessionUid = 1;
-        User user = userService.getProfile(sessionUid, sessionUid);
-        List<Post> postList =  postService.getPostList(sessionUid);
+//        int sessionUid = 1;
+        UserInfoGson user = userService.getProfile(userid);
+        //查询发帖、收藏纪录
+//        List<Post> postList =  postService.getPostList(userid);
+        List<NewsDTO> favourList = postService.getFavourNewsList(userid);
         model.addAttribute("user",user);
-        model.addAttribute("postList",postList);
+        model.addAttribute("favourList",favourList);
         return "myProfile";
     }
 
@@ -85,10 +93,9 @@ public class UserController {
      * @return
      */
     @RequestMapping("/toEditProfile.do")
-    public String toEditProfile(HttpSession session,Model model){
+    public String toEditProfile(String userid, HttpSession session,Model model){
 //        int uid = (int) session.getAttribute("uid");
-        int uid = 1;
-        User user = userService.getEditInfo(uid);
+        UserInfoGson user = userService.getProfile(userid);
         model.addAttribute("user",user);
         return "editProfile";
     }
@@ -99,10 +106,9 @@ public class UserController {
      * @return
      */
     @RequestMapping("/editProfile.do")
-    public String editProfile(User user){
-        System.out.println(user);
+    public String editProfile(UserInfoGson user){
         userService.updateUser(user);
-        return "redirect:toMyProfile.do";
+        return "redirect:toMyProfile.do?userid=" + user.getID();
     }
 
 
@@ -135,32 +141,35 @@ public class UserController {
 
 
     @RequestMapping("/updateHeadUrl.do")
-    public String updateHeadUrl(MultipartFile myFileName,Model model,HttpSession session) throws IOException {
+//    public String updateHeadUrl(String userid, MultipartFile myFileName, Model model, HttpSession session) throws IOException {
+    public String updateHeadUrl(String userid, String avatarurl, Model model, HttpSession session) {
         // 文件类型限制
-        String[] allowedType = {"image/bmp", "image/gif", "image/jpeg", "image/png"};
-        boolean allowed = Arrays.asList(allowedType).contains(myFileName.getContentType());
-        if (!allowed) {
-            model.addAttribute("error3","图片格式仅限bmp，jpg，png，gif~");
-            return "editProfile";
-        }
-        // 图片大小限制
-        if (myFileName.getSize() > 3 * 1024 * 1024) {
-            model.addAttribute("error3","图片大小限制在3M以下哦~");
-            return "editProfile";
-        }
-        // 包含原始文件名的字符串
-        String fi = myFileName.getOriginalFilename();
-        // 提取文件拓展名
-        String fileNameExtension = fi.substring(fi.indexOf("."), fi.length());
-        // 生成云端的真实文件名
-        String remoteFileName = UUID.randomUUID().toString() + fileNameExtension;
-        qiniuService.upload(myFileName.getBytes(), remoteFileName);
+//        String[] allowedType = {"image/bmp", "image/gif", "image/jpeg", "image/png"};
+//        boolean allowed = Arrays.asList(allowedType).contains(myFileName.getContentType());
+////        if (!allowed) {
+////            model.addAttribute("error3","图片格式仅限bmp，jpg，png，gif~");
+////            return "editProfile";
+////        }
+////        // 图片大小限制
+////        if (myFileName.getSize() > 3 * 1024 * 1024) {
+////            model.addAttribute("error3","图片大小限制在3M以下哦~");
+////            return "editProfile";
+////        }
+//        // 包含原始文件名的字符串
+//        String fi = myFileName.getOriginalFilename();
+//        // 提取文件拓展名
+//        String fileNameExtension = fi.substring(fi.indexOf("."), fi.length());
+//        // 生成云端的真实文件名
+//        String remoteFileName = UUID.randomUUID().toString() + fileNameExtension;
+//        qiniuService.upload(myFileName.getBytes(), remoteFileName);
 
-        //更新数据库中头像URL
-        int uid = (int) session.getAttribute("uid");
-        userService.updateHeadUrl(uid,MyConstant.QINIU_IMAGE_URL + remoteFileName);
-
-        return "redirect:toMyProfile.do";
+        //更新头像URL
+        RetResultGson resultGson = userService.updateHeadUrl(userid, avatarurl);
+        if (resultGson.getRetCode() != RET_CODE_OK) {
+            model.addAttribute("error", "用户头像更新失败！");
+            return "redirect:toEditProfile.do?userid=" + userid;
+        }
+        return "redirect:toMyProfile.do?userid=" + userid;
     }
 
     @RequestMapping("/follow.do")

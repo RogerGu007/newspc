@@ -3,11 +3,15 @@ package com.fc.service;
 import com.fc.async.MailTask;
 import com.fc.gson.HttpResult;
 import com.fc.gson.RetResultGson;
+import com.fc.gson.UserInfoGson;
+import com.fc.gson.UserInfoResultGson;
 import com.fc.mapper.UserMapper;
 import com.fc.model.Info;
 import com.fc.model.User;
 import com.fc.util.GsonUtils;
+import com.google.gson.Gson;
 import org.apache.log4j.Logger;
+import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -16,12 +20,13 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Transaction;
 
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.fc.entity.Constant.SEND_SMS;
-import static com.fc.entity.RetCode.RET_CODE_OK;
+import static com.fc.entity.Constant.*;
+import static com.fc.entity.RetCode.*;
 
 
 @Service
@@ -38,6 +43,11 @@ public class UserService {
 
     @Autowired
     private JedisPool jedisPool;
+
+    @Autowired
+    private HttpClientOperateService httpClientOperateService;
+
+    private Logger logger = Logger.getLogger(UserService.class.getName());
 
     public User getProfile(int sessionUid, int uid) {
         //如果是浏览别人的主页，则增加主页浏览数
@@ -85,10 +95,6 @@ public class UserService {
 
     public List<User> listUserByHot() {
         return userMapper.listUserByHot();
-    }
-
-    public void updateHeadUrl(int uid, String headUrl) {
-        userMapper.updateHeadUrl(uid,headUrl);
     }
 
     public void unfollow(int sessionUid, int uid) {
@@ -154,6 +160,58 @@ public class UserService {
         System.out.println("更新前："+code);
         userMapper.updatePasswordByActivateCode(code);
         System.out.println("更新后："+code);
+    }
+
+
+    public UserInfoGson getProfile(String userId) {
+        UserInfoGson userInfoGson = new UserInfoGson();
+        try {
+            String userInfoStr = httpClientOperateService.doGet(String.format(GET_USERINFO, userId));
+            UserInfoResultGson resultGson = GsonUtils.fromJson(userInfoStr, UserInfoResultGson.class);
+            if (resultGson.getRetCode() == RET_CODE_OK) {
+                userInfoGson.setNickName(resultGson.getNickName());
+                userInfoGson.setCollege(resultGson.getCollege());
+                userInfoGson.setPhoneNo(resultGson.getPhoneNumber());
+                userInfoGson.setAvatarUrl(resultGson.getAvatarUrl());
+                userInfoGson.setVerified(resultGson.getVerified() ? RET_VERIFIED_PASS : RET_VERIFIED_NOPASS);
+            }
+        } catch (Exception e) {
+            logger.error("用户信息获取失败! userId=" + userId);
+        }
+
+        return userInfoGson;
+    }
+
+    public void updateUser(UserInfoGson userInfoGson) {
+        try {
+            Map<String, String> updateInfo = new HashMap<>();
+            updateInfo.put("userID", userInfoGson.getID().toString());
+            updateInfo.put("dto", GsonUtils.toJson(userInfoGson));
+            HttpResult result =
+                    httpClientOperateService.doPost(String.format(UPDATE_USERINFO, userInfoGson.getID()), updateInfo);
+            UserInfoResultGson userInfoResultGson = GsonUtils.fromJson(result.getContent(), UserInfoResultGson.class);
+            if (userInfoResultGson.getRetCode() != RET_CODE_OK)
+                throw new Exception(String.format("error=%s errmsg=%s",
+                        userInfoResultGson.getRetCode(), userInfoResultGson.getMessage()));
+        } catch (Exception e) {
+            logger.error("用户信息更新失败");
+        }
+    }
+
+    public RetResultGson updateHeadUrl(String userId, String avatarUrl) {
+//        userMapper.updateHeadUrl(uid,headUrl);
+        RetResultGson resultGson = new RetResultGson(RET_CODE_OK, "SUCCESS");
+        try {
+            Map<String, String> requestParam = new HashMap<>();
+            requestParam.put("avatarUrl", avatarUrl);
+            avatarUrl = URLDecoder.decode(avatarUrl);
+            HttpResult httpResult = httpClientOperateService.doPost(String.format(UPDATE_AVATARURL, userId), requestParam);
+            resultGson = GsonUtils.fromJson(httpResult.getContent(), RetResultGson.class);
+        } catch (Exception e) {
+            logger.error("头像更新失败！ avatarUrl=" + avatarUrl);
+            resultGson.setRetCode(RET_CODE_FAILURE);
+        }
+        return resultGson;
     }
 }
 

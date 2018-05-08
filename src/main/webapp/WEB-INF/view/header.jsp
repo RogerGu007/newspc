@@ -22,7 +22,7 @@
                     <li class="login2 relative">
                         <a href="toMyProfile.do" id="profile"><img src="${cookie.avatarUrl.value}"></a>
                         <ul id="down-menu">
-                            <li><a href="toMyProfile.do">个人主页</a></li>
+                            <li><a href="toMyProfile.do?userid=${cookie.userId.value}">个人主页</a></li>
                             <%--<li><a href="logout.do" >退出登录</a></li>--%>
                             <li><a id="logout" onclick="logout()">退出登录</a></li>
                         </ul>

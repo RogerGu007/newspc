@@ -25,14 +25,9 @@ import org.springframework.util.StringUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import static com.fc.entity.Constant.GET_NEWS_COUNT;
-import static com.fc.entity.Constant.GET_NEWS_DETAIL;
-import static com.fc.entity.Constant.GET_NEWS_LIST_SUBJECTS_BY_PAGE;
+import static com.fc.entity.Constant.*;
 import static com.fc.entity.RetCode.RET_CODE_OK;
 
 
@@ -261,6 +256,31 @@ public class PostService {
             jedisPool.returnResource(jedis);
         }
         return result;
+    }
+
+    //根据uid，获得帖子列表
+    public List<NewsDTO> getFavourNewsList(String userId) {
+        try {
+            String resp = httpClientOperateService.doGet(GET_FAVOURITE_NEWS, new HashMap<String, String>() {{
+                put("userid", userId);
+            }});
+            NewsSubjectResultGson resultGson = GsonUtils.fromJson(resp, NewsSubjectResultGson.class);
+            if (resultGson.getRetCode() == RET_CODE_OK) {
+                List<NewsDTO> newsDTOList = resultGson.getNewsList();
+                for (NewsDTO newsDTO : newsDTOList) {
+                    String detail = httpClientOperateService.doGet(GET_NEWS_DETAIL, new HashMap<String, String>() {{
+                        put("newsid", newsDTO.getId());
+                    }});
+                    NewsDetailResultGson detailGson = GsonUtils.fromJson(detail, NewsDetailResultGson.class);
+                    if (detailGson.getRetCode() == RET_CODE_OK)
+                        newsDTO.setPublisherId(detailGson.getNewsDetailDTO().getPublisher_id());
+                }
+                return newsDTOList;
+            }
+        } catch (Exception e) {
+            logger.info("收藏列表获取失败 userId=" + userId);
+        }
+        return new ArrayList<>();
     }
 }
 

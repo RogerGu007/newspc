@@ -12,4 +12,7 @@ public class Constant {
     public static String GET_USERINFO = NEWS_REMOTE_ADDRESS + "/user/%s/getuserinfo";
     public static String ADD_COMMENT = NEWS_REMOTE_ADDRESS + "/comment/addcomment";
     public static String REPLY_COMMENT = NEWS_REMOTE_ADDRESS + "/comment/replycomment";
+    public static String GET_FAVOURITE_NEWS = NEWS_REMOTE_ADDRESS + "/news/getfavoritenews";
+    public static String UPDATE_USERINFO = NEWS_REMOTE_ADDRESS + "/user/%s/updateuserinfo";
+    public static String UPDATE_AVATARURL = NEWS_REMOTE_ADDRESS + "/user/%s/updateavatarUrl";
 }
