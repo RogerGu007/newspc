@@ -1,6 +1,7 @@
 package com.fc.service;
 
 import com.fc.gson.HttpResult;
+import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
@@ -110,15 +111,24 @@ public class HttpClientOperateService implements BeanFactoryAware {
         HttpPost httpPost = new HttpPost(url);
         httpPost.setConfig(requestConfig);
         if(params != null){
-            // 设置2个post参数，一个是scope、一个是q
-            List<NameValuePair> parameters = new ArrayList<NameValuePair>(0);
-            for(String key : params.keySet()){
-                parameters.add(new BasicNameValuePair(key, params.get(key)));
+            String param = "";
+            for (Map.Entry<String, String> kv : params.entrySet()) {
+                param += kv.getKey() + "=" + kv.getValue() + "&";
             }
-            // 构造一个form表单式的实体
-            UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(parameters);
+            if (param.length() > 1)
+                param = param.substring(0, param.length()-1);
+            StringEntity entity = new StringEntity(param);
+            httpPost.setEntity(entity);
+
+//            // 设置2个post参数，一个是scope、一个是q
+//            List<NameValuePair> parameters = new ArrayList<NameValuePair>(0);
+//            for(String key : params.keySet()){
+//                parameters.add(new BasicNameValuePair(key, params.get(key)));
+//            }
+//            // 构造一个form表单式的实体
+//            UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(parameters);
             // 将请求实体设置到httpPost对象中
-            httpPost.setEntity(formEntity);
+//            httpPost.setEntity(formEntity);
         }
         CloseableHttpResponse response = null;
         try {

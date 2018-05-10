@@ -199,10 +199,10 @@ public class PostService {
 
     public NewsDetailDTO getPostDetail(int newsId, Long userId) {
         //更新浏览数
-        postMapper.updateScanCount(newsId);
+//        postMapper.updateScanCount(newsId);
         Map<String, String> newsMap = new HashMap<>();
         newsMap.put("newsid", String.valueOf(newsId));
-        newsMap.put("userid", String.valueOf(userId));
+//        newsMap.put("userid", String.valueOf(userId));
         NewsDetailDTO newsDetailDTO = null;
         try {
             String response = httpClientOperateService.doGet(GET_NEWS_DETAIL, newsMap);

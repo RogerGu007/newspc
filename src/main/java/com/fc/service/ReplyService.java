@@ -1,19 +1,15 @@
 package com.fc.service;
 
 import com.fc.async.MessageTask;
-import com.fc.gson.CommentsResultGson;
-import com.fc.gson.HttpResult;
-import com.fc.gson.RetFLCommentResultGson;
-import com.fc.gson.RetSecCommentResultGson;
+import com.fc.gson.*;
 import com.fc.mapper.MessageMapper;
 import com.fc.mapper.PostMapper;
 import com.fc.mapper.ReplyMapper;
 import com.fc.mapper.UserMapper;
 import com.fc.model.*;
 import com.fc.util.GsonUtils;
+import com.fc.util.JerseyClientBase;
 import com.fc.util.MyConstant;
-import com.google.gson.Gson;
-import com.sun.org.apache.regexp.internal.RE;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
@@ -52,6 +48,12 @@ public class ReplyService {
 
     @Autowired
     private HttpClientOperateService httpClientOperateService;
+
+    @Autowired
+    private JerseyClientBase jerseyClientBase;
+
+//    @Autowired
+//    private JerseyClientUtil jerseyClientUtil;
 
     private Logger logger = Logger.getLogger(ReplyService.class.getName());
 
@@ -95,12 +97,13 @@ public class ReplyService {
     public List<FirstLevelCommentDTO> listReply(int newsId, int page) {
         List<FirstLevelCommentDTO> replyList = new ArrayList<>();
         //列出回复
-        Map<String, String> cond = new HashMap<>();
-        cond.put("newsID", String.valueOf(newsId));
-        cond.put("page", String.valueOf(page));
-        cond.put("pageSize", "20");
+        Map<String, String> params = new HashMap<>();
+        params.put("newsID", String.valueOf(newsId));
+        params.put("page", String.valueOf(page));
+        params.put("pageSize", "20");
         try {
-            String comments = httpClientOperateService.doGet(GET_COMMENTS, cond);
+//            String comments = httpClientOperateService.doGet(GET_COMMENTS, cond);
+            String comments = jerseyClientBase.getHttp(GET_COMMENTS, params);
             CommentsResultGson commentsResultGson = GsonUtils.fromJson(comments, CommentsResultGson.class);
             if (commentsResultGson.getRetCode() == RET_CODE_OK) {
                 replyList = commentsResultGson.getFirstLevelCommentDTOS();
@@ -125,8 +128,11 @@ public class ReplyService {
         contentMap.put("userID", userid.toString());
         contentMap.put("comment", filterHtml(content));
         try {
-            HttpResult result = httpClientOperateService.doPost(ADD_COMMENT, contentMap);
-            retFLCommentResultGson = GsonUtils.fromJson(result.getContent(), RetFLCommentResultGson.class);
+            String response = jerseyClientBase.postHttp(ADD_COMMENT, contentMap);
+//            HttpResult result = httpClientOperateService.doPost(ADD_COMMENT, contentMap);
+//            Response result = jerseyClientUtil.postHttp(ADD_COMMENT, contentMap);
+//            retFLCommentResultGson = GsonUtils.fromJson(result.getEntity().toString(), RetFLCommentResultGson.class);
+            retFLCommentResultGson = GsonUtils.fromJson(response, RetFLCommentResultGson.class);
             if (retFLCommentResultGson.getRetCode() != RET_CODE_OK)
                 retFLCommentResultGson.setRetCode(RET_CODE_FAILURE);
         } catch (Exception e) {
@@ -139,15 +145,16 @@ public class ReplyService {
 
     //评论
     public void secondReply(String firstReplyId, String fromUserID, String toUserID, String replyComment) {
-        Map<String, String> replyCond = new HashMap<>();
-        replyCond.put("flID", firstReplyId);
-        replyCond.put("fromUserID", fromUserID);
-        replyCond.put("toUserID", toUserID);
-        replyCond.put("replyComment", filterHtml(replyComment));
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("flID", firstReplyId);
+        paramMap.put("fromUserID", fromUserID);
+        paramMap.put("toUserID", toUserID);
+        paramMap.put("replyComment", filterHtml(replyComment));
         try {
-            HttpResult httpResult = httpClientOperateService.doPost(REPLY_COMMENT, replyCond);
+            String resp = jerseyClientBase.postHttp(REPLY_COMMENT, paramMap);
+//            HttpResult httpResult = httpClientOperateService.doPost(REPLY_COMMENT, replyCond);
             RetSecCommentResultGson resultGson =
-                    GsonUtils.fromJson(httpResult.getContent(), RetSecCommentResultGson.class);
+                    GsonUtils.fromJson(resp, RetSecCommentResultGson.class);
             if (resultGson.getRetCode() != RET_CODE_OK)
                 throw new Exception(resultGson.getMessage());
         } catch (Exception e) {
