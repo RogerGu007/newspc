@@ -1,18 +1,17 @@
 package com.fc.entity;
 
 public class Constant {
-
-    public static String NEWS_REMOTE_ADDRESS = "http://47.100.197.44/news/rest";
-    public static String GET_NEWS_LIST_SUBJECTS_BY_PAGE = NEWS_REMOTE_ADDRESS + "/news/getnewslistsubjectsbypage";
-    public static String GET_NEWS_DETAIL = NEWS_REMOTE_ADDRESS + "/news/getnewsdetail";
-    public static String GET_NEWS_COUNT = NEWS_REMOTE_ADDRESS + "/news/getnewscount";
-    public static String GET_COMMENTS = NEWS_REMOTE_ADDRESS + "/comment/getcomments";
-    public static String SEND_SMS = NEWS_REMOTE_ADDRESS + "/login/sendSms";
-    public static String LOGIN_REGISTER = NEWS_REMOTE_ADDRESS + "/login/loginregister";
-    public static String GET_USERINFO = NEWS_REMOTE_ADDRESS + "/user/%s/getuserinfo";
-    public static String ADD_COMMENT = NEWS_REMOTE_ADDRESS + "/comment/addcomment";
-    public static String REPLY_COMMENT = NEWS_REMOTE_ADDRESS + "/comment/replycomment";
-    public static String GET_FAVOURITE_NEWS = NEWS_REMOTE_ADDRESS + "/news/getfavoritenews";
-    public static String UPDATE_USERINFO = NEWS_REMOTE_ADDRESS + "/user/%s/updateuserinfo";
-    public static String UPDATE_AVATARURL = NEWS_REMOTE_ADDRESS + "/user/%s/updateavatarUrl";
+    
+    public static String GET_NEWS_LIST_SUBJECTS_BY_PAGE = "/news/getnewslistsubjectsbypage";
+    public static String GET_NEWS_DETAIL = "/news/getnewsdetail";
+    public static String GET_NEWS_COUNT = "/news/getnewscount";
+    public static String GET_COMMENTS = "/comment/getcomments";
+    public static String SEND_SMS = "/login/sendSms";
+    public static String LOGIN_REGISTER = "/login/loginregister";
+    public static String GET_USERINFO = "/user/%s/getuserinfo";
+    public static String ADD_COMMENT = "/comment/addcomment";
+    public static String REPLY_COMMENT = "/comment/replycomment";
+    public static String GET_FAVOURITE_NEWS = "/news/getfavoritenews";
+    public static String UPDATE_USERINFO = "/user/%s/updateuserinfo";
+    public static String UPDATE_AVATARURL = "/user/%s/updateavatarUrl";
 }

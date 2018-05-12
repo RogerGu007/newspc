@@ -16,9 +16,6 @@
 		<div class="main-left">
 			<div class="share">
 				<div class="share-left"><span class="glyphicon glyphicon-th-large"></span>&nbsp;话题广场</div>
-				<%--<div class="share-right">--%>
-					<%--<a href="#" id="open-mask"><span class="glyphicon glyphicon-pencil"></span>&nbsp;申请添加话题</a>--%>
-				<%--</div>--%>
 			</div>
 			<div class="topic-root">
 				<div class="topic-root-wrap">

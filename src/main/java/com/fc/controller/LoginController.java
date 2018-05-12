@@ -3,22 +3,16 @@ package com.fc.controller;
 
 import com.fc.gson.LoginRegisterGson;
 import com.fc.gson.RetResultGson;
-import com.fc.model.User;
 import com.fc.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.*;
-import java.net.HttpCookie;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static com.fc.entity.RetCode.RET_CODE_OK;
 
 @Controller
 @RequestMapping("/")
@@ -38,63 +32,12 @@ public class LoginController {
     }
 
     /**
-     * 注册
-     * @param user
-     * @param repassword
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "/register.do",method = RequestMethod.POST)
-    public String register(User user, String repassword, Model model){
-        String result = loginService.register(user,repassword);
-        if(result.equals("ok")){
-            model.addAttribute("info","系统已经向你的邮箱发送了一封邮件哦，验证后就可以登录啦~");
-            return "prompt/promptInfo";
-        }else {
-            model.addAttribute("register","yes");
-            model.addAttribute("email",user.getEmail());
-            model.addAttribute("error",result);
-            return "login";
-        }
-    }
-
-    /**
-     * 激活
-     * @param code
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "/activate.do")
-    public String activate(String code,Model model){
-        loginService.activate(code);
-
-        model.addAttribute("info","您的账户已经激活成功，可以去登录啦~");
-        return "prompt/promptInfo";
-    }
-
-    /**
      * 注销
      * @param request
      * @return
      */
     @RequestMapping(value = "/logout.do",method = RequestMethod.GET)
     public String logout(HttpServletRequest request, HttpServletResponse response) {
-//        Cookie[] cookies = request.getCookies();
-//        try
-//        {
-//            for(int i=0;i<cookies.length;i++)
-//            {
-//                //System.out.println(cookies[i].getName() + ":" + cookies[i].getValue());
-//                Cookie cookie = new Cookie(cookies[i].getName(), null);
-//                cookie.
-//                cookie.setMaxAge(0);
-//                cookie.setPath(path);//根据你创建cookie的路径进行填写
-//                response.addCookie(cookie);
-//            }
-//        }catch(Exception ex)
-//        {
-//            System.out.println("清空Cookies发生异常！");
-//        }
         return "redirect:listTopic.do";
     }
 
@@ -104,20 +47,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/login.do", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     public @ResponseBody
-//    public String login(String user, Model model, HttpSession session){
     LoginRegisterGson login(String phoneno, String smscode){
-//    RetResultGson login(HttpSession session){
-//        Map<String,Object> map = loginService.login(user);
-//        if(map.get("status").equals("yes")){
-//            session.setAttribute("uid",map.get("uid"));
-//            session.setAttribute("headUrl",map.get("headUrl"));
-//            return "redirect:toMyProfile.do";
-//        }else {
-//            model.addAttribute("email",user.getEmail());
-//            model.addAttribute("error",map.get("error"));
-//            return "login";
-//        }
-//        String cookiename = cookie.getName();
         Pattern pattern = Pattern.compile("[0-9]+");
         Matcher m = pattern.matcher(phoneno);
         if (m.find())

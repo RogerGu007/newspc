@@ -1,29 +1,22 @@
 package com.fc.service;
 
-import com.fc.mapper.PostMapper;
-import com.fc.mapper.TopicMapper;
-import com.fc.mapper.UserMapper;
-import com.fc.model.Post;
-import com.fc.model.Topic;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fc.entity.TopicEnum;
+import com.fc.model.TopicDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Service
 public class TopicService {
 
-
-    @Autowired
-    private TopicMapper topicMapper;
-
-    public List<Topic> listTopic() {
-        return topicMapper.listTopic();
-    }
-
-    public List<String> listImage() {
-        return topicMapper.listImage();
+    public List<TopicDTO> listTopic() {
+        List<TopicDTO> topicDTOList = new ArrayList<>();
+        for (TopicEnum te :TopicEnum.values()) {
+            topicDTOList.add(TopicDTO.buildTopic(te.getName(), te.getContent(), te.getImage()));
+        }
+        return topicDTOList;
     }
 }
 

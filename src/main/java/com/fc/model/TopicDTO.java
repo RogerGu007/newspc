@@ -1,6 +1,6 @@
 package com.fc.model;
 
-public class Topic {
+public class TopicDTO {
 
     private Integer tid;
     //名称
@@ -10,9 +10,9 @@ public class Topic {
     //图片
     private String image;
 
-    public Topic() {}
+    public TopicDTO() {}
 
-    public Topic(Integer tid) {
+    public TopicDTO(Integer tid) {
         this.tid = tid;
     }
 
@@ -50,11 +50,19 @@ public class Topic {
 
     @Override
     public String toString() {
-        return "Topic{" +
+        return "TopicDTO{" +
                 "tid=" + tid +
                 ", name='" + name + '\'' +
                 ", content='" + content + '\'' +
                 ", image='" + image + '\'' +
                 '}';
+    }
+
+    public static TopicDTO buildTopic(String name, String content, String image) {
+        TopicDTO topicDTO = new TopicDTO();
+        topicDTO.setName(name);
+        topicDTO.setContent(content);
+        topicDTO.setImage(image);
+        return topicDTO;
     }
 }

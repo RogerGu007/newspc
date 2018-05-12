@@ -1,10 +1,7 @@
 package com.fc.controller;
 
-import com.fc.model.Post;
-import com.fc.model.Topic;
-import com.fc.service.PostService;
+import com.fc.model.TopicDTO;
 import com.fc.service.TopicService;
-import com.fc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,17 +23,11 @@ public class TopicController {
      */
     @RequestMapping("/listTopic.do")
     public String listTopic(Model model){
-        List<Topic> topicList = topicService.listTopic();
-        model.addAttribute("topicList",topicList);
+        List<TopicDTO> topicDTOList = topicService.listTopic();
+        model.addAttribute("topicList", topicDTOList);
         return "topic";
     }
 
-    @RequestMapping("/listImage.do")
-    public String listImage(Model model){
-        List<String> imageList = topicService.listImage();
-        model.addAttribute("imageList",imageList);
-        return "image";
-    }
 }
 
 

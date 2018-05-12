@@ -35,9 +35,9 @@
                         <value>/toIndex.do</value>
                         <value>/upload.do</value>
                         <value>/toLogin.do</value>
-                        <value>/register.do</value>
+                        <!--<value>/register.do</value>-->
                         <value>/login.do</value>
-                        <value>/activate.do</value>
+                        <!--<value>/activate.do</value>-->
                         <value>/logout.do</value>
                         <value>/toPost.do</value>
                         <value>/listTopic.do</value>
@@ -46,7 +46,7 @@
                         <value>/afterForgetPassword.do</value>
                         <value>/verify.do</value>
                         <value>/getsmscode.do</value>
-                        <value>/listImage.do</value>
+                        <!--<value>/listImage.do</value>-->
                         <value>/reply.do</value>
                         <value>/comment.do</value>
                         <value>/toMyProfile.do</value>

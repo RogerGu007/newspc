@@ -1,23 +1,18 @@
 package com.fc.mapper;
 
-import com.fc.service.HttpClientOperateService;
-import com.fc.util.JerseyClientBase;
+import com.fc.util.JerseyClient;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
-import javax.ws.rs.core.Response;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
 public class MyHttpTest implements InitializingBean {
-    @Resource
-    private HttpClientOperateService httpClientOperate;
 
     @Autowired
-    private static JerseyClientBase jerseyClientBase;
+    private static JerseyClient jerseyClient;
 
     /**
      * @autho Roger
@@ -30,8 +25,8 @@ public class MyHttpTest implements InitializingBean {
         map.put("newstype", "3");
         map.put("location", "10");
         map.put("page", "0");
-        String result2 = httpClientOperate.doGet("http://47.100.197.44/news/rest/news/getnewslistsubjectsbypage", map);
-        System.out.println(result2);
+//        String result2 = httpClientOperate.doGet("http://47.100.197.44/news/rest/news/getnewslistsubjectsbypage", map);
+//        System.out.println(result2);
         //post请求
 //        HttpResult entity = httpClientOperate.doPost("http://10.230.21.133:8180/esb2/rs/ESB_FOSS2ESB_FOSS_THE_RECEIVING_VERIFY");
 //        System.out.println(entity);

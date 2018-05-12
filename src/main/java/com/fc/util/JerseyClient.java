@@ -14,16 +14,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class JerseyClientBase {
+public class JerseyClient {
 
     private String acceptedResponseMediaTypes = MediaType.APPLICATION_JSON;
 
     private String entityConverteMediaType = MediaType.APPLICATION_JSON;
 
+    private static String NEWS_REMOTE_ADDRESS = "http://47.100.197.44/news/rest";
+
+    public String getHttp(String url){
+        checkinitSuccessGet();
+        WebTarget target = ClientBuilder.newClient().target(NEWS_REMOTE_ADDRESS + url);
+        Response rawResponse = target.request(acceptedResponseMediaTypes).get();
+        return rawResponse.readEntity(String.class);
+    }
+
     public String getHttp(String url, Map<String, String> paramMap){
         checkinitSuccessGet();
-        WebTarget target = ClientBuilder.newClient()
-                .target(url);
+        WebTarget target = ClientBuilder.newClient().target(NEWS_REMOTE_ADDRESS + url);
         for (Map.Entry<String, String> kv : paramMap.entrySet()) {
             target = target.queryParam(kv.getKey(), kv.getValue());
         }
@@ -33,8 +41,7 @@ public class JerseyClientBase {
 
     public String getHttp(String url, Object obj){
         checkinitSuccessGet();
-        WebTarget target = ClientBuilder.newClient()
-                .target(url);
+        WebTarget target = ClientBuilder.newClient().target(NEWS_REMOTE_ADDRESS + url);
         Map<String, Object> paramMap = getKeyAndValue(obj);
         for (Map.Entry<String, Object> kv : paramMap.entrySet()) {
             target = target.queryParam(kv.getKey(), kv.getValue().toString());
@@ -49,7 +56,7 @@ public class JerseyClientBase {
         for (Map.Entry<String, String> kv : paramMap.entrySet()) {
             contentMap.add(kv.getKey(), kv.getValue().toString());
         }
-        Response rawResponse = ClientBuilder.newClient().target(url).request(entityConverteMediaType)
+        Response rawResponse = ClientBuilder.newClient().target(NEWS_REMOTE_ADDRESS + url).request(entityConverteMediaType)
                 .post(Entity.form(contentMap));
         return rawResponse.readEntity(String.class);
     }
@@ -61,7 +68,7 @@ public class JerseyClientBase {
         for (Map.Entry<String, Object> kv : paramMap.entrySet()) {
             contentMap.add(kv.getKey(), kv.getValue().toString());
         }
-        Response rawResponse = ClientBuilder.newClient().target(url).request(entityConverteMediaType)
+        Response rawResponse = ClientBuilder.newClient().target(NEWS_REMOTE_ADDRESS + url).request(entityConverteMediaType)
                 .post(Entity.form(contentMap));
         return rawResponse.readEntity(String.class);
     }

@@ -10,13 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -39,18 +34,17 @@ public class PostController {
     //去发帖的页面
     @RequestMapping("/toPublish.do")
     public String toPublish(Model model){
-        List<Topic> topicList = topicService.listTopic();
-        model.addAttribute("topicList",topicList);
+        List<TopicDTO> topicDTOList = topicService.listTopic();
+        model.addAttribute("topicList", topicDTOList);
         return "publish";
     }
 
     //发帖
-    @RequestMapping("/publishPost.do")
-    public String publishPost(Post post) {
-        int id = postService.publishPost(post);
-        return "redirect:toPost.do?pid="+id;
-    }
-
+//    @RequestMapping("/publishPost.do")
+//    public String publishPost(Post post) {
+//        int id = postService.publishPost(post);
+//        return "redirect:toPost.do?pid="+id;
+//    }
 
     //按时间，倒序，列出帖子
     @RequestMapping("/listPostByTime.do")
@@ -65,8 +59,8 @@ public class PostController {
             subNewsType = 0;
 //        PageBean<Post> pageBean = postService.listPostByTime(curPage);
         PageBean<NewsDTO> pageBean = postService.listPostByTime(location, newsType, subNewsType, curPage);
-        List<User> userList = userService.listUserByTime();
-        List<User> hotUserList = userService.listUserByHot();
+        List<UserDTO> userList = userService.listUserByTime();
+        List<UserDTO> hotUserList = userService.listUserByHot();
         model.addAttribute("pageBean",pageBean);
         model.addAttribute("userList",userList);
         model.addAttribute("hotUserList",hotUserList);
@@ -84,9 +78,6 @@ public class PostController {
         List<FirstLevelCommentDTO> replyList = replyService.listReply(newsid, 0);
         //判断用户是否已经点赞
         boolean liked = false;
-        if(sessionUid != null){
-            liked = postService.getLikeStatus(newsid, sessionUid);
-        }
         //向模型中添加数据
         model.addAttribute("newsdetail", newsDetailDTO);
         model.addAttribute("replyList", replyList);
@@ -94,11 +85,4 @@ public class PostController {
         return "post";
     }
 
-    //异步点赞
-    @RequestMapping(value = "/ajaxClickLike.do",produces = "text/plain;charset=UTF-8")
-    public @ResponseBody
-    String ajaxClickLike(int pid, HttpSession session){
-        int sessionUid = (int) session.getAttribute("uid");
-        return postService.clickLike(pid,sessionUid);
-    }
 }

@@ -59,13 +59,16 @@
 						<c:forEach items="${pageBean.list}" var="post">
                             <li class="clearfix">
                                 <div class="post-image">
-                                    <a href="toProfile.do?uid=${post.linkUrl}"><img src="${post.publishSource}"></a>
+                                    <a href="${post.linkUrl}"><img src="${post.publishSource}"></a>
                                 </div>
                                 <div class="post-content">
                                     <div class="post-title"><a href="toPost.do?newsid=${post.id}&userid=${post.publisherId}">${post.subject}</a></div>
                                     <div class="post-other">
                                         <div class="post-other-left">
-                                            <span class="post-username"><a href="toProfile.do?uid=${post.publishSource}">${post.publishSource}</a></span>
+                                            <span class="post-username"><a href="${post.linkUrl}">${post.publishSource}</a></span>
+                                            <%--<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>--%>
+                                            <%--<span>&nbsp;评论数</span>--%>
+                                            <%--<span class="post-time">&nbsp;${post.}</span>--%>
                                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                             <span>&nbsp;发表于</span>
                                             <span class="post-time">&nbsp;${post.postDate}</span>
@@ -145,8 +148,8 @@
 				<ul class="hot-user-list">
 					<c:forEach items="${hotUserList}" var="user">
 						<li class="clearfix">
-							<a href="toProfile.do?uid=${user.uid}" class="hot-user-image"><img src="${user.headUrl}"></a>
-							<a href="toProfile.do?uid=${user.uid}" class="hot-user-name">${user.username}</a>
+							<a href="${user.headUrl}" class="hot-user-image"><img src="${user.headUrl}"></a>
+							<a href="${user.headUrl}" class="hot-user-name">${user.username}</a>
 						</li>
 					</c:forEach>
 				</ul>
@@ -157,8 +160,8 @@
 				<ul class="hot-user-list">
 					<c:forEach items="${userList}" var="user">
 						<li class="clearfix">
-							<a href="toProfile.do?uid=${user.uid}" class="hot-user-image"><img src="${user.headUrl}"></a>
-							<a href="toProfile.do?uid=${user.uid}" class="hot-user-name">${user.username}</a>
+							<a href="${user.headUrl}" class="hot-user-image"><img src="${user.headUrl}"></a>
+							<a href="${user.headUrl}" class="hot-user-name">${user.username}</a>
 						</li>
 					</c:forEach>
 				</ul>

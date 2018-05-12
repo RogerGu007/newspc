@@ -1,15 +1,9 @@
 package com.fc.service;
 
-import com.fc.async.MessageTask;
 import com.fc.gson.*;
-import com.fc.mapper.MessageMapper;
-import com.fc.mapper.PostMapper;
-import com.fc.mapper.ReplyMapper;
-import com.fc.mapper.UserMapper;
 import com.fc.model.*;
 import com.fc.util.GsonUtils;
-import com.fc.util.JerseyClientBase;
-import com.fc.util.MyConstant;
+import com.fc.util.JerseyClient;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
@@ -32,66 +26,15 @@ import static com.fc.entity.RetCode.RET_CODE_OK;
 public class ReplyService {
 
     @Autowired
-    private ReplyMapper replyMapper;
-
-    @Autowired
-    private PostMapper postMapper;
-
-    @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
-    private MessageMapper messageMapper;
-
-    @Autowired
     private TaskExecutor taskExecutor;
 
     @Autowired
-    private HttpClientOperateService httpClientOperateService;
-
-    @Autowired
-    private JerseyClientBase jerseyClientBase;
+    private JerseyClient jerseyClient;
 
 //    @Autowired
 //    private JerseyClientUtil jerseyClientUtil;
 
     private Logger logger = Logger.getLogger(ReplyService.class.getName());
-
-    //回复
-    public void reply(int sessionUid, int pid, String content) {
-        //构造Reply对象
-        User user = new User(sessionUid);
-        Post post = new Post(pid);
-        Reply reply = new Reply();
-        reply.setUser(user);
-        reply.setPost(post);
-        reply.setContent(content);
-        //向reply表插入一条记录
-        replyMapper.insertReply(reply);
-        //更新帖子的回复数
-        postMapper.updateReplyCount(pid);
-        //更新最后回复时间
-        postMapper.updateReplyTime(pid);
-        //插入一条回复消息
-        taskExecutor.execute(new MessageTask(messageMapper,userMapper,postMapper,replyMapper,pid,0,sessionUid, MyConstant.OPERATION_REPLY));
-    }
-
-    //评论
-    public void comment(int pid,int sessionUid, int rid, String content) {
-        //构造Comment
-        User user = new User(sessionUid);
-        Reply reply = new Reply(rid);
-        Comment comment = new Comment();
-        comment.setUser(user);
-        comment.setReply(reply);
-        comment.setContent(content);
-        //插入一条评论
-        replyMapper.insertComment(comment);
-        //更新最后回复时间
-        postMapper.updateReplyTime(pid);
-        //插入一条评论消息
-        taskExecutor.execute(new MessageTask(messageMapper,userMapper,postMapper,replyMapper,pid,rid,sessionUid, MyConstant.OPERATION_COMMENT));
-    }
 
     //根据pid列出回复
     public List<FirstLevelCommentDTO> listReply(int newsId, int page) {
@@ -103,7 +46,7 @@ public class ReplyService {
         params.put("pageSize", "20");
         try {
 //            String comments = httpClientOperateService.doGet(GET_COMMENTS, cond);
-            String comments = jerseyClientBase.getHttp(GET_COMMENTS, params);
+            String comments = jerseyClient.getHttp(GET_COMMENTS, params);
             CommentsResultGson commentsResultGson = GsonUtils.fromJson(comments, CommentsResultGson.class);
             if (commentsResultGson.getRetCode() == RET_CODE_OK) {
                 replyList = commentsResultGson.getFirstLevelCommentDTOS();
@@ -111,12 +54,6 @@ public class ReplyService {
         } catch (Exception e) {
             logger.error(GET_COMMENTS + " falied! " + e.getMessage());
         }
-//        List<Reply> replyList = replyMapper.listReply(pid);
-//        for(Reply reply : replyList){
-//            //列出每条回复下的评论
-//            List<Comment> commentList = replyMapper.listComment(reply.getRid());
-//            reply.setCommentList(commentList);
-//        }
         return replyList;
     }
 
@@ -128,7 +65,7 @@ public class ReplyService {
         contentMap.put("userID", userid.toString());
         contentMap.put("comment", filterHtml(content));
         try {
-            String response = jerseyClientBase.postHttp(ADD_COMMENT, contentMap);
+            String response = jerseyClient.postHttp(ADD_COMMENT, contentMap);
 //            HttpResult result = httpClientOperateService.doPost(ADD_COMMENT, contentMap);
 //            Response result = jerseyClientUtil.postHttp(ADD_COMMENT, contentMap);
 //            retFLCommentResultGson = GsonUtils.fromJson(result.getEntity().toString(), RetFLCommentResultGson.class);
@@ -151,7 +88,7 @@ public class ReplyService {
         paramMap.put("toUserID", toUserID);
         paramMap.put("replyComment", filterHtml(replyComment));
         try {
-            String resp = jerseyClientBase.postHttp(REPLY_COMMENT, paramMap);
+            String resp = jerseyClient.postHttp(REPLY_COMMENT, paramMap);
 //            HttpResult httpResult = httpClientOperateService.doPost(REPLY_COMMENT, replyCond);
             RetSecCommentResultGson resultGson =
                     GsonUtils.fromJson(resp, RetSecCommentResultGson.class);
