@@ -9,6 +9,7 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 	<div class="main w clearfix">
 		<div class="main-left">
@@ -36,7 +37,7 @@
                                 + '&newsType=' + ${param.get('newsType')}
                                 + '&subNewsType=' + this.value
                                 + '&location=' + $('#locationSelect').val()">
-                            alert(${param.get("subNewsType")});
+                            <%--alert(${param.get("subNewsType")});--%>
                             <option value="0" <c:if test="${param.get('subNewsType') eq 0}"> selected="selected" </c:if>>全部</option>
                             <option value="1" <c:if test="${param.get('subNewsType') eq 1}"> selected="selected" </c:if>>全职</option>
                             <option value="2" <c:if test="${param.get('subNewsType') eq 2}"> selected="selected" </c:if>>实习/兼职</option>
@@ -52,7 +53,14 @@
 					<div class="post-choice">
 						<a href="#" class="post-choice-current">最近</a>
 						<a href="#">最热</a>
-						<%--<a href="#" class="post-choice-last">精华</a>--%>
+						<a href="#" class="post-choice-last">精华</a>
+                        <%--<c:choose>--%>
+                            <%--<c:when test="${param.get('newsType') eq 3}">--%>
+                                <%--<a href="#" class="post-choice-last">全部</a>--%>
+                                <%--<a href="#" class="post-choice-last">全职</a>--%>
+                                <%--<a href="#" class="post-choice-last">实习/兼职</a>--%>
+                            <%--</c:when>--%>
+                        <%--</c:choose>--%>
 					</div>
 
 					<ul class="post-list">
@@ -71,7 +79,7 @@
                                             <%--<span class="post-time">&nbsp;${post.}</span>--%>
                                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                             <span>&nbsp;发表于</span>
-                                            <span class="post-time">&nbsp;${post.postDate}</span>
+                                            <span class="post-time">&nbsp;${fn:substring(post.postDate, 0, 19)}</span>
                                             <%--<span>&nbsp;最后回复&nbsp;</span>--%>
                                             <%--<span class="post-reply-time">${post.postDate}</span>--%>
                                         </div>
