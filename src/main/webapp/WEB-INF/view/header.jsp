@@ -20,7 +20,7 @@
                     <li class="login2 relative">
                         <a href="toMyProfile.do" id="profile"><img id="avatarUrl" src="${cookie.avatarUrl.value}"></a>
                         <ul id="down-menu">
-                            <li><a href="toMyProfile.do?userid=${cookie.userId.value}&link=${avatarUrl}">个人主页</a></li>
+                            <li><a href="toMyProfile.do?userid=${cookie.userId.value}">个人主页</a></li>
                             <%--<li><a href="logout.do" >退出登录</a></li>--%>
                             <li><a id="logout" onclick="logout()">退出登录</a></li>
                         </ul>
@@ -47,7 +47,11 @@
 <script type="text/javascript">
 
     window.onload = function () {
-        document.getElementById("avatarUrl").setAttribute("src", getCookie("avatarUrl"));
+        var avatarUrl = getCookie("avatarUrl");
+        if (avatarUrl == "" || avatarUrl == null) {
+            avatarUrl = "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3267121572,2544905960&fm=27&gp=0.jpg";
+        }
+        document.getElementById("avatarUrl").setAttribute("src", avatarUrl);
     }
 
     function logout() {
