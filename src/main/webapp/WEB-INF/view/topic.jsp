@@ -214,7 +214,7 @@
 			mask.hide();
 			uponMask.hide();
 		});
-	});
+    });
 
 </script>
 </body>

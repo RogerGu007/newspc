@@ -11,6 +11,7 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
 	<!-- 中间主体板块 -->
@@ -21,7 +22,17 @@
 				<div class="user-name">${user.nickName}</div>
 				<%--<div class="user-desc">${user.description}</div>--%>
 				<div class="user-phone">电话：${user.phoneNo}</div>
-				<%--<div class="user-position">坐标：${user.position}</div>--%>
+				<c:choose>
+					<c:when test="${user.sex eq '男'}">
+						<div class="user-sex">性别：男</div>
+					</c:when>
+					<c:when test="${user.sex eq '女'}">
+						<div class="user-sex">性别：女</div>
+					</c:when>
+					<c:otherwise>
+						<div class="user-sex">性别：未设置</div>
+					</c:otherwise>
+				</c:choose>
 				<div class="user-school">学校：${user.college}</div>
 				<div class="user-verified">认证：${user.verified}</div>
 			</div>
@@ -51,7 +62,7 @@
 						<li>
 							<span class="glyphicon glyphicon-file"></span>&nbsp;
 							<a href="toPost.do?newsid=${favour.id}&userid=${favour.publisherId}">${favour.subject}</a>
-							<span class="user-post-time">收藏于：${favour.createAt}</span>
+							<span class="user-post-time">收藏于：${fn:substring(favour.createAt, 0, 19)}</span>
 						</li>
 					</c:forEach>
 				</ul>

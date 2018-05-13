@@ -44,8 +44,8 @@ public class ReplyController {
     public String comment(String newsid, String rid, String fromuserid, String touserid, String content){
 //        int sessionUid = (int) session.getAttribute("uid");
 //        replyService.comment(newsid, 1, rid, content);
-        System.out.println(String.format("nid=%s, rid=%s, fromUser=%s, toUser=%s, content=%s",
-                newsid, rid, fromuserid, touserid, content));
+//        System.out.println(String.format("nid=%s, rid=%s, fromUser=%s, toUser=%s, content=%s",
+//                newsid, rid, fromuserid, touserid, content));
         if (StringUtils.isEmpty(fromuserid))
             return "redirect:toLogin.do";
 

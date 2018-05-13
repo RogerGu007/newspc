@@ -25,6 +25,14 @@
 				电&nbsp;&nbsp;&nbsp;话：<input type="text" name="phoneNo" value="${user.phoneNo}">
 			</div>
 			<div class="edit-title">
+				性&nbsp;&nbsp;&nbsp;别：
+				<select name="sex">
+					<%--<option value="保密" selected="selected">保密</option>--%>
+					<option value="男" selected="selected">男</option>
+					<option value="女">女</option>
+				</select>
+			</div>
+			<div class="edit-title">
 				学&nbsp;&nbsp;&nbsp;校：<input type="text" name="college" value="${user.college}">
 			</div>
 			<div class="relative">

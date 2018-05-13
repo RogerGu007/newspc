@@ -112,7 +112,8 @@
                                             <input type="hidden" name="fromuserid" value= "${cookie.userId.value}"/>
                                             <input type="hidden" name="touserid" value="${newsdetail.publisher_id}"/>
                                             <textarea id="s${reply.id}" name="content" ></textarea>
-                                            <button type="submit" id="commentButton" onclick="$('#textarea').focus()">回复</button>
+                                            <button type="submit">回复</button>
+                                        <%--<button type="submit" id="commentButton" onclick="$('#textarea').focus()">回复</button>--%>
                                         </form>
                                     </div>
                                 </div><!-- 楼中楼结束 -->

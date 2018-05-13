@@ -39,6 +39,13 @@ public class UserService {
                 userInfoGson.setCollege(resultGson.getCollege());
                 userInfoGson.setPhoneNo(resultGson.getPhoneNumber());
                 userInfoGson.setAvatarUrl(resultGson.getAvatarUrl());
+                if (resultGson.getSex() == null) {
+                    userInfoGson.setSex("未设置");
+                } else if (resultGson.getSex()) {
+                    userInfoGson.setSex("男");
+                } else {
+                    userInfoGson.setSex("女");
+                }
                 userInfoGson.setVerified(resultGson.getVerified() ? RET_VERIFIED_PASS : RET_VERIFIED_NOPASS);
             }
         } catch (Exception e) {
@@ -49,6 +56,13 @@ public class UserService {
     }
 
     public void updateUser(UserInfoGson userInfoGson) {
+        if (userInfoGson.getSex().equals("男")) {
+            userInfoGson.setSex("true");
+        } else if (userInfoGson.getSex().equals("女")) {
+            userInfoGson.setSex("false");
+        } else {
+            userInfoGson.setSex("null");
+        }
         try {
             Map<String, String> updateInfo = new HashMap<>();
             updateInfo.put("userID", userInfoGson.getID().toString());

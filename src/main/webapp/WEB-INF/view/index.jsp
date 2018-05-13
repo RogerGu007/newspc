@@ -52,8 +52,8 @@
 				<div class="post-wrap">
 					<div class="post-choice">
 						<a href="#" class="post-choice-current">最近</a>
-						<a href="#">最热</a>
-						<a href="#" class="post-choice-last">精华</a>
+						<%--<a href="#">最热</a>--%>
+						<%--<a href="#" class="post-choice-last">精华</a>--%>
                         <%--<c:choose>--%>
                             <%--<c:when test="${param.get('newsType') eq 3}">--%>
                                 <%--<a href="#" class="post-choice-last">全部</a>--%>

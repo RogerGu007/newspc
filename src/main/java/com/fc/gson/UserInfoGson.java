@@ -3,7 +3,7 @@ package com.fc.gson;
 public class UserInfoGson {
     private Long ID;
     private String nickName;
-    private Boolean sex;
+    private String sex;
     private String college;
     private String phoneNo;
     private String avatarUrl;
@@ -25,11 +25,11 @@ public class UserInfoGson {
         this.nickName = nickName;
     }
 
-    public void setSex(Boolean sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
-    public Boolean getSex() {
+    public String getSex() {
         return sex;
     }
 
