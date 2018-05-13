@@ -12,6 +12,8 @@ public class NewsDTO extends BaseDTO {
     private String     linkUrl;
     private Long 		publisherId;
     private String     publishSource;
+    private String publishSourceAvatarUrl;
+    private String publishSourceLinkUrl;
 
     public String getSubject() {
         return subject;
@@ -83,5 +85,21 @@ public class NewsDTO extends BaseDTO {
 
     public void setPublishSource(String publishSource) {
         this.publishSource = publishSource;
+    }
+
+    public String getPublishSourceAvatarUrl() {
+        return publishSourceAvatarUrl;
+    }
+
+    public void setPublishSourceAvatarUrl(String publishSourceAvatarUrl) {
+        this.publishSourceAvatarUrl = publishSourceAvatarUrl;
+    }
+
+    public String getPublishSourceLinkUrl() {
+        return publishSourceLinkUrl;
+    }
+
+    public void setPublishSourceLinkUrl(String publishSourceLinkUrl) {
+        this.publishSourceLinkUrl = publishSourceLinkUrl;
     }
 }

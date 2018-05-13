@@ -1,5 +1,6 @@
 package com.fc.service;
 
+import com.fc.entity.BBSEnum;
 import com.fc.gson.NewsCountResultGson;
 import com.fc.gson.NewsDetailResultGson;
 import com.fc.gson.NewsSubjectResultGson;
@@ -8,6 +9,7 @@ import com.fc.model.NewsDetailDTO;
 import com.fc.model.PageBean;
 import com.fc.util.GsonUtils;
 import com.fc.util.JerseyClient;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,7 +75,12 @@ public class PostService {
         try {
             String response = jerseyClient.getHttp(GET_NEWS_LIST_SUBJECTS_BY_PAGE, newsMap);
             NewsSubjectResultGson resultGson = GsonUtils.fromJson(response, NewsSubjectResultGson.class);
-            pageBean.setList(resultGson.getNewsList());
+            List<NewsDTO> newsDTOList = resultGson.getNewsList();
+            for (NewsDTO newsDTO : newsDTOList) {
+                newsDTO.setPublishSourceAvatarUrl(BBSEnum.userIdToBBS(newsDTO.getPublisherId()).getAvatarUrl());
+                newsDTO.setPublishSourceLinkUrl(BBSEnum.userIdToBBS(newsDTO.getPublisherId()).getLinkUrl());
+            }
+            pageBean.setList(newsDTOList);
         } catch (Exception e) {
             logger.error(GET_NEWS_LIST_SUBJECTS_BY_PAGE + " failed! " + e.getMessage());
         }

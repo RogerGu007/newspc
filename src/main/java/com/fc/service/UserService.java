@@ -1,5 +1,6 @@
 package com.fc.service;
 
+import com.fc.entity.BBSEnum;
 import com.fc.gson.RetResultGson;
 import com.fc.gson.UserInfoGson;
 import com.fc.gson.UserInfoResultGson;
@@ -79,16 +80,16 @@ public class UserService {
 
     public List<UserDTO> listUserByTime() {
         List<UserDTO> userDTOList = new ArrayList<UserDTO>() {{
-            add(UserDTO.buildUserDto(1, "水木清华",
-                    "https://www.baidu.com/s?rsv_idx=1&tn=91694651_hao_pg&wd=%E7%AC%91%E8%84%B8%E5%9B%BE%E7%89%87&usm=1&ie=utf-8&rsv_cq=%E5%B0%8F%E5%9B%BE%E7%89%87&rsv_dl=0_right_recommends_20807&euri=b7bdd6eaf6efaf6e3148205a03b0d748"));
-            add(UserDTO.buildUserDto(2, "梧桐树",
-                    "https://www.baidu.com/s?rsv_idx=1&tn=91694651_hao_pg&wd=%E7%AC%91%E8%84%B8%E5%9B%BE%E7%89%87&usm=1&ie=utf-8&rsv_cq=%E5%B0%8F%E5%9B%BE%E7%89%87&rsv_dl=0_right_recommends_20807&euri=b7bdd6eaf6efaf6e3148205a03b0d748"));
+            add(UserDTO.buildUserDto(9, "水木清华",
+                    BBSEnum.userIdToBBS(9L).getAvatarUrl()));
             add(UserDTO.buildUserDto(3, "日月光华",
-                    "https://www.baidu.com/s?rsv_idx=1&tn=91694651_hao_pg&wd=%E7%AC%91%E8%84%B8%E5%9B%BE%E7%89%87&usm=1&ie=utf-8&rsv_cq=%E5%B0%8F%E5%9B%BE%E7%89%87&rsv_dl=0_right_recommends_20807&euri=b7bdd6eaf6efaf6e3148205a03b0d748"));
-            add(UserDTO.buildUserDto(4, "饮水思源",
-                    "https://www.baidu.com/s?rsv_idx=1&tn=91694651_hao_pg&wd=%E7%AC%91%E8%84%B8%E5%9B%BE%E7%89%87&usm=1&ie=utf-8&rsv_cq=%E5%B0%8F%E5%9B%BE%E7%89%87&rsv_dl=0_right_recommends_20807&euri=b7bdd6eaf6efaf6e3148205a03b0d748"));
-            add(UserDTO.buildUserDto(5, "小百合",
-                    "https://www.baidu.com/s?rsv_idx=1&tn=91694651_hao_pg&wd=%E7%AC%91%E8%84%B8%E5%9B%BE%E7%89%87&usm=1&ie=utf-8&rsv_cq=%E5%B0%8F%E5%9B%BE%E7%89%87&rsv_dl=0_right_recommends_20807&euri=b7bdd6eaf6efaf6e3148205a03b0d748"));
+                    BBSEnum.userIdToBBS(3L).getAvatarUrl()));
+            add(UserDTO.buildUserDto(2, "饮水思源",
+                    BBSEnum.userIdToBBS(2L).getAvatarUrl()));
+            add(UserDTO.buildUserDto(15, "梧桐树",
+                    BBSEnum.userIdToBBS(15L).getAvatarUrl()));
+            add(UserDTO.buildUserDto(7, "小百合",
+                    BBSEnum.userIdToBBS(7L).getAvatarUrl()));
         }};
 
         return userDTOList;
@@ -96,13 +97,17 @@ public class UserService {
 
     public List<UserDTO> listUserByHot() {
         List<UserDTO> userDTOList = new ArrayList<UserDTO>() {{
-            add(UserDTO.buildUserDto(1, "水木清华", "https://www.baidu.com/s?rsv_idx=1&tn=91694651_hao_pg&wd=%E7%AC%91%E8%84%B8%E5%9B%BE%E7%89%87&usm=1&ie=utf-8&rsv_cq=%E5%B0%8F%E5%9B%BE%E7%89%87&rsv_dl=0_right_recommends_20807&euri=b7bdd6eaf6efaf6e3148205a03b0d748"));
-            add(UserDTO.buildUserDto(2, "梧桐树", "https://www.baidu.com/s?rsv_idx=1&tn=91694651_hao_pg&wd=%E7%AC%91%E8%84%B8%E5%9B%BE%E7%89%87&usm=1&ie=utf-8&rsv_cq=%E5%B0%8F%E5%9B%BE%E7%89%87&rsv_dl=0_right_recommends_20807&euri=b7bdd6eaf6efaf6e3148205a03b0d748"));
-            add(UserDTO.buildUserDto(3, "日月光华", "https://www.baidu.com/s?rsv_idx=1&tn=91694651_hao_pg&wd=%E7%AC%91%E8%84%B8%E5%9B%BE%E7%89%87&usm=1&ie=utf-8&rsv_cq=%E5%B0%8F%E5%9B%BE%E7%89%87&rsv_dl=0_right_recommends_20807&euri=b7bdd6eaf6efaf6e3148205a03b0d748"));
-            add(UserDTO.buildUserDto(4, "饮水思源", "https://www.baidu.com/s?rsv_idx=1&tn=91694651_hao_pg&wd=%E7%AC%91%E8%84%B8%E5%9B%BE%E7%89%87&usm=1&ie=utf-8&rsv_cq=%E5%B0%8F%E5%9B%BE%E7%89%87&rsv_dl=0_right_recommends_20807&euri=b7bdd6eaf6efaf6e3148205a03b0d748"));
-            add(UserDTO.buildUserDto(5, "小百合", "https://www.baidu.com/s?rsv_idx=1&tn=91694651_hao_pg&wd=%E7%AC%91%E8%84%B8%E5%9B%BE%E7%89%87&usm=1&ie=utf-8&rsv_cq=%E5%B0%8F%E5%9B%BE%E7%89%87&rsv_dl=0_right_recommends_20807&euri=b7bdd6eaf6efaf6e3148205a03b0d748"));
+            add(UserDTO.buildUserDto(9, "水木清华",
+                    BBSEnum.userIdToBBS(9L).getAvatarUrl()));
+            add(UserDTO.buildUserDto(3, "日月光华",
+                    BBSEnum.userIdToBBS(3L).getAvatarUrl()));
+            add(UserDTO.buildUserDto(2, "饮水思源",
+                    BBSEnum.userIdToBBS(2L).getAvatarUrl()));
+            add(UserDTO.buildUserDto(15, "梧桐树",
+                    BBSEnum.userIdToBBS(15L).getAvatarUrl()));
+            add(UserDTO.buildUserDto(7, "小百合",
+                    BBSEnum.userIdToBBS(7L).getAvatarUrl()));
         }};
-
         return userDTOList;
     }
 }

@@ -59,13 +59,13 @@
 						<c:forEach items="${pageBean.list}" var="post">
                             <li class="clearfix">
                                 <div class="post-image">
-                                    <a href="${post.linkUrl}"><img src="${post.publishSource}"></a>
+                                    <a href="${post.publishSourceLinkUrl}"><img src="${post.publishSourceAvatarUrl}"></a>
                                 </div>
                                 <div class="post-content">
                                     <div class="post-title"><a href="toPost.do?newsid=${post.id}&userid=${post.publisherId}">${post.subject}</a></div>
                                     <div class="post-other">
                                         <div class="post-other-left">
-                                            <span class="post-username"><a href="${post.linkUrl}">${post.publishSource}</a></span>
+                                            <span class="post-username"><a href="${post.publishSourceLinkUrl}">${post.publishSource}</a></span>
                                             <%--<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>--%>
                                             <%--<span>&nbsp;评论数</span>--%>
                                             <%--<span class="post-time">&nbsp;${post.}</span>--%>
@@ -144,7 +144,7 @@
 		<div class="main-right">
 			
 			<div class="hot-user">
-				<div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;近期活跃用户</div></div>
+				<div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;最近访问</div></div>
 				<ul class="hot-user-list">
 					<c:forEach items="${hotUserList}" var="user">
 						<li class="clearfix">
@@ -156,7 +156,7 @@
 			</div>
 
 			<div class="hot-user">
-				<div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;近期加入用户</div></div>
+				<div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;活跃论坛</div></div>
 				<ul class="hot-user-list">
 					<c:forEach items="${userList}" var="user">
 						<li class="clearfix">

@@ -120,7 +120,6 @@
                         setCookie("isLogin", "1");
                         setCookie("userId", response.userId);
                         setCookie("avatarUrl", response.avatarUrl);
-//                        window.location.href = "listTopic.do";
 //                        window.history.go(-1);
 						window.location.href = document.referrer;
                     }

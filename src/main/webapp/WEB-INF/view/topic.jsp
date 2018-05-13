@@ -143,7 +143,7 @@
 			
 			<div class="hot-user">
 
-				<div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;推荐网站</div></div>
+				<div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;推荐论坛</div></div>
 				<ul class="hot-user-list">
 					<li class="clearfix">
 						<a href="http://www.newsmth.net" class="hot-user-image"><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1686194789,2436359730&fm=27&gp=0.jpg"></a>
