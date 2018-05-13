@@ -2,8 +2,6 @@
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
-
 <div class="header clearfix">
     <div class="w">
         <h1 class="logo">
@@ -20,9 +18,9 @@
             <c:choose>
                 <c:when test="${cookie.isLogin != null && cookie.isLogin.value == 1}">
                     <li class="login2 relative">
-                        <a href="toMyProfile.do" id="profile"><img src="${cookie.avatarUrl.value}"></a>
+                        <a href="toMyProfile.do" id="profile"><img id="avatarUrl" src="${cookie.avatarUrl.value}"></a>
                         <ul id="down-menu">
-                            <li><a href="toMyProfile.do?userid=${cookie.userId.value}">个人主页</a></li>
+                            <li><a href="toMyProfile.do?userid=${cookie.userId.value}&link=${avatarUrl}">个人主页</a></li>
                             <%--<li><a href="logout.do" >退出登录</a></li>--%>
                             <li><a id="logout" onclick="logout()">退出登录</a></li>
                         </ul>
@@ -48,6 +46,10 @@
 
 <script type="text/javascript">
 
+    window.onload = function () {
+        document.getElementById("avatarUrl").setAttribute("src", getCookie("avatarUrl"));
+    }
+
     function logout() {
         clearAllCookie();
         window.location.reload();
@@ -67,5 +69,14 @@
             for(var i = keys.length; i--;)
                 document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
         }
+    }
+
+    //取cookies函数
+    function getCookie(name){
+        var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+        if (arr != null) {
+            return unescape(arr[2]);
+        }
+        return null;
     }
 </script>

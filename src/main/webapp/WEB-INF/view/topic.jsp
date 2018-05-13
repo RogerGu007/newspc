@@ -146,7 +146,7 @@
 				<div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;推荐网站</div></div>
 				<ul class="hot-user-list">
 					<li class="clearfix">
-						<a href="http://www.newsmth.net" class="hot-user-image"><img src="http://images.newsmth.net/nForum/img/logo.gif"></a>
+						<a href="http://www.newsmth.net" class="hot-user-image"><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1686194789,2436359730&fm=27&gp=0.jpg"></a>
 						<a href="http://www.newsmth.net" class="hot-user-name">水木清华</a>
 					</li>
 					<li class="clearfix">
@@ -158,27 +158,27 @@
 						<a href="https://bbs.fudan.edu.cn/bbs/top10" class="hot-user-name">日月光华</a>
 					</li>
 					<li class="clearfix">
-						<a href="https://bbs.sjtu.edu.cn" class="hot-user-image"><img src="https://www.baidu.com/s?wd=%E4%B8%8A%E6%B5%B7%E4%BA%A4%E9%80%9A%E5%A4%A7%E5%AD%A6%E5%AE%89%E6%B3%B0%E7%BB%8F%E6%B5%8E%E4%B8%8E%E7%AE%A1%E7%90%86%E5%AD%A6%E9%99%A2&usm=3&ie=utf-8&rsv_cq=%E4%B8%8A%E6%B5%B7%E4%BA%A4%E9%80%9A%E5%A4%A7%E5%AD%A6&rsv_dl=0_right_recommends_merge_20826&euri=2ec767baade64807bddb57634cc47ee0"></a>
+						<a href="https://bbs.sjtu.edu.cn" class="hot-user-image"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3375747713,2591547652&fm=58&bpow=1024&bpoh=1024"></a>
 						<a href="https://bbs.sjtu.edu.cn" class="hot-user-name">饮水思源</a>
 					</li>
                     <li class="clearfix">
-                        <a href="https://bbs.tongji.net/" class="hot-user-image"><img src="https://bbs.tongji.net/static/image/common/tongji-logo.png"></a>
+                        <a href="https://bbs.tongji.net/" class="hot-user-image"><img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2951361712,2965132577&fm=58&bpow=971&bpoh=974"></a>
                         <a href="https://bbs.tongji.net/" class="hot-user-name">同济之声</a>
                     </li>
                     <li class="clearfix">
-                        <a href="http://bbs.nju.edu.cn/" class="hot-user-image"><img src="http://bbs.nju.edu.cn/images/bbs.gif"></a>
+                        <a href="http://bbs.nju.edu.cn/" class="hot-user-image"><img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1076576704,4283853172&fm=58&bpow=1200&bpoh=1504"></a>
                         <a href="http://bbs.nju.edu.cn/" class="hot-user-name">小百合</a>
                     </li>
                     <li class="clearfix">
-                        <a href="http://www.zju1.com/" class="hot-user-image"><img src="http://www.zju1.com/up/61619-201527211737.jpg"></a>
+                        <a href="http://www.zju1.com/" class="hot-user-image"><img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2194450869,662627224&fm=58&w=200&h=200&img.JPEG"></a>
                         <a href="http://www.zju1.com/" class="hot-user-name">梧桐树</a>
                     </li>
                     <li class="clearfix">
-                        <a href="http://bbs.whu.edu.cn" class="hot-user-image"><img src="https://www.baidu.com/link?url=lnyiM_g1I8dTEKFW0sizw3BCSvmdtVvFw0SY7JYt_bHhQQxqCkW6H8Gc031eYr2RvyDwabl8swvMqa7LGO7S0he-EipCVaA5y0syogyWg-a&wd=&eqid=cf97f7cb00004a79000000065ae366ce"></a>
+                        <a href="http://bbs.whu.edu.cn" class="hot-user-image"><img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=659974452,3463077321&fm=58&bpow=600&bpoh=600"></a>
                         <a href="http://bbs.whu.edu.cn" class="hot-user-name">珞珈山水</a>
                     </li>
                     <li class="clearfix">
-                        <a href="http://bbs.iecnu.com/" class="hot-user-image"><img src="http://bbs.iecnu.com/static/image/common/logo.gif"></a>
+                        <a href="http://bbs.iecnu.com/" class="hot-user-image"><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2025476624,2981669612&fm=58&bpow=600&bpoh=600"></a>
                         <a href="http://bbs.iecnu.com/" class="hot-user-name">爱在华师</a>
                     </li>
 				</ul>

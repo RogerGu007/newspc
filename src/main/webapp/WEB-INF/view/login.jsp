@@ -96,6 +96,8 @@
                 success:function(response){
                     if (response.errcode != "0")
                         alert(response.errmsg);
+                    else
+                        alert("验证码发送成功！");
                 }
             });
         });
