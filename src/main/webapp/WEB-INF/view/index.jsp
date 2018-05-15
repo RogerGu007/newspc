@@ -18,11 +18,12 @@
                     <span></span>
                     <%--&nbsp;分享与提问--%>
                     <a id="location">
-                        <select id="locationSelect" onchange="window.location.href='listPostByTime.do?curPage='
-                                + ${pageBean.curPage}
-                                + '&newsType=' + ${param.get('newsType')}
-                                + '&subNewsType=' + $('#subNewsTypeSelect').val()
-                                + '&location=' + this.value">
+                        <%--<select id="locationSelect" onchange="window.location.href='listPostByTime.do?curPage='--%>
+                                <%--+ ${pageBean.curPage}--%>
+                                <%--+ '&newsType=' + ${param.get('newsType')}--%>
+                                <%--+ '&subNewsType=' + $('#subNewsTypeSelect').val()--%>
+                                <%--+ '&location=' + this.value">--%>
+                        <select id="locationSelect"  onchange="locationChange()">
                             <option value="21" <c:if test="${param.get('location') eq 21}"> selected="selected" </c:if>>上海</option>
                             <option value="10" <c:if test="${param.get('location') eq 10}"> selected="selected" </c:if>>北京</option>
                             <option value="571" <c:if test="${param.get('location') eq 571}"> selected="selected" </c:if>>杭州</option>
@@ -198,7 +199,27 @@
             $("#subNewsType").show();
             $("#subNewsTypeSpan").show();
         }
+
+        setCookie("location", document.getElementById("locationSelect").value);
     });
+    
+    function locationChange() {
+        var location = document.getElementById("locationSelect").value;
+        window.location.href='listPostByTime.do?curPage='
+            + ${pageBean.curPage}
+            + '&newsType=' + ${param.get('newsType')}
+            + '&subNewsType=' + $('#subNewsTypeSelect').val()
+            + '&location=' + location;
+
+        setCookie("location", location);
+    }
+
+    function setCookie(name,value){
+        var Days = 30;//此 cookie 将被保存 30 天
+        var exp = new Date();//new Date("December 31, 9998");
+        exp.setTime(exp.getTime() + Days*24*60*60*1000);
+        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+    }
 
 </script>
 </body>

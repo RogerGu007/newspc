@@ -43,6 +43,22 @@ public class UserController {
     }
 
     /**
+     * 查看我的收藏
+     * @param session
+     * @param model
+     * @return
+     */
+    @RequestMapping("/MyFavourite.do")
+    public String MyFavourite(String userid, HttpSession session, Model model) {
+        UserInfoGson user = userService.getProfile(userid);
+        //查询收藏纪录
+        List<NewsDTO> favourList = postService.getFavourNewsList(userid);
+        model.addAttribute("user", user);
+        model.addAttribute("favourList",favourList);
+        return "myFavourite";
+    }
+
+    /**
      * 去编辑信息的页面
      * @param session
      * @param model

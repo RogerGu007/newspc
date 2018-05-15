@@ -9,8 +9,17 @@
         </h1>
         <ul class="left-nav">
             <li class="current-nav"><a href="listTopic.do">首页</a></li>
-            <li><a id="JobIndex" href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0">招聘</a></li>
-            <li><a id="FriendIndex" href="listPostByTime.do?curPage=1&location=21&newsType=3&subNewsType=0">鹊桥</a></li>
+            <c:choose>
+                <c:when test="${cookie.location.value eq null || cookie.location.value eq ''}">
+                    <li><a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0">招聘</a></li>
+                    <li><a href="listPostByTime.do?curPage=1&location=21&newsType=3&subNewsType=0">鹊桥</a></li>
+                </c:when>
+                <c:otherwise>
+                    <li><a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=2&subNewsType=0">招聘</a></li>
+                    <li><a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=3&subNewsType=0">鹊桥</a></li>
+                </c:otherwise>
+            </c:choose>
+
         </ul>
 
         <ul class="right-nav">
@@ -20,7 +29,7 @@
                         <a href="toMyProfile.do" id="profile"><img id="avatarUrl" src="${cookie.avatarUrl.value}"></a>
                         <ul id="down-menu">
                             <li><a href="toMyProfile.do?userid=${cookie.userId.value}">个人主页</a></li>
-                            <%--<li><a href="logout.do" >退出登录</a></li>--%>
+                            <li><a href="MyFavourite.do?userid=${cookie.userId.value}">我的收藏</a></li>
                             <li><a id="logout" onclick="logout()">退出登录</a></li>
                         </ul>
                     </li>

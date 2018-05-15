@@ -22,31 +22,59 @@
 					<c:forEach items="${topicList}" var="topic">
 						<c:choose>
 							<c:when test="${topic.name eq '招聘'}">
-								<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0">${topic.name}</a>
+								<c:choose>
+									<c:when test="${cookie.location.value == null || cookie.location.value == ''}">
+										<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0" onclick="locationChange(21)">${topic.name}</a>
+									</c:when>
+									<c:otherwise>
+										<a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=2&subNewsType=0" onclick="locationChange(${cookie.location.value})">${topic.name}</a>
+									</c:otherwise>
+								</c:choose>
 							</c:when>
 							<c:when test="${topic.name eq '鹊桥'}">
-								<a href="listPostByTime.do?curPage=1&location=21&newsType=3&subNewsType=0">${topic.name}</a>
+								<c:choose>
+									<c:when test="${cookie.location.value == null || cookie.location.value == ''}">
+										<a href="listPostByTime.do?curPage=1&location=21&newsType=3&subNewsType=0" onclick="locationChange(21)">${topic.name}</a>
+									</c:when>
+									<c:otherwise>
+										<a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=3&subNewsType=0" onclick="locationChange(${cookie.location.value})">${topic.name}</a>
+									</c:otherwise>
+								</c:choose>
 							</c:when>
 							<c:when test="${topic.name eq '实习/兼职'}">
-								<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=2">${topic.name}</a>
+								<c:choose>
+									<c:when test="${cookie.location.value == null || cookie.location.value == ''}">
+										<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=2" onclick="locationChange(21)">${topic.name}</a>
+									</c:when>
+									<c:otherwise>
+										<a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=2&subNewsType=2" onclick="locationChange(${cookie.location.value})">${topic.name}</a>
+									</c:otherwise>
+								</c:choose>
 							</c:when>
 							<c:when test="${topic.name eq '全职'}">
-								<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=1">${topic.name}</a>
+								<c:choose>
+									<c:when test="${cookie.location.value == null || cookie.location.value == ''}">
+										<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=1" onclick="locationChange(21)">${topic.name}</a>
+									</c:when>
+									<c:otherwise>
+										<a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=2&subNewsType=1" onclick="locationChange(${cookie.location.value})">${topic.name}</a>
+									</c:otherwise>
+								</c:choose>
 							</c:when>
 							<c:when test="${topic.name eq '上海'}">
-								<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0">${topic.name}</a>
+								<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0" onclick="locationChange(21)">${topic.name}</a>
 							</c:when>
 							<c:when test="${topic.name eq '北京'}">
-								<a href="listPostByTime.do?curPage=1&location=10&newsType=2&subNewsType=0">${topic.name}</a>
+								<a href="listPostByTime.do?curPage=1&location=10&newsType=2&subNewsType=0" onclick="locationChange(10)">${topic.name}</a>
 							</c:when>
 							<c:when test="${topic.name eq '杭州'}">
-								<a href="listPostByTime.do?curPage=1&location=571&newsType=2&subNewsType=0">${topic.name}</a>
+								<a href="listPostByTime.do?curPage=1&location=571&newsType=2&subNewsType=0" onclick="locationChange(571)">${topic.name}</a>
 							</c:when>
 							<c:when test="${topic.name eq '南京'}">
-								<a href="listPostByTime.do?curPage=1&location=25&newsType=2&subNewsType=0">${topic.name}</a>
+								<a href="listPostByTime.do?curPage=1&location=25&newsType=2&subNewsType=0" onclick="locationChange(25)">${topic.name}</a>
 							</c:when>
 							<c:when test="${topic.name eq '武汉'}">
-								<a href="listPostByTime.do?curPage=1&location=27&newsType=2&subNewsType=0">${topic.name}</a>
+								<a href="listPostByTime.do?curPage=1&location=27&newsType=2&subNewsType=0" onclick="locationChange(27)">${topic.name}</a>
 							</c:when>
 						</c:choose>
                     </c:forEach>
@@ -63,31 +91,59 @@
                                     <div class="topic-content">
 										<c:choose>
 											<c:when test="${topic.name eq '招聘'}">
-												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0">${topic.name}</a>
+												<c:choose>
+													<c:when test="${cookie.location.value == null || cookie.location.value == ''}">
+														<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0" onclick="locationChange(21)">${topic.name}</a>
+													</c:when>
+													<c:otherwise>
+														<a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=2&subNewsType=0" onclick="locationChange(${cookie.location.value})">${topic.name}</a>
+													</c:otherwise>
+												</c:choose>
 											</c:when>
 											<c:when test="${topic.name eq '鹊桥'}">
-												<a href="listPostByTime.do?curPage=1&location=21&newsType=3&subNewsType=0">${topic.name}</a>
+												<c:choose>
+													<c:when test="${cookie.location.value == null || cookie.location.value == ''}">
+														<a href="listPostByTime.do?curPage=1&location=21&newsType=3&subNewsType=0" onclick="locationChange(21)">${topic.name}</a>
+													</c:when>
+													<c:otherwise>
+														<a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=3&subNewsType=0" onclick="locationChange(${cookie.location.value})">${topic.name}</a>
+													</c:otherwise>
+												</c:choose>
 											</c:when>
 											<c:when test="${topic.name eq '实习/兼职'}">
-												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=2">${topic.name}</a>
+												<c:choose>
+													<c:when test="${cookie.location.value == null || cookie.location.value == ''}">
+														<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=2" onclick="locationChange(21)">${topic.name}</a>
+													</c:when>
+													<c:otherwise>
+														<a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=2&subNewsType=2" onclick="locationChange(${cookie.location.value})">${topic.name}</a>
+													</c:otherwise>
+												</c:choose>
 											</c:when>
 											<c:when test="${topic.name eq '全职'}">
-												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=1">${topic.name}</a>
+												<c:choose>
+													<c:when test="${cookie.location.value == null || cookie.location.value == ''}">
+														<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=1" onclick="locationChange(21)">${topic.name}</a>
+													</c:when>
+													<c:otherwise>
+														<a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=2&subNewsType=1" onclick="locationChange(${cookie.location.value})">${topic.name}</a>
+													</c:otherwise>
+												</c:choose>
 											</c:when>
 											<c:when test="${topic.name eq '上海'}">
-												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0">${topic.name}</a>
+												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0" onclick="locationChange(21)">${topic.name}</a>
 											</c:when>
 											<c:when test="${topic.name eq '北京'}">
-												<a href="listPostByTime.do?curPage=1&location=10&newsType=2&subNewsType=0">${topic.name}</a>
+												<a href="listPostByTime.do?curPage=1&location=10&newsType=2&subNewsType=0" onclick="locationChange(10)">${topic.name}</a>
 											</c:when>
 											<c:when test="${topic.name eq '杭州'}">
-												<a href="listPostByTime.do?curPage=1&location=571&newsType=2&subNewsType=0">${topic.name}</a>
+												<a href="listPostByTime.do?curPage=1&location=571&newsType=2&subNewsType=0" onclick="locationChange(571)">${topic.name}</a>
 											</c:when>
 											<c:when test="${topic.name eq '南京'}">
-												<a href="listPostByTime.do?curPage=1&location=25&newsType=2&subNewsType=0">${topic.name}</a>
+												<a href="listPostByTime.do?curPage=1&location=25&newsType=2&subNewsType=0" onclick="locationChange(25)">${topic.name}</a>
 											</c:when>
 											<c:when test="${topic.name eq '武汉'}">
-												<a href="listPostByTime.do?curPage=1&location=27&newsType=2&subNewsType=0">${topic.name}</a>
+												<a href="listPostByTime.do?curPage=1&location=27&newsType=2&subNewsType=0" onclick="locationChange(27)">${topic.name}</a>
 											</c:when>
 										</c:choose>
 										<a href="#" class="topic-desc">${topic.content}</a>
@@ -100,31 +156,59 @@
                                     <div class="topic-content">
 										<c:choose>
 											<c:when test="${topic.name eq '招聘'}">
-												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0">${topic.name}</a>
+												<c:choose>
+													<c:when test="${cookie.location.value == null || cookie.location.value == ''}">
+														<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0" onclick="locationChange(21)">${topic.name}</a>
+													</c:when>
+													<c:otherwise>
+														<a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=2&subNewsType=0" onclick="locationChange(${cookie.location.value})">${topic.name}</a>
+													</c:otherwise>
+												</c:choose>
 											</c:when>
 											<c:when test="${topic.name eq '鹊桥'}">
-												<a href="listPostByTime.do?curPage=1&location=21&newsType=3&subNewsType=0">${topic.name}</a>
+												<c:choose>
+													<c:when test="${cookie.location.value == null || cookie.location.value == ''}">
+														<a href="listPostByTime.do?curPage=1&location=21&newsType=3&subNewsType=0" onclick="locationChange(21)">${topic.name}</a>
+													</c:when>
+													<c:otherwise>
+														<a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=3&subNewsType=0" onclick="locationChange(${cookie.location.value})">${topic.name}</a>
+													</c:otherwise>
+												</c:choose>
 											</c:when>
 											<c:when test="${topic.name eq '实习/兼职'}">
-												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=2">${topic.name}</a>
+												<c:choose>
+													<c:when test="${cookie.location.value == null || cookie.location.value == ''}">
+														<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=2" onclick="locationChange(21)">${topic.name}</a>
+													</c:when>
+													<c:otherwise>
+														<a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=2&subNewsType=2" onclick="locationChange(${cookie.location.value})">${topic.name}</a>
+													</c:otherwise>
+												</c:choose>
 											</c:when>
 											<c:when test="${topic.name eq '全职'}">
-												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=1">${topic.name}</a>
+												<c:choose>
+													<c:when test="${cookie.location.value == null || cookie.location.value == ''}">
+														<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=1" onclick="locationChange(21)">${topic.name}</a>
+													</c:when>
+													<c:otherwise>
+														<a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=2&subNewsType=1" onclick="locationChange(${cookie.location.value})">${topic.name}</a>
+													</c:otherwise>
+												</c:choose>
 											</c:when>
 											<c:when test="${topic.name eq '上海'}">
-												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0">${topic.name}</a>
+												<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0" onclick="locationChange(21)">${topic.name}</a>
 											</c:when>
 											<c:when test="${topic.name eq '北京'}">
-												<a href="listPostByTime.do?curPage=1&location=10&newsType=2&subNewsType=0">${topic.name}</a>
+												<a href="listPostByTime.do?curPage=1&location=10&newsType=2&subNewsType=0" onclick="locationChange(10)">${topic.name}</a>
 											</c:when>
 											<c:when test="${topic.name eq '杭州'}">
-												<a href="listPostByTime.do?curPage=1&location=571&newsType=2&subNewsType=0">${topic.name}</a>
+												<a href="listPostByTime.do?curPage=1&location=571&newsType=2&subNewsType=0" onclick="locationChange(571)">${topic.name}</a>
 											</c:when>
 											<c:when test="${topic.name eq '南京'}">
-												<a href="listPostByTime.do?curPage=1&location=25&newsType=2&subNewsType=0">${topic.name}</a>
+												<a href="listPostByTime.do?curPage=1&location=25&newsType=2&subNewsType=0" onclick="locationChange(25)">${topic.name}</a>
 											</c:when>
 											<c:when test="${topic.name eq '武汉'}">
-												<a href="listPostByTime.do?curPage=1&location=27&newsType=2&subNewsType=0">${topic.name}</a>
+												<a href="listPostByTime.do?curPage=1&location=27&newsType=2&subNewsType=0" onclick="locationChange(27)">${topic.name}</a>
 											</c:when>
 										</c:choose>
 										<a href="#" class="topic-desc">${topic.content}</a>
@@ -215,7 +299,17 @@
 			uponMask.hide();
 		});
     });
+	
+	function locationChange(location) {
+	    setCookie("location", location);
+	}
 
+    function setCookie(name,value){
+        var Days = 30;//此 cookie 将被保存 30 天
+        var exp = new Date();//new Date("December 31, 9998");
+        exp.setTime(exp.getTime() + Days*24*60*60*1000);
+        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+    }
 </script>
 </body>
 </html>

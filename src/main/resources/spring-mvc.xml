@@ -51,6 +51,7 @@
                         <value>/reply.do</value>
                         <value>/comment.do</value>
                         <value>/toMyProfile.do</value>
+                        <value>/MyFavourite.do</value>
                         <value>/toEditProfile.do</value>
                         <value>/editProfile.do</value>
                         <value>/updateHeadUrl.do</value>

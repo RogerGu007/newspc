@@ -9,7 +9,7 @@ public enum TopicEnum {
     BEIJING("北京", "北京热点消息", "https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=3802768454,1679233125&fm=202&src=2000&mola=new&crop=v1"),
     NANJING("南京", "南京热点消息", "https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=1516287591,3644593756&fm=85&s=18364795444C7D4F4802CDC1030060AB"),
     WUHAN("武汉", "武汉热点消息", "https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3369017060,2602190605&fm=58&bpow=500&bpoh=389"),
-    HANGZHOU("全职", "杭州热点消息", "https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2117706685,1286189115&fm=58&bpow=1250&bpoh=800");
+    HANGZHOU("杭州", "杭州热点消息", "https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2117706685,1286189115&fm=58&bpow=1250&bpoh=800");
 
     private String name;
     private String content;
