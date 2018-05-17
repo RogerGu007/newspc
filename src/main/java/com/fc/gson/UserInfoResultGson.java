@@ -1,6 +1,8 @@
 package com.fc.gson;
 
 
+import static com.fc.entity.Constant.DOMAIN_HOST;
+
 public class UserInfoResultGson extends RetResultGson{
     private String phoneNumber;
     private String nickName;
@@ -42,6 +44,9 @@ public class UserInfoResultGson extends RetResultGson{
     }
 
     public String getAvatarUrl() {
+        if (!avatarUrl.contains("http")) {
+            avatarUrl = String.format("http://%s/asset/%s", DOMAIN_HOST, avatarUrl);
+        }
         return avatarUrl;
     }
 

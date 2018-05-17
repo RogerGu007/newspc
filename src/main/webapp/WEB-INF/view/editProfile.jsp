@@ -58,20 +58,20 @@
 			<%--</div>--%>
 		<%--</form>--%>
 
-        <div style="margin-top: 60px;"></div>
-        <div class="edit-header"><span></span>&nbsp;更换头像</div>
-        <%--<form action="updateHeadUrl.do" method="post" enctype="multipart/form-data">--%>
-		<form action="updateHeadUrl.do" method="post">
-            <div class="edit-title">
-				<span class="text-danger">${error3}</span>
-				<input type="hidden" name="userid" value="${cookie.userId.value}">
-				链&nbsp;&nbsp;&nbsp;接：<input name="avatarurl" value="${user.avatarUrl}">
-                <%--<input type="file" name="myFileName">--%>
-            </div>
-            <div class="relative">
-                <button class="edit-submit">确认更新</button>
-            </div>
-        </form>
+        <%--<div style="margin-top: 60px;"></div>--%>
+        <%--<div class="edit-header"><span></span>&nbsp;更换头像</div>--%>
+        <%--&lt;%&ndash;<form action="updateHeadUrl.do" method="post" enctype="multipart/form-data">&ndash;%&gt;--%>
+		<%--<form action="updateHeadUrl.do" method="post">--%>
+            <%--<div class="edit-title">--%>
+				<%--<span class="text-danger">${error3}</span>--%>
+				<%--<input type="hidden" name="userid" value="${cookie.userId.value}">--%>
+				<%--链&nbsp;&nbsp;&nbsp;接：<input name="avatarurl" value="${user.avatarUrl}">--%>
+                <%--&lt;%&ndash;<input type="file" name="myFileName">&ndash;%&gt;--%>
+            <%--</div>--%>
+            <%--<div class="relative">--%>
+                <%--<button class="edit-submit">确认更新</button>--%>
+            <%--</div>--%>
+        <%--</form>--%>
 
 	</div><!-- 主体结束 -->
 

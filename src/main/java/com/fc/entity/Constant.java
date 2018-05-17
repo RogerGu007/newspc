@@ -1,7 +1,7 @@
 package com.fc.entity;
 
 public class Constant {
-    
+    public static String DOMAIN_HOST = "47.100.197.44"; //后面改成域名方式
     public static String GET_NEWS_LIST_SUBJECTS_BY_PAGE = "/news/getnewslistsubjectsbypage";
     public static String GET_NEWS_DETAIL = "/news/getnewsdetail";
     public static String GET_NEWS_COUNT = "/news/getnewscount";
