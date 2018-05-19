@@ -1,5 +1,6 @@
 package com.fc.controller;
 
+import com.fc.gson.MsgGson;
 import com.fc.gson.RetResultGson;
 import com.fc.gson.UserInfoGson;
 import com.fc.model.NewsDTO;
@@ -36,7 +37,7 @@ public class UserController {
         UserInfoGson user = userService.getProfile(userid);
         //查询发帖、收藏纪录
 //        List<Post> postList =  postService.getPostList(userid);
-        List<NewsDTO> favourList = postService.getFavourNewsList(userid);
+        List<MsgGson> favourList = postService.getFavourNewsList(userid);
         model.addAttribute("user", user);
         model.addAttribute("favourList",favourList);
         return "myProfile";
@@ -52,7 +53,7 @@ public class UserController {
     public String MyFavourite(String userid, HttpSession session, Model model) {
         UserInfoGson user = userService.getProfile(userid);
         //查询收藏纪录
-        List<NewsDTO> favourList = postService.getFavourNewsList(userid);
+        List<MsgGson> favourList = postService.getFavourNewsList(userid);
         model.addAttribute("user", user);
         model.addAttribute("favourList",favourList);
         return "myFavourite";

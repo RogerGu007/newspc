@@ -61,7 +61,7 @@
 					<c:forEach items="${favourList}" var="favour">
 						<li>
 							<span class="glyphicon glyphicon-file"></span>&nbsp;
-							<a href="toPost.do?newsid=${favour.id}&userid=${favour.publisherId}">${favour.subject}</a>
+							<a href="toPost.do?newsid=${favour.ID}&userid=${favour.publisherId}">${favour.content}</a>
 							<span class="user-post-time">收藏于：${fn:substring(favour.createAt, 0, 19)}</span>
 						</li>
 					</c:forEach>

@@ -1,5 +1,6 @@
 package com.fc.controller;
 
+import com.fc.gson.MsgGson;
 import com.fc.model.*;
 import com.fc.service.PostService;
 import com.fc.service.ReplyService;
@@ -58,12 +59,12 @@ public class PostController {
         if (StringUtils.isEmpty(String.valueOf(subNewsType)))
             subNewsType = 0;
 //        PageBean<Post> pageBean = postService.listPostByTime(curPage);
-        PageBean<NewsDTO> pageBean = postService.listPostByTime(location, newsType, subNewsType, curPage);
+        PageBean<MsgGson> pageBean = postService.listPostByTime(location, newsType, subNewsType, curPage);
         List<UserDTO> userList = userService.listUserByTime();
         List<UserDTO> hotUserList = userService.listUserByHot();
-        model.addAttribute("pageBean",pageBean);
-        model.addAttribute("userList",userList);
-        model.addAttribute("hotUserList",hotUserList);
+        model.addAttribute("pageBean", pageBean);
+        model.addAttribute("userList", userList);
+        model.addAttribute("hotUserList", hotUserList);
         return "index";
     }
 

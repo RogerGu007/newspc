@@ -1,6 +1,7 @@
 package com.fc.service;
 
 import com.fc.entity.BBSEnum;
+import com.fc.gson.MsgGson;
 import com.fc.gson.NewsCountResultGson;
 import com.fc.gson.NewsDetailResultGson;
 import com.fc.gson.NewsSubjectResultGson;
@@ -41,7 +42,7 @@ public class PostService {
 //    }
 
     //按时间列出帖子
-    public PageBean<NewsDTO> listPostByTime(int location, int newsType, int subNewsType, int curPage) {
+    public PageBean<MsgGson> listPostByTime(int location, int newsType, int subNewsType, int curPage) {
         //每页记录数，从哪开始
         int limit = 20;
         int offset = (curPage-1) * limit;
@@ -68,19 +69,19 @@ public class PostService {
         } else {
             allPage = allCount / limit + 1;
         }
-        PageBean<NewsDTO> pageBean = new PageBean<>(allPage, curPage);
+        PageBean<MsgGson> pageBean = new PageBean<>(allPage, curPage);
 
         if (subNewsType != 0)
             newsMap.put("subnewstype", String.valueOf(subNewsType));
         try {
             String response = jerseyClient.getHttp(GET_NEWS_LIST_SUBJECTS_BY_PAGE, newsMap);
             NewsSubjectResultGson resultGson = GsonUtils.fromJson(response, NewsSubjectResultGson.class);
-            List<NewsDTO> newsDTOList = resultGson.getNewsList();
-            for (NewsDTO newsDTO : newsDTOList) {
-                newsDTO.setPublishSourceAvatarUrl(BBSEnum.userIdToBBS(newsDTO.getPublisherId()).getAvatarUrl());
-                newsDTO.setPublishSourceLinkUrl(BBSEnum.userIdToBBS(newsDTO.getPublisherId()).getLinkUrl());
+            List<MsgGson> msgGsonList = resultGson.getMsgGsonList();
+            for (MsgGson msg : msgGsonList) {
+                msg.setPublishSourceAvatarUrl(BBSEnum.userIdToBBS(msg.getPublisherId()).getAvatarUrl());
+                msg.setPublishSourceLinkUrl(BBSEnum.userIdToBBS(msg.getPublisherId()).getLinkUrl());
             }
-            pageBean.setList(newsDTOList);
+            pageBean.setList(msgGsonList);
         } catch (Exception e) {
             logger.error(GET_NEWS_LIST_SUBJECTS_BY_PAGE + " failed! " + e.getMessage());
         }
@@ -121,23 +122,23 @@ public class PostService {
     }
 
     //根据uid，获得帖子列表
-    public List<NewsDTO> getFavourNewsList(String userId) {
+    public List<MsgGson> getFavourNewsList(String userId) {
         try {
             String resp = jerseyClient.getHttp(GET_FAVOURITE_NEWS, new HashMap<String, String>() {{
                 put("userid", userId);
             }});
             NewsSubjectResultGson resultGson = GsonUtils.fromJson(resp, NewsSubjectResultGson.class);
             if (resultGson.getRetCode() == RET_CODE_OK) {
-                List<NewsDTO> newsDTOList = resultGson.getNewsList();
-                for (NewsDTO newsDTO : newsDTOList) {
+                List<MsgGson> msgGsonList = resultGson.getMsgGsonList();
+                for (MsgGson msg : msgGsonList) {
                     String detail = jerseyClient.getHttp(GET_NEWS_DETAIL, new HashMap<String, String>() {{
-                        put("newsid", newsDTO.getId());
+                        put("newsid", msg.getID());
                     }});
                     NewsDetailResultGson detailGson = GsonUtils.fromJson(detail, NewsDetailResultGson.class);
                     if (detailGson.getRetCode() == RET_CODE_OK)
-                        newsDTO.setPublisherId(detailGson.getNewsDetailDTO().getPublisher_id());
+                        msg.setPublisherId(detailGson.getNewsDetailDTO().getPublisher_id());
                 }
-                return newsDTOList;
+                return msgGsonList;
             }
         } catch (Exception e) {
             logger.info("收藏列表获取失败 userId=" + userId);

@@ -71,7 +71,7 @@
                                     <a href="${post.publishSourceLinkUrl}"><img src="${post.publishSourceAvatarUrl}"></a>
                                 </div>
                                 <div class="post-content">
-                                    <div class="post-title"><a href="toPost.do?newsid=${post.id}&userid=${post.publisherId}">${post.subject}</a></div>
+                                    <div class="post-title"><a href="toPost.do?newsid=${post.ID}&userid=${post.publisherId}">${post.content}</a></div>
                                     <div class="post-other">
                                         <div class="post-other-left">
                                             <span class="post-username"><a href="${post.publishSourceLinkUrl}">${post.publishSource}</a></span>
