@@ -55,6 +55,12 @@
                         <value>/toEditProfile.do</value>
                         <value>/editProfile.do</value>
                         <value>/updateHeadUrl.do</value>
+                        <value>/beAdminLogin.do</value>
+                        <value>/adminLogin.do</value>
+                        <value>/editPost.do</value>
+                        <value>/editNews.do</value>
+                        <value>/getIsFavorite.do</value>
+                        <value>/addorremovefavoritenews.do</value>
                     </list>
                 </property>
             </bean>

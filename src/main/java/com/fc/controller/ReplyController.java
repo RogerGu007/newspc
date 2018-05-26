@@ -51,7 +51,7 @@ public class ReplyController {
 
         replyService.secondReply(rid, fromuserid, touserid, content);
 
-        return "redirect:toPost.do?newsid=" + newsid + "&userid=" + touserid;
+        return "redirect:toPost.do?newsid=" + newsid;
     }
 }
 

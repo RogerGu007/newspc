@@ -70,10 +70,10 @@ public class PostController {
 
     //去帖子详情页面
     @RequestMapping(value = "/toPost.do", produces = "application/json;charset=utf-8")
-    public String toPost(int newsid, Long userid, Model model, HttpSession session){
+    public String toPost(Long newsid, Model model, HttpSession session){
         Integer sessionUid = (Integer) session.getAttribute("uid");
         //获取帖子信息
-        NewsDetailDTO newsDetailDTO = postService.getPostDetail(newsid, userid);
+        NewsDetailDTO newsDetailDTO = postService.getPostDetail(newsid);
         //获取评论信息
 //        List<Reply> replyList = replyService.listReply(newsid);
         List<FirstLevelCommentDTO> replyList = replyService.listReply(newsid, 0);

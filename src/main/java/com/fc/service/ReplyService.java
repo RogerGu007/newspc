@@ -37,7 +37,7 @@ public class ReplyService {
     private Logger logger = Logger.getLogger(ReplyService.class.getName());
 
     //根据pid列出回复
-    public List<FirstLevelCommentDTO> listReply(int newsId, int page) {
+    public List<FirstLevelCommentDTO> listReply(Long newsId, int page) {
         List<FirstLevelCommentDTO> replyList = new ArrayList<>();
         //列出回复
         Map<String, String> params = new HashMap<>();

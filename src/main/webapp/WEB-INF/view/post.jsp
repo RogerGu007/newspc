@@ -28,7 +28,11 @@
 					<div class="user-image"><a href="toProfile.do?uid=${newsdetail.publisher_id}"><img src="${newsdetail.publisher_avatar_url}"></a></div>
 					<div class="user-info">
 						<div class="user-name">${newsdetail.publisher_name}</div>
-						<div class="post-time">编辑于 ${fn:substring(newsdetail.postDate, 0, 19)}</div>
+						<div class="post-time">
+                            编辑于 ${fn:substring(newsdetail.postDate, 0, 19)}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="like" id="like${newsdetail.newsID}">&#10084;</span>
+                        </div>
 					</div>
 					<div class="other-count">
 						<%--<span class="reply-count"><a href="#">回复 ${newsdetail.}</a></span>&nbsp;--%>
@@ -199,6 +203,63 @@
 <script type="text/javascript" src="js/wangEditor.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript">
+    var newsId = "${newsdetail.newsID}";
+    $(function(){
+        var userId = getCookie("userId");
+        if (userId != null && userId != "")
+            $.ajax({
+                type:"POST",
+                url:"getIsFavorite.do",
+                data:{newsId:newsId, userId:userId},
+                success:function(response){
+                    if (response.errcode == "0" ) {
+                        if (response.isFavorite)
+                            $(".like").toggleClass('cs');
+                    }
+                }
+            });
+
+        $(".like").click(function () {
+            var newsId = $(this).attr("id").substr(4);
+            var userId = getCookie("userId");
+            if (userId == null || userId == "")
+                alert("请先登录!");
+
+            var badd = false;
+            var obj = $(this);
+            $.ajax({
+                type:"POST",
+                url:"getIsFavorite.do",
+                data:{newsId:newsId, userId:userId},
+                success:function(response){
+                    if (response.errcode == "0" ) {
+                        //已收藏，完成取消收藏的动作;未收藏，完成收藏的动作
+                        badd = !(response.isFavorite);
+                        $.ajax({
+                            type:"POST",
+                            url:"addorremovefavoritenews.do",
+                            data:{bAdd:badd, newsId:newsId, userId:userId},
+                            success:function (response2) {
+                                if (response2.errcode == "0" ) {
+                                    obj.toggleClass('cs');
+                                    if (response.isFavorite) {
+                                        alert("取消收藏");
+                                    } else {
+                                        alert("收藏成功");
+                                    }
+                                } else {
+                                    alert(response2.errmsg);
+                                }
+                            }
+                        });
+                    } else {
+                        alert("操作失败！");
+                    }
+                }
+            });
+        })
+    });
+
     var editor = new wangEditor('textarea');
 
     editor.config.menus = [

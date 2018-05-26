@@ -5,12 +5,10 @@ import com.fc.gson.MsgGson;
 import com.fc.gson.NewsCountResultGson;
 import com.fc.gson.NewsDetailResultGson;
 import com.fc.gson.NewsSubjectResultGson;
-import com.fc.model.NewsDTO;
 import com.fc.model.NewsDetailDTO;
 import com.fc.model.PageBean;
 import com.fc.util.GsonUtils;
 import com.fc.util.JerseyClient;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,9 +75,14 @@ public class PostService {
             String response = jerseyClient.getHttp(GET_NEWS_LIST_SUBJECTS_BY_PAGE, newsMap);
             NewsSubjectResultGson resultGson = GsonUtils.fromJson(response, NewsSubjectResultGson.class);
             List<MsgGson> msgGsonList = resultGson.getMsgGsonList();
+
             for (MsgGson msg : msgGsonList) {
-                msg.setPublishSourceAvatarUrl(BBSEnum.userIdToBBS(msg.getPublisherId()).getAvatarUrl());
-                msg.setPublishSourceLinkUrl(BBSEnum.userIdToBBS(msg.getPublisherId()).getLinkUrl());
+//                msg.setPublishSourceAvatarUrl(BBSEnum.userIdToBBS(msg.getPublisherId()).getAvatarUrl());
+                //todo 由userId获取linkUrl
+                if (BBSEnum.userIdToBBS(msg.getPublisherId()) != null)
+                    msg.setPublishSourceLinkUrl(BBSEnum.userIdToBBS(msg.getPublisherId()).getLinkUrl());
+                else
+                    msg.setPublishSourceLinkUrl("/df/toMyProfile.do?userid=" + msg.getPublisherId());
             }
             pageBean.setList(msgGsonList);
         } catch (Exception e) {
@@ -89,7 +92,7 @@ public class PostService {
         return pageBean;
     }
 
-    public NewsDetailDTO getPostDetail(int newsId, Long userId) {
+    public NewsDetailDTO getPostDetail(Long newsId) {
         //更新浏览数
 //        postMapper.updateScanCount(newsId);
         Map<String, String> newsMap = new HashMap<>();

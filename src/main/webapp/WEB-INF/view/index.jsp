@@ -67,21 +67,24 @@
 					<ul class="post-list">
 						<c:forEach items="${pageBean.list}" var="post">
                             <li class="clearfix">
-                                <div class="post-image">
-                                    <a href="${post.publishSourceLinkUrl}"><img src="${post.publishSourceAvatarUrl}"></a>
-                                </div>
+                                <%--<div class="post-image">--%>
+                                    <%--<a href="${post.publishSourceLinkUrl}"><img src="${post.publishSourceAvatarUrl}"></a>--%>
+                                <%--</div>--%>
                                 <div class="post-content">
-                                    <div class="post-title"><a href="toPost.do?newsid=${post.ID}&userid=${post.publisherId}">${post.content}</a></div>
+                                    <div class="post-title">
+                                        <a href="toPost.do?newsid=${post.ID}">${post.content}</a>
+                                    </div>
                                     <div class="post-other">
                                         <div class="post-other-left">
                                             <span class="post-username"><a href="${post.publishSourceLinkUrl}">${post.publishSource}</a></span>
                                             <%--<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>--%>
                                             <%--<span>&nbsp;评论数</span>--%>
                                             <%--<span class="post-time">&nbsp;${post.}</span>--%>
-                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                             <span>&nbsp;发表于</span>
                                             <span class="post-time">&nbsp;${fn:substring(post.postDate, 0, 19)}</span>
-                                            <%--<span>&nbsp;最后回复&nbsp;</span>--%>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <%--<span class="like" id="like${post.ID}">&#10084;</span>&lt;%&ndash;<span>&nbsp;最后回复&nbsp;</span>&ndash;%&gt;--%>
                                             <%--<span class="post-reply-time">${post.postDate}</span>--%>
                                         </div>
                                         <%--<div class="post-other-right">--%>
@@ -220,6 +223,15 @@
         exp.setTime(exp.getTime() + Days*24*60*60*1000);
         document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
     }
+
+    function getCookie(name){
+        var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+        if (arr != null) {
+            return unescape(arr[2]);
+        }
+        return null;
+    }
+
 
 </script>
 </body>

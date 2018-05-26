@@ -2,6 +2,7 @@ package com.fc.controller;
 
 
 import com.fc.gson.LoginRegisterGson;
+import com.fc.gson.RetBeAdminLoginGson;
 import com.fc.gson.RetResultGson;
 import com.fc.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,26 @@ public class LoginController {
     RetResultGson getSmsCode(String phoneno) {
         RetResultGson msg = loginService.getSmsCode(phoneno);
         return msg;
+    }
+
+    /**
+     * be登录的页面
+     * @return
+     */
+    @RequestMapping(value = "/beAdminLogin.do")
+    public String beAdminLogin(){
+        return "beAdminLogin";
+    }
+
+    /**
+     * be登录
+     * @return
+     */
+    @RequestMapping(value = "/adminLogin.do", method = RequestMethod.POST)
+    public @ResponseBody
+    RetBeAdminLoginGson adminLogin(String username, String password){
+        RetBeAdminLoginGson retGson = loginService.adminLogin(username, password);
+        return retGson;
     }
 }
 

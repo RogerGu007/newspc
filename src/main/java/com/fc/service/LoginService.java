@@ -1,6 +1,7 @@
 package com.fc.service;
 
 import com.fc.gson.LoginRegisterGson;
+import com.fc.gson.RetBeAdminLoginGson;
 import com.fc.gson.RetResultGson;
 import com.fc.gson.UserInfoResultGson;
 import com.fc.util.GsonUtils;
@@ -12,9 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.fc.entity.Constant.GET_USERINFO;
-import static com.fc.entity.Constant.LOGIN_REGISTER;
-import static com.fc.entity.Constant.SEND_SMS;
+import static com.fc.entity.Constant.*;
 import static com.fc.entity.RetCode.RET_CODE_FAILURE;
 import static com.fc.entity.RetCode.RET_CODE_OK;
 
@@ -60,5 +59,20 @@ public class LoginService {
             loginRegisterGson.setMessage("LOGIN FAILURE");
         }
         return loginRegisterGson;
+    }
+
+    public RetBeAdminLoginGson adminLogin(String username, String password) {
+        Map<String, String> params = new HashMap<>();
+        params.put("username", username);
+        params.put("password", password);
+        RetBeAdminLoginGson retBeAdminLoginGson = new RetBeAdminLoginGson(RET_CODE_OK, "SUCCESS");
+        try {
+            String resp = jerseyClient.postHttp(BE_ADMIN_LOGIN, params);
+            retBeAdminLoginGson = GsonUtils.fromJson(resp, RetBeAdminLoginGson.class);
+        } catch (Exception e) {
+            retBeAdminLoginGson.setRetCode(RET_CODE_FAILURE);
+            retBeAdminLoginGson.setMessage("beadmin login failure");
+        }
+        return retBeAdminLoginGson;
     }
 }

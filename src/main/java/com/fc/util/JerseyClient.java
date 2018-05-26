@@ -22,16 +22,32 @@ public class JerseyClient {
 
     private static String NEWS_REMOTE_ADDRESS = "http://47.100.197.44/news/rest";
 
+    private static Client client;
+
+    private static Object lock = new Object();
+
+    private static Client getClient() {
+        if (client == null)
+        {
+            synchronized (lock)
+            {
+                if (client == null)
+                    client = ClientBuilder.newClient();
+            }
+        }
+        return client;
+    }
+
     public String getHttp(String url){
         checkinitSuccessGet();
-        WebTarget target = ClientBuilder.newClient().target(NEWS_REMOTE_ADDRESS + url);
-        Response rawResponse = target.request(acceptedResponseMediaTypes).get();
+        WebTarget target = getClient().target(NEWS_REMOTE_ADDRESS + url);
+        Response rawResponse = target.request(entityConverteMediaType).get();
         return rawResponse.readEntity(String.class);
     }
 
     public String getHttp(String url, Map<String, String> paramMap){
         checkinitSuccessGet();
-        WebTarget target = ClientBuilder.newClient().target(NEWS_REMOTE_ADDRESS + url);
+        WebTarget target = getClient().target(NEWS_REMOTE_ADDRESS + url);
         for (Map.Entry<String, String> kv : paramMap.entrySet()) {
             target = target.queryParam(kv.getKey(), kv.getValue());
         }
@@ -41,7 +57,7 @@ public class JerseyClient {
 
     public String getHttp(String url, Object obj){
         checkinitSuccessGet();
-        WebTarget target = ClientBuilder.newClient().target(NEWS_REMOTE_ADDRESS + url);
+        WebTarget target = getClient().target(NEWS_REMOTE_ADDRESS + url);
         Map<String, Object> paramMap = getKeyAndValue(obj);
         for (Map.Entry<String, Object> kv : paramMap.entrySet()) {
             target = target.queryParam(kv.getKey(), kv.getValue().toString());
@@ -56,7 +72,7 @@ public class JerseyClient {
         for (Map.Entry<String, String> kv : paramMap.entrySet()) {
             contentMap.add(kv.getKey(), kv.getValue().toString());
         }
-        Response rawResponse = ClientBuilder.newClient().target(NEWS_REMOTE_ADDRESS + url).request(entityConverteMediaType)
+        Response rawResponse = getClient().target(NEWS_REMOTE_ADDRESS + url).request(entityConverteMediaType)
                 .post(Entity.form(contentMap));
         return rawResponse.readEntity(String.class);
     }
@@ -68,7 +84,7 @@ public class JerseyClient {
         for (Map.Entry<String, Object> kv : paramMap.entrySet()) {
             contentMap.add(kv.getKey(), kv.getValue().toString());
         }
-        Response rawResponse = ClientBuilder.newClient().target(NEWS_REMOTE_ADDRESS + url).request(entityConverteMediaType)
+        Response rawResponse = getClient().target(NEWS_REMOTE_ADDRESS + url).request(entityConverteMediaType)
                 .post(Entity.form(contentMap));
         return rawResponse.readEntity(String.class);
     }
