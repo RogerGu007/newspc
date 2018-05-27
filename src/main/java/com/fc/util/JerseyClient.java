@@ -77,6 +77,23 @@ public class JerseyClient {
         return rawResponse.readEntity(String.class);
     }
 
+    public String postHttp(String url, Map<String, String> param, Map<String, String> header){
+        checkinitSuccessPost();
+        MultivaluedMap<String, String> contentMap = new MultivaluedHashMap<>();
+        for (Map.Entry<String, String> kv : param.entrySet()) {
+            contentMap.add(kv.getKey(), kv.getValue().toString());
+        }
+        MultivaluedMap<String, Object> headerMap = new MultivaluedHashMap<>();
+        for (Map.Entry<String, String> kv : header.entrySet()) {
+            headerMap.add(kv.getKey(), kv.getValue().toString());
+        }
+        Response rawResponse = getClient().target(NEWS_REMOTE_ADDRESS + url)
+                .request(entityConverteMediaType)
+                .headers(headerMap)
+                .post(Entity.form(contentMap));
+        return rawResponse.readEntity(String.class);
+    }
+
     public String postHttp(String url, Object obj){
         checkinitSuccessPost();
         Map<String, Object> paramMap = getKeyAndValue(obj);

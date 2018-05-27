@@ -29,21 +29,24 @@ public class BeAdminController {
 
     @RequestMapping(value = "/editNews.do", produces = "application/json;charset=utf-8")
     public @ResponseBody
-    RetResultGson editNews(String sessionId, String newsid, String linkUrl, String subject, String content,
-                           String newsType, String subNewsType, String locationCode) {
-        if (StringUtils.isEmpty(sessionId) || (StringUtils.isEmpty(newsid) && StringUtils.isEmpty(linkUrl))) {
-            return new RetResultGson(RET_CODE_FAILURE, "未登录或newsId/linkUrl为空!");
+    RetResultGson editNews(String sessionId, String adminID, String newsid, String linkUrl,
+                           String subject, String content, String newsType, String subNewsType,
+                           String locationCode) {
+        if (StringUtils.isEmpty(sessionId)
+                || StringUtils.isEmpty(adminID)
+                || StringUtils.isEmpty(newsid)) {
+            return new RetResultGson(RET_CODE_FAILURE, "未登录或newsId为空!");
         }
 
         //更新news
         NewsGson newsGson = NewsGson.buildNewsGson(newsid, subject, newsType, subNewsType, locationCode);
-        RetResultGson resultGson = beService.updateNewsSubejct(sessionId, newsGson);
+        RetResultGson resultGson = beService.updateNewsSubejct(sessionId, adminID, newsGson);
         if (resultGson.getRetCode() != RET_CODE_OK)
             return resultGson;
         if (!StringUtils.isEmpty(content)) {
             //更新详情
             NewsDetailGson detailGson = NewsDetailGson.buildNewsDetailGson(newsid, content);
-            resultGson = beService.updateNewsDetail(sessionId, detailGson);
+            resultGson = beService.updateNewsDetail(sessionId, adminID, detailGson);
             if (resultGson.getRetCode() != RET_CODE_OK)
                 return resultGson;
         }

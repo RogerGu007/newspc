@@ -1,7 +1,11 @@
 package com.fc.gson;
 
+import org.springframework.util.StringUtils;
+
 import java.sql.Timestamp;
 import java.util.List;
+
+import static com.fc.entity.Constant.DOMAIN_HOST;
 
 public class MsgGson {
     private String		ID;
@@ -164,6 +168,9 @@ public class MsgGson {
     }
 
     public String getPublishSourceAvatarUrl() {
+        if (!StringUtils.isEmpty(publishSourceAvatarUrl) && !publishSourceAvatarUrl.contains("http")) {
+            publishSourceAvatarUrl = String.format("http://%s/asset/%s", DOMAIN_HOST, publishSourceAvatarUrl);
+        }
         return publishSourceAvatarUrl;
     }
 

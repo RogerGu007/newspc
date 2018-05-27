@@ -73,6 +73,12 @@
                                 <div class="post-content">
                                     <div class="post-title">
                                         <a href="toPost.do?newsid=${post.ID}">${post.content}</a>
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <c:choose>
+                                            <c:when test="${cookie.sessionID != null && cookie.sessionID != ''}">
+                                                <button class="admin-edit-button" id="edit${post.ID}">编辑</button>
+                                            </c:when>
+                                        </c:choose>
                                     </div>
                                     <div class="post-other">
                                         <div class="post-other-left">
@@ -216,6 +222,12 @@
 
         setCookie("location", location);
     }
+
+    $(".admin-edit-button").click(function () {
+        var newsId = $(this).attr('id');
+        //todo  需要把参数带到编辑页面
+        alert(newsId);
+    });
 
     function setCookie(name,value){
         var Days = 30;//此 cookie 将被保存 30 天

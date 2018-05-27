@@ -19,13 +19,13 @@
 			<div>
 				<form>
 					<div>
-						ID：&nbsp;&nbsp;&nbsp;<textarea name="newsid" id="newsid" style="height: 23px;max-height: 200px; width: 500px; max-width: 800px"></textarea>
+						ID：&nbsp;&nbsp;&nbsp;<textarea name="newsid" id="newsid" style="height: 25px;max-height: 200px; width: 500px; max-width: 800px"></textarea>
 					</div>
 					<div>
-						链接：<textarea name="linkUrl" id="linkUrl" style="height: 23px;max-height: 200px; width: 500px; max-width: 800px"></textarea>
+						链接：<textarea name="linkUrl" id="linkUrl" style="height: 25px;max-height: 200px; width: 500px; max-width: 800px"></textarea>
 					</div>
 					<div>
-						主题：<textarea name="subject" id="subject" style="height: 23px;max-height: 25px; width: 500px; max-width: 800px"></textarea>
+						主题：<textarea name="subject" id="subject" style="height: 25px;max-height: 25px; width: 500px; max-width: 800px"></textarea>
 					</div>
 					<div>
 						类型：<select id="newsTypeSelect">
@@ -44,25 +44,18 @@
 					<div>
 						发帖内容：
 					</div>
-					<textarea name="content" id="content" style="height: 100px;max-height: 1000px; width: 540px; max-width: 800px"></textarea>
+					<textarea name="content" id="content" style="height: 200px;max-height: 1000px; width: 540px; max-width: 800px"></textarea>
 				</form>
 			</div>
 
 			<div class="user-button">
-				<a class="button-follow" id="submit-edit">编辑信息</a>
+				<a class="button-follow" id="submit-edit">提交编辑</a>
 			</div>
 
 			<div class="user-post">
-				<div class="user-post-title"><span></span>&nbsp;预览</div>
-				<ul class="user-post-list">
-					<c:forEach items="${favourList}" var="favour">
-						<li>
-							<span class="glyphicon glyphicon-file"></span>&nbsp;
-							<a href="toPost.do?newsid=${favour.ID}">${favour.content}</a>
-							<span class="user-post-time">收藏于：${fn:substring(favour.createAt, 0, 19)}</span>
-						</li>
-					</c:forEach>
-				</ul>
+				<div class="user-post-title"></div>
+				<%--<div class="user-post-title"><span></span>&nbsp;预览</div>--%>
+			<%--<ul class="user-post-list" id="previewContent"></ul>--%>
 			</div>
 		</div>
 	</div>
@@ -72,23 +65,45 @@
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript">
 
+    $(function(){
+        if (getCookie("sessionID") == null || getCookie("sessionID") == null) {
+            alert("请登录管理员账户！")
+            window.location.href = "beAdminLogin.do";
+		}
+	});
+
 	$("#submit-edit").click(function () {
-        $.ajax({
+		$.ajax({
             type:"POST",
             url:"editNews.do",
-            data:{sessionId:getCookie("sessionID"),newsid:$("#newsid").val(), linkUrl:$("#linkUrl").val(),
-                subject:$("#subject").val(), content:$("#content").val(), newsType:$("#newsTypeSelect").val(),
-                subNewsType:$("#subNewsTypeSelect").val()
+            data:{sessionId:getCookie("sessionID"),adminID:getCookie("adminID"),
+				newsid:$("#newsid").val(), linkUrl:$("#linkUrl").val(),
+                subject:$("#subject").val(), content:$("#content").val(),
+				newsType:$("#newsTypeSelect").val(), subNewsType:$("#subNewsTypeSelect").val()
 			},
             success:function(response){
                 if (response.errcode == "0") {
                     alert("帖子修改成功！");
-                    //todo 刷新预览功能
                 } else {
                     alert(response.errmsg);
+                    window.location.href = "beAdminLogin.do";
                 }
             }
         });
+
+		//更新的数据不能实时拿到
+//        $.ajax({
+//            type:"GET",
+//            url:"getNewsDetail.do",
+//            data:{newsid:$("#newsid").val()},
+//            success:function(response){
+//                var subject = response.Subject.toString();
+//                var detailContent = response.detailContent.toString();
+//                var preview = "<div>"+subject+"</div><br></br><div>" + detailContent + "</div>";
+//                $("#previewContent").children().remove();
+//                $("#previewContent").append(preview);
+//            }
+//        });
     });
 
     //取cookies函数

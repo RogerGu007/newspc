@@ -1,12 +1,10 @@
 package com.fc.service;
 
 import com.fc.entity.BBSEnum;
-import com.fc.gson.MsgGson;
-import com.fc.gson.NewsCountResultGson;
-import com.fc.gson.NewsDetailResultGson;
-import com.fc.gson.NewsSubjectResultGson;
+import com.fc.gson.*;
 import com.fc.model.NewsDetailDTO;
 import com.fc.model.PageBean;
+import com.fc.model.UserDTO;
 import com.fc.util.GsonUtils;
 import com.fc.util.JerseyClient;
 import org.apache.log4j.Logger;
@@ -23,6 +21,9 @@ public class PostService {
 
     @Autowired
     private JerseyClient jerseyClient;
+
+    @Autowired
+    private UserService userService;
 
     Logger logger = Logger.getLogger(PostService.class.getName());
 
@@ -105,6 +106,33 @@ public class PostService {
                     = GsonUtils.fromJson(response, NewsDetailResultGson.class);
             if (newsDetailResultGson.getRetCode() == RET_CODE_OK) {
                 newsDetailDTO = newsDetailResultGson.getNewsDetailDTO();
+                if (newsDetailDTO.getNewsID() == null) { //没有详情，自己发的帖子
+                    String newsSubjectResponse = jerseyClient.getHttp(GET_NEWS_BY_ID, newsMap);
+                    NewsSubjectResultGson newsSubjectResultGson =
+                            GsonUtils.fromJson(newsSubjectResponse, NewsSubjectResultGson.class);
+                    if (newsSubjectResultGson.getRetCode() == RET_CODE_OK
+                            && (newsSubjectResultGson.getMsgGsonList() != null
+                            && newsSubjectResultGson.getMsgGsonList().size() > 0)) {
+                        //重组newsDetailDTO
+                        MsgGson msgGson = newsSubjectResultGson.getMsgGsonList().get(0);
+                        newsDetailDTO.setNewsID(Long.valueOf(msgGson.getID()));
+                        newsDetailDTO.setPostDate(msgGson.getPostDate());
+                        newsDetailDTO.setPublisher_id(msgGson.getPublisherId());
+                        newsDetailDTO.setSubject(msgGson.getContent());
+
+                        List<String> imageList = msgGson.getImagePaths();
+                        String detailContent = "";
+                        for (String image : imageList) {
+                            detailContent += renderImageHtml(image);
+                        }
+                        newsDetailDTO.setDetailContent(detailContent);
+
+                        //获取用户名
+                        UserInfoGson userInfo = userService.getProfile(String.valueOf(msgGson.getPublisherId()));
+                        newsDetailDTO.setPublisher_name(userInfo.getNickName());
+                        newsDetailDTO.setPublisher_avatar_url(userInfo.getAvatarUrl());
+                    }
+                }
             }
         } catch (Exception e) {
             logger.warn(GET_NEWS_DETAIL + " failed! " + e.getMessage());
@@ -147,6 +175,13 @@ public class PostService {
             logger.info("收藏列表获取失败 userId=" + userId);
         }
         return new ArrayList<>();
+    }
+
+    private String renderImageHtml(String oriImagePath) {
+        if (!oriImagePath.contains("http")) {
+            return String.format("<br><img src=\"http://%s/asset/%s\"></br>", DOMAIN_HOST, oriImagePath);
+        }
+        return String.format("<br><img src=\"%s\"></br>", oriImagePath);
     }
 }
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -71,7 +72,6 @@ public class PostController {
     //去帖子详情页面
     @RequestMapping(value = "/toPost.do", produces = "application/json;charset=utf-8")
     public String toPost(Long newsid, Model model, HttpSession session){
-        Integer sessionUid = (Integer) session.getAttribute("uid");
         //获取帖子信息
         NewsDetailDTO newsDetailDTO = postService.getPostDetail(newsid);
         //获取评论信息
@@ -86,4 +86,13 @@ public class PostController {
         return "post";
     }
 
+    //获取帖子详情
+    @RequestMapping(value = "/getNewsDetail.do", produces = "application/json;charset=utf-8")
+    public @ResponseBody
+    NewsDetailDTO getNewsDetail(Long newsid){
+        //获取帖子信息
+        NewsDetailDTO newsDetailDTO = postService.getPostDetail(newsid);
+        //向模型中添加数据
+        return newsDetailDTO;
+    }
 }

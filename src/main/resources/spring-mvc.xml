@@ -41,6 +41,7 @@
                         <!--<value>/activate.do</value>-->
                         <value>/logout.do</value>
                         <value>/toPost.do</value>
+                        <value>/getNewsDetail.do</value>
                         <value>/listTopic.do</value>
                         <value>/listPostByTime.do</value>
                         <value>/forgetPassword.do</value>

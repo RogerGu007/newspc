@@ -16,6 +16,10 @@ public class NewsDetailDTO {
         return newsID;
     }
 
+    public void setNewsID(Long newsID) {
+        this.newsID = newsID;
+    }
+
     public String getDetailContent() {
         return detailContent;
     }
@@ -62,6 +66,10 @@ public class NewsDetailDTO {
 
     public void setPublisher_name(String publisher_name) {
         this.publisher_name = publisher_name;
+    }
+
+    public Boolean getFavorite() {
+        return favorite;
     }
 
     public void setFavorite(Boolean favorite) {

@@ -24,20 +24,24 @@ public class BeService {
 
     private Logger logger = Logger.getLogger(BeService.class.getName());
 
-    public RetResultGson updateNewsSubejct(String sessionId, NewsGson newsGson) {
+    public RetResultGson updateNewsSubejct(String sessionId, String adminID, NewsGson newsGson) {
         Map<String, String> param = new HashMap<>();
-        param.put("SessionID", sessionId);
         param.put("dto", GsonUtils.toJson(newsGson));
-        String resp = jerseyClient.postHttp(UPDATE_NEWS_SUBJECT, param);
+        Map<String, String> header = new HashMap<>();
+        header.put("SessionID", sessionId);
+        header.put("beadminID", adminID);
+        String resp = jerseyClient.postHttp(UPDATE_NEWS_SUBJECT, param, header);
         RetResultGson resultGson = GsonUtils.fromJson(resp, RetResultGson.class);
         return resultGson;
     }
 
-    public RetResultGson updateNewsDetail(String sessionId, NewsDetailGson detailGson) {
+    public RetResultGson updateNewsDetail(String sessionId, String adminID, NewsDetailGson detailGson) {
         Map<String, String> param = new HashMap<>();
-        param.put("SessionID", sessionId);
         param.put("dto", GsonUtils.toJson(detailGson));
-        String resp = jerseyClient.postHttp(UPDATE_NEWS_DETAIL, param);
+        Map<String, String> header = new HashMap<>();
+        header.put("SessionID", sessionId);
+        header.put("beadminID", adminID);
+        String resp = jerseyClient.postHttp(UPDATE_NEWS_DETAIL, param, header);
         RetResultGson resultGson = GsonUtils.fromJson(resp, RetResultGson.class);
         return resultGson;
     }

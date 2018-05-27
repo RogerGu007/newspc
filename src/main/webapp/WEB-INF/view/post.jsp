@@ -313,7 +313,7 @@
             $.ajax({
                 type:"POST",
                 url:"reply.do",
-                data:{newsid:${newsdetail.newsID}, userid:getCookie("userId"), content:$("#textarea").val()},
+                data:{newsid:newsId, userid:getCookie("userId"), content:$("#textarea").val()},
                 success:function(response){
                     if (response.errcode == "0") {
                         alert("发布成功");

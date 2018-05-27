@@ -28,9 +28,9 @@
 						用户名&nbsp;
 						<input id="username" type="text" name="username" value="${username}" required>
 					</div>
-					<div class="password">
+					<div class="password-field">
 						密&nbsp;&nbsp;&nbsp;码&nbsp;
-						<input id="password" type="text" name="password" value="${password}" required>
+						<input id="password" type="password" name="password" value="${password}" required>
 					</div>
 					<button type="button" id="admin-login-submit">立即登录</button>
 				</form>
@@ -58,6 +58,7 @@
 					} else {
                         alert("登陆成功");
                         setCookie("sessionID", response.sessionID);
+                        setCookie("adminID", response.ID);
 						window.location.href = "editPost.do";
                     }
                 }
