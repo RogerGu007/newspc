@@ -87,7 +87,63 @@
                         <c:choose>
                             <c:when test="${status.count%2!=0}">
                                 <div class="topic-odd relative">
-                                    <a href="#" class="topic-image"><img src="${topic.image}"></a>
+									<c:choose>
+										<c:when test="${topic.name eq '招聘'}">
+											<c:choose>
+												<c:when test="${cookie.location.value == null || cookie.location.value == ''}">
+													<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0" class="topic-image"><img src="${topic.image}"></a>
+												</c:when>
+												<c:otherwise>
+													<a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=2&subNewsType=0" class="topic-image"><img src="${topic.image}"></a>
+												</c:otherwise>
+											</c:choose>
+										</c:when>
+										<c:when test="${topic.name eq '鹊桥'}">
+											<c:choose>
+												<c:when test="${cookie.location.value == null || cookie.location.value == ''}">
+													<a href="listPostByTime.do?curPage=1&location=21&newsType=3&subNewsType=0" class="topic-image"><img src="${topic.image}"></a>
+												</c:when>
+												<c:otherwise>
+													<a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=3&subNewsType=0" class="topic-image"><img src="${topic.image}"></a>
+												</c:otherwise>
+											</c:choose>
+										</c:when>
+										<c:when test="${topic.name eq '实习/兼职'}">
+											<c:choose>
+												<c:when test="${cookie.location.value == null || cookie.location.value == ''}">
+													<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=2" class="topic-image"><img src="${topic.image}"></a>
+												</c:when>
+												<c:otherwise>
+													<a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=2&subNewsType=2" class="topic-image"><img src="${topic.image}"></a>
+												</c:otherwise>
+											</c:choose>
+										</c:when>
+										<c:when test="${topic.name eq '全职'}">
+											<c:choose>
+												<c:when test="${cookie.location.value == null || cookie.location.value == ''}">
+													<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=1" class="topic-image"><img src="${topic.image}"></a>
+												</c:when>
+												<c:otherwise>
+													<a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=2&subNewsType=1" class="topic-image"><img src="${topic.image}"></a>
+												</c:otherwise>
+											</c:choose>
+										</c:when>
+										<c:when test="${topic.name eq '上海'}">
+											<a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0" class="topic-image"><img src="${topic.image}"></a>
+										</c:when>
+										<c:when test="${topic.name eq '北京'}">
+											<a href="listPostByTime.do?curPage=1&location=10&newsType=2&subNewsType=0" class="topic-image"><img src="${topic.image}"></a>
+										</c:when>
+										<c:when test="${topic.name eq '杭州'}">
+											<a href="listPostByTime.do?curPage=1&location=571&newsType=2&subNewsType=0" class="topic-image"><img src="${topic.image}"></a>
+										</c:when>
+										<c:when test="${topic.name eq '南京'}">
+											<a href="listPostByTime.do?curPage=1&location=25&newsType=2&subNewsType=0" class="topic-image"><img src="${topic.image}"></a>
+										</c:when>
+										<c:when test="${topic.name eq '武汉'}">
+											<a href="listPostByTime.do?curPage=1&location=27&newsType=2&subNewsType=0" class="topic-image"><img src="${topic.image}"></a>
+										</c:when>
+									</c:choose>
                                     <div class="topic-content">
 										<c:choose>
 											<c:when test="${topic.name eq '招聘'}">
@@ -230,7 +286,7 @@
 				<div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;推荐论坛</div></div>
 				<ul class="hot-user-list">
 					<li class="clearfix">
-						<a href="http://www.newsmth.net" class="hot-user-image"><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1686194789,2436359730&fm=27&gp=0.jpg"></a>
+						<a href="http://www.newsmth.net" class="hot-user-image"><img src="http://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1686194789,2436359730&fm=27&gp=0.jpg"></a>
 						<a href="http://www.newsmth.net" class="hot-user-name">水木清华</a>
 					</li>
 					<li class="clearfix">

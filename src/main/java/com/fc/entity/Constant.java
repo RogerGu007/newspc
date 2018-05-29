@@ -18,6 +18,9 @@ public class Constant {
     public static String BE_ADMIN_LOGIN = "/beadmin/login";
     public static String UPDATE_NEWS_SUBJECT = "/news/updatenewssubject";
     public static String UPDATE_NEWS_DETAIL = "/news/updatenewsdetail";
+    public static String DELETE_NEWS = "/news/updatenews";
     public static String GET_IS_FAVOURITE = "/news/getisfavorite";
     public static String ADD_OR_REMOVE_FAVOURITE = "/news/addorremovefavoritenews";
+    public static String CLEAR_FAVOURITE = "/news/clearfav";
+
 }

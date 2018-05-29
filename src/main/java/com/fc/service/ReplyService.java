@@ -20,6 +20,7 @@ import static com.fc.entity.Constant.GET_COMMENTS;
 import static com.fc.entity.Constant.REPLY_COMMENT;
 import static com.fc.entity.RetCode.RET_CODE_FAILURE;
 import static com.fc.entity.RetCode.RET_CODE_OK;
+import static com.fc.entity.RetCode.RET_STATUS_SUCCESS;
 
 
 @Service
@@ -81,7 +82,9 @@ public class ReplyService {
     }
 
     //评论
-    public void secondReply(String firstReplyId, String fromUserID, String toUserID, String replyComment) {
+    public RetSecCommentResultGson secondReply(String firstReplyId, String fromUserID,
+                                               String toUserID, String replyComment) {
+        RetSecCommentResultGson resultGson = new RetSecCommentResultGson(RET_CODE_OK, RET_STATUS_SUCCESS);
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("flID", firstReplyId);
         paramMap.put("fromUserID", fromUserID);
@@ -90,14 +93,14 @@ public class ReplyService {
         try {
             String resp = jerseyClient.postHttp(REPLY_COMMENT, paramMap);
 //            HttpResult httpResult = httpClientOperateService.doPost(REPLY_COMMENT, replyCond);
-            RetSecCommentResultGson resultGson =
-                    GsonUtils.fromJson(resp, RetSecCommentResultGson.class);
+            resultGson = GsonUtils.fromJson(resp, RetSecCommentResultGson.class);
             if (resultGson.getRetCode() != RET_CODE_OK)
                 throw new Exception(resultGson.getMessage());
         } catch (Exception e) {
             logger.error(String.format("回复评论错误 firstReplyId=%s, fromUserID=%s, toUserID=%s  %s",
                     firstReplyId, fromUserID, toUserID, e.getMessage()));
         }
+        return resultGson;
     }
 
     private String filterHtml(String content) {

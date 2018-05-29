@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class NewsDetailDTO {
     private Long newsID;
+    private String sourceArticleUrl;
     private String Subject;
     private String detailContent;
     private Boolean favorite;
@@ -18,6 +19,14 @@ public class NewsDetailDTO {
 
     public void setNewsID(Long newsID) {
         this.newsID = newsID;
+    }
+
+    public String getSourceArticleUrl() {
+        return sourceArticleUrl;
+    }
+
+    public void setSourceArticleUrl(String sourceArticleUrl) {
+        this.sourceArticleUrl = sourceArticleUrl;
     }
 
     public String getDetailContent() {

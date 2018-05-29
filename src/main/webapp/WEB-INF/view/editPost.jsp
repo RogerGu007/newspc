@@ -51,11 +51,15 @@
 			<div class="user-button">
 				<a class="button-follow" id="submit-edit">提交编辑</a>
 			</div>
+			<li></li>
+			<div class="user-button">
+				<a class="button-follow" id="submit-delete">删除帖子</a>
+			</div>
 
 			<div class="user-post">
 				<div class="user-post-title"></div>
-				<%--<div class="user-post-title"><span></span>&nbsp;预览</div>--%>
-			<%--<ul class="user-post-list" id="previewContent"></ul>--%>
+				<div class="user-post-title"><span></span>&nbsp;预览</div>
+				<ul class="user-post-list" id="previewContent"></ul>
 			</div>
 		</div>
 	</div>
@@ -69,6 +73,24 @@
         if (getCookie("sessionID") == null || getCookie("sessionID") == null) {
             alert("请登录管理员账户！")
             window.location.href = "beAdminLogin.do";
+		}
+
+		var newsid = "${newsid}";
+		if (newsid != null || newsid != '') {
+		    $.ajax({
+				type:"GET",
+				url:"getNewsDetail.do",
+				data:{newsid:newsid},
+				success:function(response){
+				    var subject = response.Subject;
+				    var linkurl = response.sourceArticleUrl;
+				    var detailContent = response.detailContent;
+                    $("#newsid").val(newsid);
+                    $("#linkUrl").val(linkurl);
+                    $("#subject").val(subject);
+                    $("#content").val(detailContent);
+				}
+		    });
 		}
 	});
 
@@ -84,26 +106,39 @@
             success:function(response){
                 if (response.errcode == "0") {
                     alert("帖子修改成功！");
+                    //获取更新的数据
+                    $.ajax({
+                        type:"GET",
+                        url:"getNewsDetail.do",
+                        data:{newsid:$("#newsid").val()},
+                        success:function(detailResp){
+                            var subject = detailResp.Subject.toString();
+                            var detailContent = detailResp.detailContent.toString();
+                            var preview = "<div>"+subject+"</div><br></br><div>" + detailContent + "</div>";
+                            $("#previewContent").children().remove();
+                            $("#previewContent").append(preview);
+                        }
+                    });
                 } else {
                     alert(response.errmsg);
                     window.location.href = "beAdminLogin.do";
                 }
             }
         });
+    });
 
-		//更新的数据不能实时拿到
-//        $.ajax({
-//            type:"GET",
-//            url:"getNewsDetail.do",
-//            data:{newsid:$("#newsid").val()},
-//            success:function(response){
-//                var subject = response.Subject.toString();
-//                var detailContent = response.detailContent.toString();
-//                var preview = "<div>"+subject+"</div><br></br><div>" + detailContent + "</div>";
-//                $("#previewContent").children().remove();
-//                $("#previewContent").append(preview);
-//            }
-//        });
+    $("#submit-delete").click(function () {
+        $.ajax({
+            type:"POST",
+            url:"deleteNews.do",
+            data:{newsid:$("#newsid").val()},
+            success:function(response){
+                if (response.errcode == "0")
+                    alert("帖子删除成功！");
+                else
+                    alert(response.errmsg);
+            }
+        });
     });
 
     //取cookies函数

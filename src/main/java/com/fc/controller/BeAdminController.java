@@ -6,9 +6,13 @@ import com.fc.gson.RetResultGson;
 import com.fc.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.fc.entity.RetCode.RET_CODE_FAILURE;
 import static com.fc.entity.RetCode.RET_CODE_OK;
@@ -52,5 +56,28 @@ public class BeAdminController {
         }
 
         return new RetResultGson(RET_CODE_OK, RET_STATUS_SUCCESS);
+    }
+
+    //去be编辑页面
+    @RequestMapping(value = "/toEditNews.do", produces = "application/json;charset=utf-8")
+    public String toEditNews(String newsid,  Model model){
+        Pattern p = Pattern.compile("[0-9]+");
+        Matcher m = p.matcher(newsid);
+        if (m.find())
+            newsid = m.group();
+        model.addAttribute("newsid", newsid);
+        return "editPost";
+    }
+
+    @RequestMapping(value = "/deleteNews.do", produces = "application/json;charset=utf-8")
+    public @ResponseBody
+    RetResultGson deleteNews(String newsid) {
+        if (StringUtils.isEmpty(newsid)) {
+            return new RetResultGson(RET_CODE_FAILURE, "newsId为空!");
+        }
+
+        //news置为无效
+        RetResultGson resultGson = beService.deleteNews(newsid);
+        return resultGson;
     }
 }

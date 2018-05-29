@@ -1,6 +1,7 @@
 package com.fc.controller;
 
 import com.fc.gson.RetFLCommentResultGson;
+import com.fc.gson.RetSecCommentResultGson;
 import com.fc.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,17 +42,10 @@ public class ReplyController {
      * @return
      */
     @RequestMapping(value = "/comment.do", produces = "application/json;charset=utf-8")
-    public String comment(String newsid, String rid, String fromuserid, String touserid, String content){
-//        int sessionUid = (int) session.getAttribute("uid");
-//        replyService.comment(newsid, 1, rid, content);
-//        System.out.println(String.format("nid=%s, rid=%s, fromUser=%s, toUser=%s, content=%s",
-//                newsid, rid, fromuserid, touserid, content));
-        if (StringUtils.isEmpty(fromuserid))
-            return "redirect:toLogin.do";
-
-        replyService.secondReply(rid, fromuserid, touserid, content);
-
-        return "redirect:toPost.do?newsid=" + newsid;
+    public @ResponseBody
+    RetSecCommentResultGson comment(String newsid, String rid, String fromuserid, String touserid, String content){
+        RetSecCommentResultGson resultGson = replyService.secondReply(rid, fromuserid, touserid, content);
+        return resultGson;
     }
 }
 

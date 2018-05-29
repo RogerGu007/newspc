@@ -44,10 +44,10 @@
             </c:choose>
 
 
-                <li>
-                    <a href="#"><span class="glyphicon glyphicon-search"></span></a>
-                </li>
-                <li><input type="text"></li>
+                <%--<li>--%>
+                    <%--<a href="#"><span class="glyphicon glyphicon-search"></span></a>--%>
+                <%--</li>--%>
+                <%--<li><input type="text"></li>--%>
         </ul>
     </div>
 </div>
@@ -57,7 +57,7 @@
     window.onload = function () {
         var avatarUrl = getCookie("avatarUrl");
         if (avatarUrl == "" || avatarUrl == null) {
-            avatarUrl = "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3267121572,2544905960&fm=27&gp=0.jpg";
+            avatarUrl = "http://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3267121572,2544905960&fm=27&gp=0.jpg";
         }
         document.getElementById("avatarUrl").setAttribute("src", avatarUrl);
     }

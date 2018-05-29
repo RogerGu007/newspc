@@ -82,7 +82,7 @@
                                     </div>
                                     <div class="post-other">
                                         <div class="post-other-left">
-                                            <span class="post-username"><a href="${post.publishSourceLinkUrl}">${post.publishSource}</a></span>
+                                            <span class="post-username"><a href="toMyProfile.do?userid=${post.publisherId}">${post.publishSource}</a></span>
                                             <%--<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>--%>
                                             <%--<span>&nbsp;评论数</span>--%>
                                             <%--<span class="post-time">&nbsp;${post.}</span>--%>
@@ -225,8 +225,7 @@
 
     $(".admin-edit-button").click(function () {
         var newsId = $(this).attr('id');
-        //todo  需要把参数带到编辑页面
-        alert(newsId);
+        window.location.href = "toEditNews.do?newsid=" + newsId;
     });
 
     function setCookie(name,value){

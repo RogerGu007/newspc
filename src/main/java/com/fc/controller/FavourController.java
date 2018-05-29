@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import static com.fc.entity.RetCode.RET_CODE_OK;
+import static com.fc.entity.RetCode.RET_STATUS_SUCCESS;
+
 @Controller
 @RequestMapping("/")
 public class FavourController {
@@ -46,6 +49,13 @@ public class FavourController {
             bAdd = false;
 
         NewsFavoriteResultGson resultGson = newsService.addOrRemoveFavor(bAdd, newsId, userId);
+        return resultGson;
+    }
+
+    @RequestMapping(value = "/clearfav.do", method = RequestMethod.POST)
+    public @ResponseBody
+    NewsFavoriteResultGson clearFav(String userid) {
+        NewsFavoriteResultGson resultGson = newsService.clearFav(userid);
         return resultGson;
     }
 }

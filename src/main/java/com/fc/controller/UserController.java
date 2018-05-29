@@ -1,6 +1,7 @@
 package com.fc.controller;
 
 import com.fc.gson.MsgGson;
+import com.fc.gson.NewsFavoriteResultGson;
 import com.fc.gson.RetResultGson;
 import com.fc.gson.UserInfoGson;
 import com.fc.model.NewsDTO;
@@ -44,22 +45,6 @@ public class UserController {
     }
 
     /**
-     * 查看我的收藏
-     * @param session
-     * @param model
-     * @return
-     */
-    @RequestMapping("/MyFavourite.do")
-    public String MyFavourite(String userid, HttpSession session, Model model) {
-        UserInfoGson user = userService.getProfile(userid);
-        //查询收藏纪录
-        List<MsgGson> favourList = postService.getFavourNewsList(userid);
-        model.addAttribute("user", user);
-        model.addAttribute("favourList",favourList);
-        return "myFavourite";
-    }
-
-    /**
      * 去编辑信息的页面
      * @param session
      * @param model
@@ -82,6 +67,22 @@ public class UserController {
     public String editProfile(UserInfoGson user){
         userService.updateUser(user);
         return "redirect:toMyProfile.do?userid=" + user.getID();
+    }
+
+    /**
+     * 查看我的收藏
+     * @param session
+     * @param model
+     * @return
+     */
+    @RequestMapping("/MyFavourite.do")
+    public String MyFavourite(String userid, HttpSession session, Model model) {
+        UserInfoGson user = userService.getProfile(userid);
+        //查询收藏纪录
+        List<MsgGson> favourList = postService.getFavourNewsList(userid);
+        model.addAttribute("user", user);
+        model.addAttribute("favourList",favourList);
+        return "myFavourite";
     }
 
     @RequestMapping("/afterForgetPassword.do")

@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.fc.entity.Constant.ADD_OR_REMOVE_FAVOURITE;
+import static com.fc.entity.Constant.CLEAR_FAVOURITE;
 import static com.fc.entity.Constant.GET_IS_FAVOURITE;
 
 @Service
@@ -42,6 +43,14 @@ public class NewsService {
         param.put("newsid", newsId);
         param.put("userid", userId);
         String resp = jerseyClient.postHttp(ADD_OR_REMOVE_FAVOURITE, param);
+        return GsonUtils.fromJson(resp, NewsFavoriteResultGson.class);
+    }
+
+    public NewsFavoriteResultGson clearFav(String userId) {
+        NewsFavoriteResultGson resultGson = new NewsFavoriteResultGson(RetCode.RET_CODE_OK, RetCode.RET_STATUS_SUCCESS);
+        Map<String, String> param = new HashMap<>();
+        param.put("userid", userId);
+        String resp = jerseyClient.postHttp(CLEAR_FAVOURITE, param);
         return GsonUtils.fromJson(resp, NewsFavoriteResultGson.class);
     }
 }

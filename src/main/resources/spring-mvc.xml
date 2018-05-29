@@ -60,8 +60,11 @@
                         <value>/adminLogin.do</value>
                         <value>/editPost.do</value>
                         <value>/editNews.do</value>
+                        <value>/toEditNews.do</value>
+                        <value>/deleteNews.do</value>
                         <value>/getIsFavorite.do</value>
                         <value>/addorremovefavoritenews.do</value>
+                        <value>/clearfav.do</value>
                     </list>
                 </property>
             </bean>

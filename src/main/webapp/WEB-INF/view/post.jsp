@@ -108,16 +108,15 @@
                                     </c:forEach>
                                     <!-- 楼中楼的回复框 -->
                                     <div class="reply-input">
-                                        <form action="comment.do" method="post">
+                                        <%--<form action="comment.do" method="post">--%>
                                         <%--<button type="submit" id="commentButton" onclick="commentFocus()">回复</button>--%>
-                                        <%--<form>--%>
+                                        <form name="commentForm">
                                             <input type="hidden" name="newsid" value="${reply.newsID}"/>
                                             <input type="hidden" name="rid" value="${reply.id}"/>
-                                            <input type="hidden" name="fromuserid" value= "${cookie.userId.value}"/>
+                                            <input type="hidden" name="fromuserid"  value= "${cookie.userId.value}"/>
                                             <input type="hidden" name="touserid" value="${newsdetail.publisher_id}"/>
                                             <textarea id="s${reply.id}" name="content" ></textarea>
-                                            <button type="submit">回复</button>
-                                        <%--<button type="submit" id="commentButton" onclick="$('#textarea').focus()">回复</button>--%>
+                                            <button type="submit" class="commentButton">回复</button>
                                         </form>
                                     </div>
                                 </div><!-- 楼中楼结束 -->
@@ -156,7 +155,7 @@
                 <div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;推荐论坛</div></div>
                 <ul class="hot-user-list">
                     <li class="clearfix">
-                        <a href="http://www.newsmth.net" class="hot-user-image"><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1686194789,2436359730&fm=27&gp=0.jpg"></a>
+                        <a href="http://www.newsmth.net" class="hot-user-image"><img src="http://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1686194789,2436359730&fm=27&gp=0.jpg"></a>
                         <a href="http://www.newsmth.net" class="hot-user-name">水木清华</a>
                     </li>
                     <li class="clearfix">
@@ -222,8 +221,10 @@
         $(".like").click(function () {
             var newsId = $(this).attr("id").substr(4);
             var userId = getCookie("userId");
-            if (userId == null || userId == "")
-                alert("请先登录!");
+            if (userId == null || userId == "") {
+                alert("请登录后收藏!");
+                return;
+            }
 
             var badd = false;
             var obj = $(this);
@@ -308,6 +309,12 @@
         if (nullAlert($.trim($("#textarea").val()), "评论内容不能为空~"))
             return;
 
+        var userId = getCookie("userId");
+        if (userId == null || userId == '') {
+            alert("请登陆后评论!");
+            window.location.href = "toLogin.do";
+        }
+
         if(getCookie("isLogin") == "1") {
             //提交评论
             $.ajax({
@@ -316,7 +323,7 @@
                 data:{newsid:newsId, userid:getCookie("userId"), content:$("#textarea").val()},
                 success:function(response){
                     if (response.errcode == "0") {
-                        alert("发布成功");
+                        alert("评论发表成功");
                         window.location.reload();
                     } else {
                         alert(response.errmsg);
@@ -324,12 +331,47 @@
                 }
             });
         } else {
-            alert("需要再次登陆");
+            alert("请登陆后评论");
             window.event.returnValue=false;
             window.location.href = "toLogin.do";
         }
     });
 
+    $(".commentButton").click(function () {
+        var replyId = $(this).parent().find(':input:eq(1)').val();
+        var fromUserId = $(this).parent().find(':input:eq(2)').val();
+        var toUserId = $(this).parent().find(':input:eq(3)').val();
+        var replyContent = $("#s"+replyId).val();
+
+        if (nullAlert($.trim(replyContent), "回复内容不能为空~"))
+            return;
+
+        if (fromUserId == null || fromUserId == '') {
+            alert("请登陆后评论!");
+            window.location.href = "toLogin.do";
+        }
+
+        if(getCookie("isLogin") == "1") {
+            //提交评论
+            $.ajax({
+                type:"POST",
+                url:"comment.do",
+                data:{newsid:newsId, rid:replyId, fromuserid:fromUserId, touserid:toUserId, content:replyContent},
+                success:function(response){
+                    if (response.errcode == "0") {
+                        alert("回复成功！");
+                        window.location.reload();
+                    } else {
+                        alert(response.errmsg);
+                    }
+                }
+            });
+        } else {
+            alert("请登陆后评论");
+            window.event.returnValue=false;
+            window.location.href = "toLogin.do";
+        }
+    });
     <%--$("#commentButton").click(function () {--%>
         <%--if(getCookie("isLogin") == "1") {--%>
             <%--//提交评论--%>

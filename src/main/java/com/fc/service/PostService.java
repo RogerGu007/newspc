@@ -138,6 +138,7 @@ public class PostService {
             logger.warn(GET_NEWS_DETAIL + " failed! " + e.getMessage());
         }
 
+        newsDetailDTO.setDetailContent(addHead(newsDetailDTO.getDetailContent()));
         return newsDetailDTO;
 
 //        Post post = postMapper.getPostByPid(pid);
@@ -182,6 +183,12 @@ public class PostService {
             return String.format("<br><img src=\"http://%s/asset/%s\"></br>", DOMAIN_HOST, oriImagePath);
         }
         return String.format("<br><img src=\"%s\"></br>", oriImagePath);
+    }
+
+    private String addHead(String content) {
+        if (!content.contains("</head>"))
+            content = "<head><meta name=\"referrer\" content=\"no-referrer\"></head>" + content;
+        return content;
     }
 }
 

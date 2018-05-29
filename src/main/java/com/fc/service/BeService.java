@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.fc.entity.Constant.DELETE_NEWS;
 import static com.fc.entity.Constant.UPDATE_NEWS_DETAIL;
 import static com.fc.entity.Constant.UPDATE_NEWS_SUBJECT;
 
@@ -42,6 +43,15 @@ public class BeService {
         header.put("SessionID", sessionId);
         header.put("beadminID", adminID);
         String resp = jerseyClient.postHttp(UPDATE_NEWS_DETAIL, param, header);
+        RetResultGson resultGson = GsonUtils.fromJson(resp, RetResultGson.class);
+        return resultGson;
+    }
+
+    public RetResultGson deleteNews(String newsId) {
+        Map<String, String> param = new HashMap<>();
+        param.put("newsid", newsId);
+        param.put("isvalid", "false");
+        String resp = jerseyClient.postHttp(DELETE_NEWS, param);
         RetResultGson resultGson = GsonUtils.fromJson(resp, RetResultGson.class);
         return resultGson;
     }
