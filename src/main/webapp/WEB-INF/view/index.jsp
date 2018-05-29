@@ -33,8 +33,7 @@
                     </a>
                     <span id="subNewsTypeSpan"></span>
                     <a id="subNewsType">
-                        <select id="subNewsTypeSelect" onchange="window.location.href='listPostByTime.do?curPage='
-                                + ${pageBean.curPage}
+                        <select id="subNewsTypeSelect" onchange="window.location.href='listPostByTime.do?curPage=1'
                                 + '&newsType=' + ${param.get('newsType')}
                                 + '&subNewsType=' + this.value
                                 + '&location=' + $('#locationSelect').val()">
@@ -214,8 +213,7 @@
     
     function locationChange() {
         var location = document.getElementById("locationSelect").value;
-        window.location.href='listPostByTime.do?curPage='
-            + ${pageBean.curPage}
+        window.location.href='listPostByTime.do?curPage=1'
             + '&newsType=' + ${param.get('newsType')}
             + '&subNewsType=' + $('#subNewsTypeSelect').val()
             + '&location=' + location;
