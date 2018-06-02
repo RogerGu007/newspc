@@ -78,6 +78,12 @@
                                                 <button class="admin-edit-button" id="edit${post.ID}">编辑</button>
                                             </c:when>
                                         </c:choose>
+                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <c:choose>
+                                            <c:when test="${cookie.sessionID != null && cookie.sessionID != ''}">
+                                                <button class="admin-delete-button" id="delete${post.ID}">删除</button>
+                                            </c:when>
+                                        </c:choose>
                                     </div>
                                     <div class="post-other">
                                         <div class="post-other-left">
@@ -224,6 +230,25 @@
     $(".admin-edit-button").click(function () {
         var newsId = $(this).attr('id');
         window.location.href = "toEditNews.do?newsid=" + newsId;
+    });
+
+    $(".admin-delete-button").click(function () {
+        var newsId = $(this).attr('id');
+        newsId = newsId.substr(6);
+        if(confirm("是否确认刪除？")) {
+            $.ajax({
+                type:"POST",
+                url:"deleteNews.do",
+                data:{newsid:newsId},
+                success:function(response){
+                    if (response.errcode == "0") {
+                        alert("帖子删除成功！");
+                        window.location.reload();
+                    } else
+                        alert(response.errmsg);
+                }
+            });
+        }
     });
 
     function setCookie(name,value){

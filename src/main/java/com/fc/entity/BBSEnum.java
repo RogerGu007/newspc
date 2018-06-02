@@ -18,7 +18,7 @@ public enum BBSEnum {
     WHU_BBS(12L, "武汉大学BBS", "http://bbs.whu.edu.cn", "https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=659974452,3463077321&fm=58&bpow=600&bpoh=600"),
 //    HUST_BBS(13L, "华中科技大学BBS", "http://www.newsmth.net", "https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=4258120518,4176695131&fm=58&bpow=787&bpoh=599"),
 //    USTC_BBS(14L, "中科大BBS", "http://www.newsmth.net", "https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3623014369,3274114902&fm=58&bpow=465&bpoh=461"),
-    ZJU_BBS(15L, "浙江大学BBS", "http://www.zju1.com", "https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2194450869,662627224&fm=58&w=200&h=200&img.JPEG");
+    ZJU_BBS(15L, "浙江大学BBS", "http://www.zju1.com", "https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2646922489,2681531337&fm=58&bpow=908&bpoh=908");
 
     private Long userId;
     private String username;

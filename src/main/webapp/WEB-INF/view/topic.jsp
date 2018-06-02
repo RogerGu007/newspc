@@ -286,7 +286,7 @@
 				<div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;推荐论坛</div></div>
 				<ul class="hot-user-list">
 					<li class="clearfix">
-						<a href="http://www.newsmth.net" class="hot-user-image"><img src="http://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1686194789,2436359730&fm=27&gp=0.jpg"></a>
+						<a href="http://www.newsmth.net" class="hot-user-image"><img src="https://ss1.baidu.com/70cFfyinKgQFm2e88IuM_a/forum/pic/item/ce2e42a7d933c8953198e931d71373f0830200a4.jpg"></a>
 						<a href="http://www.newsmth.net" class="hot-user-name">水木清华</a>
 					</li>
 					<li class="clearfix">
@@ -310,7 +310,7 @@
                         <a href="http://bbs.nju.edu.cn/" class="hot-user-name">小百合</a>
                     </li>
                     <li class="clearfix">
-                        <a href="http://www.zju1.com/" class="hot-user-image"><img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2194450869,662627224&fm=58&w=200&h=200&img.JPEG"></a>
+                        <a href="http://www.zju1.com/" class="hot-user-image"><img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2646922489,2681531337&fm=58&bpow=908&bpoh=908"></a>
                         <a href="http://www.zju1.com/" class="hot-user-name">梧桐树</a>
                     </li>
                     <li class="clearfix">

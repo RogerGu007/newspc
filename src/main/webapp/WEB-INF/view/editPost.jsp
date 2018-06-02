@@ -128,17 +128,20 @@
     });
 
     $("#submit-delete").click(function () {
-        $.ajax({
-            type:"POST",
-            url:"deleteNews.do",
-            data:{newsid:$("#newsid").val()},
-            success:function(response){
-                if (response.errcode == "0")
-                    alert("帖子删除成功！");
-                else
-                    alert(response.errmsg);
-            }
-        });
+        if(confirm("是否确认刪除?")) {
+            $.ajax({
+                type:"POST",
+                url:"deleteNews.do",
+                data:{newsid:$("#newsid").val()},
+                success:function(response){
+                    if (response.errcode == "0") {
+                        alert("帖子删除成功！");
+                        window.location.href = document.referrer;
+                    } else
+                        alert(response.errmsg);
+                }
+            });
+		}
     });
 
     //取cookies函数
