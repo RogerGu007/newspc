@@ -19,17 +19,20 @@
                     <li><a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=3&subNewsType=0">鹊桥</a></li>
                 </c:otherwise>
             </c:choose>
-
         </ul>
 
         <ul class="right-nav">
             <c:choose>
                 <c:when test="${cookie.isLogin != null && cookie.isLogin.value == 1}">
                     <li class="login2 relative">
-                        <a href="toMyProfile.do" id="profile"><img id="avatarUrl" src="${cookie.avatarUrl.value}"></a>
+                        <a href="toMyProfile.do" id="profile">
+                            <%--<img id="avatarUrl" src="${cookie.avatarUrl.value}">--%>
+                            <img id="avatarUrl" src="">
+                        </a>
                         <ul id="down-menu">
                             <li><a href="toMyProfile.do?userid=${cookie.userId.value}">个人主页</a></li>
                             <li><a href="MyFavourite.do?userid=${cookie.userId.value}">我的收藏</a></li>
+                            <li><a href="MyPost.do?userid=${cookie.userId.value}">我的发帖</a></li>
                             <li><a id="logout" onclick="logout()">退出登录</a></li>
                         </ul>
                     </li>
@@ -37,14 +40,11 @@
                 <c:otherwise>
                     <li class="login">
                         <a href="toLogin.do">登录</a>
-                        <%--<a href="toLogin.do">/</a>--%>
-                        <%--<a href="toLogin.do#register">注册</a>--%>
                     </li>
                 </c:otherwise>
             </c:choose>
 
-
-                <%--<li>--%>
+             <%--<li>--%>
                     <%--<a href="#"><span class="glyphicon glyphicon-search"></span></a>--%>
                 <%--</li>--%>
                 <%--<li><input type="text"></li>--%>
@@ -57,9 +57,11 @@
     window.onload = function () {
         var avatarUrl = getCookie("avatarUrl");
         if (avatarUrl == "" || avatarUrl == null) {
-            avatarUrl = "http://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3267121572,2544905960&fm=27&gp=0.jpg";
+            avatarUrl = "http://www.211sq.com/asset/image/avatar/avator_default.png";
         }
-        document.getElementById("avatarUrl").setAttribute("src", avatarUrl);
+        var avatarObj = document.getElementById("avatarUrl");
+        if (avatarObj != null)
+            avatarObj.setAttribute("src", avatarUrl);
     }
 
     function logout() {

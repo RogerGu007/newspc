@@ -25,7 +25,7 @@
 					<span class="glyphicon glyphicon-th"></span>&nbsp;${newsdetail.subject}
 				</div>
 				<div class="post-user clearfix">
-					<div class="user-image"><a href="toProfile.do?uid=${newsdetail.publisher_id}"><img src="${newsdetail.publisher_avatar_url}"></a></div>
+					<div class="user-image"><a><img src="${newsdetail.publisher_avatar_url}"></a></div>
 					<div class="user-info">
 						<div class="user-name">${newsdetail.publisher_name}</div>
 						<div class="post-time">
@@ -72,7 +72,7 @@
                         <form>
                             <input type="hidden" name="newsid" value="${newsdetail.newsID}" />
                             <input type="hidden" name="userid" value="${newsdetail.publisher_id}" />
-                            <textarea name="content" id="textarea" style="height: 200px;max-height: 1000px;"></textarea>
+                            <textarea name="content" id="textarea"></textarea>
                             <button class="reply-button" id="replybutton">评论</button>
                         </form>
                     </div>
@@ -83,7 +83,7 @@
 					<!-- 回复条目 -->
                     <c:forEach items="${replyList}" var="reply" varStatus="status">
                         <div class="post-reply-item clearfix">
-                            <div class="item-image"><a href="toProfile.do?uid=${reply.userID}"><img src="${reply.avatarUrl}"></a></div>
+                            <div class="item-image"><a><img src="${reply.avatarUrl}"></a></div>
                             <div class="item-info">
                                 <div class="item-user-name"><a href="#">${reply.nickName}</a></div>
                                 <div class="item-content">${reply.comment}</div>
@@ -95,7 +95,7 @@
                                         <%--一个wrap开始--%>
                                         <div class="item-wrap">
                                             <div class="item-more-1">
-                                                <a href="toProfile.do?uid=${secondReply.fromUserID}" class="item-more-user">${secondReply.fromUserNickName}</a>
+                                                <a class="item-more-user">${secondReply.fromUserNickName}</a>
                                                 <span>：</span>
                                                 <span class="item-more-content">${secondReply.replyComment}</span>
                                             </div>
@@ -120,31 +120,14 @@
                                         </form>
                                     </div>
                                 </div><!-- 楼中楼结束 -->
-
                             </div>
-                            <div class="item-other">
+                            <%--<div class="item-other">--%>
                                 <%--<a href="#s${status.count}" class="item-reply">回复</a>&nbsp;--%>
-                            </div>
-
+                            <%--</div>--%>
                         </div>
                     </c:forEach><!-- 回复条目结束 -->
 				</div>
 			</div>
-
-
-			<%--<!-- 回复区，副文本编辑器板块 -->--%>
-			<%--<div id="reply-area" class="post-reply-textarea">--%>
-				<%--<div style="width: 650px;margin: 10px 20px">--%>
-					<%--&lt;%&ndash;<form action="reply.do" method="post" enctype="multipart/form-data">&ndash;%&gt;--%>
-                    <%--<form>--%>
-						<%--<input type="hidden" name="newsid" value="${newsdetail.newsID}" />--%>
-                        <%--<input type="hidden" name="userid" value="${newsdetail.publisher_id}" />--%>
-						<%--<textarea name="content" id="textarea" style="height: 200px;max-height: 1000px;"></textarea>--%>
-						<%--<button class="reply-button" id="replybutton">评论</button>--%>
-					<%--</form>--%>
-				<%--</div>--%>
-			<%--</div>--%>
-
 		</div>
 
 
@@ -260,36 +243,6 @@
             });
         })
     });
-
-    var editor = new wangEditor('textarea');
-
-    editor.config.menus = [
-        'source',
-        '|',
-        'bold',
-        'underline',
-        'italic',
-        'strikethrough',
-        'eraser',
-        'fontsize',
-        '|',
-        'link',
-        'table',
-        'emotion',
-        '|',
-        'img',
-        'insertcode',
-        '|',
-        'undo',
-     ];
-     
-     //配置处理图片上传的路径，最好用相对路径
-     editor.config.uploadImgUrl = 'upload.do';
-     //配置图片上传到后台的参数名称
-     editor.config.uploadImgFileName = 'myFileName';
-
-		
-    editor.create();
 
     //点赞按钮处理
     var likeButton = $("#like-button");

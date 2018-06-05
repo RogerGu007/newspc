@@ -22,5 +22,7 @@ public class Constant {
     public static String GET_IS_FAVOURITE = "/news/getisfavorite";
     public static String ADD_OR_REMOVE_FAVOURITE = "/news/addorremovefavoritenews";
     public static String CLEAR_FAVOURITE = "/news/clearfav";
+    public static String GET_MY_POST = "/news/getpostnews";
 
+    public static String DEFAULT_AVATAR = "image/avatar/avator_default.png";
 }

@@ -323,6 +323,11 @@
                     </li>
 				</ul>
 			</div>
+
+			<div class="hot-user">
+				<div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;app下载</div></div>
+				<ul class="myimg"><img id="download" src="http://47.100.197.44/asset/image/211apk.png"></ul>
+			</div>
 		</div>
 	</div>
 

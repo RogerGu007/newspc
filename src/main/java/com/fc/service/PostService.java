@@ -10,10 +10,13 @@ import com.fc.util.JerseyClient;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import java.util.*;
 
 import static com.fc.entity.Constant.*;
 import static com.fc.entity.RetCode.RET_CODE_OK;
+import static com.fc.entity.SourceEnum.OURSITE;
 
 
 @Service
@@ -83,7 +86,7 @@ public class PostService {
                 if (BBSEnum.userIdToBBS(msg.getPublisherId()) != null)
                     msg.setPublishSourceLinkUrl(BBSEnum.userIdToBBS(msg.getPublisherId()).getLinkUrl());
                 else
-                    msg.setPublishSourceLinkUrl("/df/toMyProfile.do?userid=" + msg.getPublisherId());
+                    msg.setPublishSourceLinkUrl("/df/toProfile.do?userid=" + msg.getPublisherId());
             }
             pageBean.setList(msgGsonList);
         } catch (Exception e) {
@@ -99,40 +102,37 @@ public class PostService {
         Map<String, String> newsMap = new HashMap<>();
         newsMap.put("newsid", String.valueOf(newsId));
 //        newsMap.put("userid", String.valueOf(userId));
-        NewsDetailDTO newsDetailDTO = null;
+        NewsDetailDTO newsDetailDTO = new NewsDetailDTO();
         try {
-            String response = jerseyClient.getHttp(GET_NEWS_DETAIL, newsMap);
-            NewsDetailResultGson newsDetailResultGson
-                    = GsonUtils.fromJson(response, NewsDetailResultGson.class);
-            if (newsDetailResultGson.getRetCode() == RET_CODE_OK) {
-                newsDetailDTO = newsDetailResultGson.getNewsDetailDTO();
-                if (newsDetailDTO.getNewsID() == null) { //没有详情，自己发的帖子
-                    String newsSubjectResponse = jerseyClient.getHttp(GET_NEWS_BY_ID, newsMap);
-                    NewsSubjectResultGson newsSubjectResultGson =
-                            GsonUtils.fromJson(newsSubjectResponse, NewsSubjectResultGson.class);
-                    if (newsSubjectResultGson.getRetCode() == RET_CODE_OK
-                            && (newsSubjectResultGson.getMsgGsonList() != null
-                            && newsSubjectResultGson.getMsgGsonList().size() > 0)) {
-                        //重组newsDetailDTO
-                        MsgGson msgGson = newsSubjectResultGson.getMsgGsonList().get(0);
-                        newsDetailDTO.setNewsID(Long.valueOf(msgGson.getID()));
-                        newsDetailDTO.setPostDate(msgGson.getPostDate());
-                        newsDetailDTO.setPublisher_id(msgGson.getPublisherId());
-                        newsDetailDTO.setSubject(msgGson.getContent());
+            String response = jerseyClient.getHttp(GET_NEWS_BY_ID, newsMap);
+            NewsSubjectResultGson newsSubjectResultGson =
+                    GsonUtils.fromJson(response, NewsSubjectResultGson.class);
+            if (newsSubjectResultGson.getRetCode() == RET_CODE_OK
+                    && (newsSubjectResultGson.getMsgGsonList() != null
+                    && newsSubjectResultGson.getMsgGsonList().size() > 0)) {
+                //重组newsDetailDTO
+                MsgGson msgGson = newsSubjectResultGson.getMsgGsonList().get(0);
+                newsDetailDTO.setNewsID(Long.valueOf(msgGson.getID()));
+                newsDetailDTO.setPostDate(msgGson.getPostDate());
+                newsDetailDTO.setPublisher_id(msgGson.getPublisherId());
+                newsDetailDTO.setPublisher_name(msgGson.getPublishSource());
+                newsDetailDTO.setSubject(msgGson.getContent());
+                newsDetailDTO.setFavorite(msgGson.getFavorite());
+                newsDetailDTO.setDetailContent(msgGson.getDetailContent());
 
-                        List<String> imageList = msgGson.getImagePaths();
-                        String detailContent = "";
-                        for (String image : imageList) {
-                            detailContent += renderImageHtml(image);
-                        }
-                        newsDetailDTO.setDetailContent(detailContent);
-
-                        //获取用户名
-                        UserInfoGson userInfo = userService.getProfile(String.valueOf(msgGson.getPublisherId()));
-                        newsDetailDTO.setPublisher_name(userInfo.getNickName());
-                        newsDetailDTO.setPublisher_avatar_url(userInfo.getAvatarUrl());
+                String detailContent = msgGson.getDetailContent();
+                //用户自己的发帖
+                if (msgGson.getSource().equals(OURSITE.getSourceDesc())) {
+                    List<String> imageList = msgGson.getImagePaths();
+                    for (String image : imageList) {
+                        detailContent += renderImageHtml(image);
                     }
+                    newsDetailDTO.setDetailContent(detailContent);
                 }
+
+                //获取用户名
+                UserInfoGson userInfo = userService.getProfile(String.valueOf(msgGson.getPublisherId()));
+                newsDetailDTO.setPublisher_avatar_url(userInfo.getAvatarUrl());
             }
         } catch (Exception e) {
             logger.warn(GET_NEWS_DETAIL + " failed! " + e.getMessage());
@@ -140,17 +140,6 @@ public class PostService {
 
         newsDetailDTO.setDetailContent(addHead(newsDetailDTO.getDetailContent()));
         return newsDetailDTO;
-
-//        Post post = postMapper.getPostByPid(pid);
-//        //设置点赞数
-//        Jedis jedis = jedisPool.getResource();
-//        long likeCount = jedis.scard(pid+":like");
-//        post.setLikeCount((int)likeCount);
-//
-//        if(jedis!=null){
-//            jedisPool.returnResource(jedis);
-//        }
-//        return post;
     }
 
     //根据uid，获得帖子列表
@@ -178,6 +167,19 @@ public class PostService {
         return new ArrayList<>();
     }
 
+    public List<MsgGson> myPost(String userId) {
+        String resp = jerseyClient.getHttp(GET_MY_POST, new HashMap<String, String>() {{
+            put("userid", userId);
+            put("page", "0");
+        }});
+
+        NewsSubjectResultGson resultGson = GsonUtils.fromJson(resp, NewsSubjectResultGson.class);
+        if (resultGson.getRetCode() == RET_CODE_OK) {
+            return resultGson.getMsgGsonList();
+        }
+        return new ArrayList<>();
+    }
+
     private String renderImageHtml(String oriImagePath) {
         if (!oriImagePath.contains("http")) {
             return String.format("<br><img src=\"http://%s/asset/%s\"></br>", DOMAIN_HOST, oriImagePath);
@@ -186,7 +188,7 @@ public class PostService {
     }
 
     private String addHead(String content) {
-        if (!content.contains("</head>"))
+        if (!StringUtils.isEmpty(content) && content.contains("</head>"))
             content = "<head><meta name=\"referrer\" content=\"no-referrer\"></head>" + content;
         return content;
     }

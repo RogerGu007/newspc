@@ -52,6 +52,7 @@
                         <value>/reply.do</value>
                         <value>/comment.do</value>
                         <value>/toMyProfile.do</value>
+                        <value>/toProfile.do</value>
                         <value>/MyFavourite.do</value>
                         <value>/toEditProfile.do</value>
                         <value>/editProfile.do</value>
@@ -65,6 +66,7 @@
                         <value>/getIsFavorite.do</value>
                         <value>/addorremovefavoritenews.do</value>
                         <value>/clearfav.do</value>
+                        <value>/MyPost.do</value>
                     </list>
                 </property>
             </bean>

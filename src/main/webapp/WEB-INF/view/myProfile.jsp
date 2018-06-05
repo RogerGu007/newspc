@@ -38,34 +38,53 @@
 			</div>
 			<div class="clearfix" style="border-bottom: 1px dashed #ddd;"></div>
 			<div class="user-button">
-                <a href="toEditProfile.do?userid=${cookie.userId.value}" class="button-follow">编辑信息</a>
+				<c:choose>
+					<c:when test="${user.ID.toString() eq cookie.userId.value}">
+						<a href="toEditProfile.do?userid=${cookie.userId.value}" class="button-follow">编辑信息</a>
+					</c:when>
+				</c:choose>
 			</div>
 
-			<%-- todo --%>
-			<%--<div class="user-post">--%>
-				<%--<div class="user-post-title"><span></span>&nbsp;发帖</div>--%>
-				<%--<ul class="user-post-list">--%>
-					<%--<c:forEach items="${postList}" var="post">--%>
-                        <%--<li>--%>
-                            <%--<span class="glyphicon glyphicon-file"></span>&nbsp;--%>
-                            <%--<a href="toPost.do?pid=${post.pid}">${post.title}</a>--%>
-                            <%--<span class="user-post-time">发布于 ${post.publishTime}</span>--%>
-                        <%--</li>--%>
-                    <%--</c:forEach>--%>
-				<%--</ul>--%>
-			<%--</div>--%>
+			<div class="user-post">
+				<c:choose>
+					<c:when test="${user.ID.toString() eq cookie.userId.value}">
+						<div class="user-post-title"><span></span>&nbsp;收藏</div>
+					</c:when>
+				</c:choose>
+				<c:choose>
+					<c:when test="${favourList != null && favourList.size()>0}">
+						<ul class="user-post-list">
+							<c:forEach items="${favourList}" var="favour">
+								<li>
+									<span class="glyphicon glyphicon-file"></span>&nbsp;
+									<a href="toPost.do?newsid=${favour.ID}">${favour.content}</a>
+									<span class="user-post-time">收藏于：${fn:substring(favour.createAt, 0, 19)}</span>
+								</li>
+							</c:forEach>
+						</ul>
+					</c:when>
+				</c:choose>
+			</div>
 
 			<div class="user-post">
-				<div class="user-post-title"><span></span>&nbsp;收藏</div>
-				<ul class="user-post-list">
-					<c:forEach items="${favourList}" var="favour">
-						<li>
-							<span class="glyphicon glyphicon-file"></span>&nbsp;
-							<a href="toPost.do?newsid=${favour.ID}">${favour.content}</a>
-							<span class="user-post-time">收藏于：${fn:substring(favour.createAt, 0, 19)}</span>
-						</li>
-					</c:forEach>
-				</ul>
+				<c:choose>
+					<c:when test="${user.ID.toString() eq cookie.userId.value}">
+						<div class="user-post-title"><span></span>&nbsp;发帖</div>
+					</c:when>
+				</c:choose>
+				<c:choose>
+					<c:when test="${postList != null && postList.size()>0}">
+						<ul class="user-post-list">
+							<c:forEach items="${postList}" var="post">
+								<li>
+									<span class="glyphicon glyphicon-file"></span>&nbsp;
+									<a href="toPost.do?newsid=${post.ID}">${post.content}</a>
+									<span class="user-post-time">发布于：${fn:substring(post.createAt, 0, 19)}</span>
+								</li>
+							</c:forEach>
+						</ul>
+					</c:when>
+				</c:choose>
 			</div>
 		</div>
 

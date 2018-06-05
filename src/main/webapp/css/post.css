@@ -64,7 +64,11 @@
     font: 14px/1.5 "微软雅黑";
 }
 
-
+.main-left .post-content .post-desc img{
+    /*padding: 10px;*/
+    /*margin-bottom: 10px;*/
+    max-width: 650px;
+}
 
 /*中间部分*/
 .main-left .post-reply{
@@ -80,6 +84,7 @@
 .main-left .post-reply .post-reply-title{
     padding: 10px 20px 20px;
     position: relative;
+    width: 688px;
     border-bottom: 1px dashed #ccc;
 }
 
@@ -233,38 +238,21 @@
 
 /*嵌套的更多回复内容*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*底部富文本框*/
 .main-left .post-reply-textarea{
     position: relative;
     padding: 15px 0 60px;
     width: 688px;
     background-color: #fff;
+}
+
+.main-left .post-reply-textarea textarea{
+    /*position: relative;*/
+    /*padding: 15px 0 60px;*/
+    height: 100px;
+    max-height: 300px;
+    width: 650px;
+    /*background-color: #fff;*/
 }
 
 .main-left .post-reply-textarea .reply-button{

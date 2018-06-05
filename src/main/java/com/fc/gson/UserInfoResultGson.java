@@ -1,6 +1,9 @@
 package com.fc.gson;
 
 
+import org.springframework.util.StringUtils;
+
+import static com.fc.entity.Constant.DEFAULT_AVATAR;
 import static com.fc.entity.Constant.DOMAIN_HOST;
 
 public class UserInfoResultGson extends RetResultGson{
@@ -44,6 +47,10 @@ public class UserInfoResultGson extends RetResultGson{
     }
 
     public String getAvatarUrl() {
+        if (StringUtils.isEmpty(avatarUrl)) {
+            avatarUrl = DEFAULT_AVATAR;
+        }
+
         if (!avatarUrl.contains("http")) {
             avatarUrl = String.format("http://%s/asset/%s", DOMAIN_HOST, avatarUrl);
         }

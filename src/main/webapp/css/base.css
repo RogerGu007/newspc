@@ -493,13 +493,18 @@ body{
     background-color: #FF6547;
 }
 
-.main-right .hot-user-list li{  
+.main-right .hot-user-list li{
     padding: 6px 0;
 }
 
 .main-right .hot-user-list li{  
     border-top: 1px dashed #E0E0E0;
 }
+
+.main-right .myimg img{
+     padding: 0px 0;
+     width: 200px;
+ }
 
 .main-right .hot-user-image{  
     float: left;

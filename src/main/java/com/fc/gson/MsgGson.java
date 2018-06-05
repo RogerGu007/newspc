@@ -19,6 +19,8 @@ public class MsgGson {
     private Boolean 	isValid;
     private Long 		publisherId;
     private Boolean	hasDetail;//是否有详细内容
+    private Boolean 	favorite;
+    private String     source;
 
     private Timestamp  updateAt;
     private String		updateBy;
@@ -30,6 +32,8 @@ public class MsgGson {
     private Integer	commentCount;
     private String publishSourceAvatarUrl;
     private String publishSourceLinkUrl;
+
+    private String 	detailContent;
 
     public void setContent(String content) {
         this.content = content;
@@ -184,5 +188,29 @@ public class MsgGson {
 
     public void setPublishSourceLinkUrl(String publishSourceLinkUrl) {
         this.publishSourceLinkUrl = publishSourceLinkUrl;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public Boolean getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(Boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    public String getDetailContent() {
+        return detailContent;
+    }
+
+    public void setDetailContent(String detailContent) {
+        this.detailContent = detailContent;
     }
 }

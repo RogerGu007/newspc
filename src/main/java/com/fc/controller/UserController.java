@@ -10,7 +10,10 @@ import com.fc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -39,8 +42,33 @@ public class UserController {
         //查询发帖、收藏纪录
 //        List<Post> postList =  postService.getPostList(userid);
         List<MsgGson> favourList = postService.getFavourNewsList(userid);
+        //查询我的发帖
+        List<MsgGson> postList = postService.myPost(userid);
+        user.setID(Long.valueOf(userid));
         model.addAttribute("user", user);
         model.addAttribute("favourList",favourList);
+        model.addAttribute("postList", postList);
+        return "myProfile";
+    }
+
+    /**
+     * 查看别人的个人主页
+     * @param session
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/toProfile.do", method = RequestMethod.GET)
+    public String toProfile(String loginUserId, String toUserId, HttpSession session, Model model) {
+        UserInfoGson user = userService.getProfile(toUserId);
+        //查询发帖、收藏纪录、查询我的发帖
+        if (!StringUtils.isEmpty(loginUserId) && loginUserId.equals(toUserId)) {
+            List<MsgGson> favourList = postService.getFavourNewsList(toUserId);
+            model.addAttribute("favourList",favourList);
+            List<MsgGson> postList = postService.myPost(toUserId);
+            model.addAttribute("postList",postList);
+        }
+        user.setID(Long.valueOf(toUserId));
+        model.addAttribute("user", user);
         return "myProfile";
     }
 
@@ -80,6 +108,7 @@ public class UserController {
         UserInfoGson user = userService.getProfile(userid);
         //查询收藏纪录
         List<MsgGson> favourList = postService.getFavourNewsList(userid);
+        user.setID(Long.valueOf(userid));
         model.addAttribute("user", user);
         model.addAttribute("favourList",favourList);
         return "myFavourite";
@@ -121,6 +150,19 @@ public class UserController {
             return "redirect:toEditProfile.do?userid=" + userid;
         }
         return "redirect:toMyProfile.do?userid=" + userid;
+    }
+
+    //获取我的发帖
+    @RequestMapping(value = "/MyPost.do", produces = "application/json;charset=utf-8")
+    public String getMyPost(String userid, HttpSession session, Model model){
+        UserInfoGson user = userService.getProfile(userid);
+        //获取帖子信息
+        List<MsgGson> postList = postService.myPost(userid.toString());
+        user.setID(Long.valueOf(userid));
+        //向模型中添加数据
+        model.addAttribute("user", user);
+        model.addAttribute("postList", postList);
+        return "myPost";
     }
 }
 

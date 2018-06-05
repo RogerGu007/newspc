@@ -23,17 +23,17 @@
 			</div>
 
 			<div class="clearfix" style="border-bottom: 0px dashed #ddd;"></div>
-			<div class="user-button">
-				<a class="button-follow">清空收藏列表</a>
-			</div>
+			<%--<div class="user-button">--%>
+				<%--<a class="button-follow">清空收藏列表</a>--%>
+			<%--</div>--%>
 			<div class="user-post">
-				<div class="user-post-title"><span></span>&nbsp;收藏</div>
+				<div class="user-post-title"><span></span>&nbsp;发帖</div>
 				<ul class="user-post-list">
-					<c:forEach items="${favourList}" var="favour">
+					<c:forEach items="${postList}" var="post">
 						<li>
 							<span class="glyphicon glyphicon-file"></span>&nbsp;
-							<a href="toPost.do?newsid=${favour.ID}">${favour.content}</a>
-							<span class="user-post-time">创建于：${fn:substring(favour.createAt, 0, 19)}</span>
+							<a href="toPost.do?newsid=${post.ID}">${post.content}</a>
+							<span class="user-post-time">发布于：${fn:substring(post.createAt, 0, 19)}</span>
 						</li>
 					</c:forEach>
 				</ul>
@@ -45,26 +45,6 @@
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript">
-
-    $(function(){
-        $(".button-follow").click(function () {
-            if(confirm("是否确认清空?")) {
-                //清空收藏列表
-                var userId = getCookie("userId");
-                $.ajax({
-                    type:"POST",
-                    url:"clearfav.do",
-                    data:{userid:userId},
-                    success:function(response){
-                        if (response.errcode == '0')
-                            window.location.reload();
-                        else
-                            alert(response.errmsg);
-                    }
-                });
-			}
-        });
-	});
 
     function getCookie(name){
         var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));

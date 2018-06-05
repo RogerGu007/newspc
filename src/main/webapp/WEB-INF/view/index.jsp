@@ -87,13 +87,16 @@
                                     </div>
                                     <div class="post-other">
                                         <div class="post-other-left">
-                                            <span class="post-username"><a href="toMyProfile.do?userid=${post.publisherId}">${post.publishSource}</a></span>
-                                            <%--<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>--%>
-                                            <%--<span>&nbsp;评论数</span>--%>
-                                            <%--<span class="post-time">&nbsp;${post.}</span>--%>
-                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                            <span>&nbsp;发表于</span>
-                                            <span class="post-time">&nbsp;${fn:substring(post.postDate, 0, 19)}</span>
+                                            <span class="post-username"><a href="toProfile.do?loginUserId=${cookie.userId.value}&toUserId=${post.publisherId}">${post.publishSource}</a></span>
+                                            <c:choose>
+                                                <c:when test="${post.commentCount != null || post.commentCount > 0}">
+                                                    <span>&nbsp;&nbsp;</span>
+                                                    <span>${post.commentCount}&nbsp;条评论</span>
+                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                </c:when>
+                                            </c:choose>
+                                            <span>发布于&nbsp;</span>
+                                            <span class="post-time">${fn:substring(post.postDate, 0, 19)}</span>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <%--<span class="like" id="like${post.ID}">&#10084;</span>&lt;%&ndash;<span>&nbsp;最后回复&nbsp;</span>&ndash;%&gt;--%>
                                             <%--<span class="post-reply-time">${post.postDate}</span>--%>
@@ -190,6 +193,11 @@
 				</ul>
 			</div>
 
+            <div class="hot-user">
+                <div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;app下载</div></div>
+                <ul class="myimg"><img id="download" src="http://47.100.197.44/asset/image/211apk.png"></ul>
+            </div>
+
 		</div>
 	</div>
 
@@ -214,11 +222,11 @@
             $("#subNewsTypeSpan").show();
         }
 
-        setCookie("location", document.getElementById("locationSelect").value);
+        setCookie("location", $('#locationSelect').val());
     });
     
     function locationChange() {
-        var location = document.getElementById("locationSelect").value;
+        var location = $('#locationSelect').val();
         window.location.href='listPostByTime.do?curPage=1'
             + '&newsType=' + ${param.get('newsType')}
             + '&subNewsType=' + $('#subNewsTypeSelect').val()
@@ -265,7 +273,6 @@
         }
         return null;
     }
-
 
 </script>
 </body>
