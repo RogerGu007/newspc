@@ -87,11 +87,18 @@
                                     </div>
                                     <div class="post-other">
                                         <div class="post-other-left">
+                                            <c:choose>
+                                                <c:when test="${post.tag != null and post.tag == '广告'}">
+                                                    <span class="advertise"><a>${post.tag}</a></span>
+                                                </c:when>
+                                                <c:when test="${post.tag != null and post.tag == '置顶'}">
+                                                    <span class="stick"><a>${post.tag}</a></span>
+                                                </c:when>
+                                            </c:choose>
                                             <span class="post-username"><a href="toProfile.do?loginUserId=${cookie.userId.value}&toUserId=${post.publisherId}">${post.publishSource}</a></span>
                                             <c:choose>
                                                 <c:when test="${post.commentCount != null || post.commentCount > 0}">
-                                                    <span>&nbsp;&nbsp;</span>
-                                                    <span>${post.commentCount}&nbsp;条评论</span>
+                                                    <span>${post.commentCount}评论</span>
                                                     <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                 </c:when>
                                             </c:choose>
@@ -195,7 +202,7 @@
 
             <div class="hot-user">
                 <div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;app下载</div></div>
-                <ul class="myimg"><img id="download" src="http://47.100.197.44/asset/image/211apk.png"></ul>
+                <ul class="myimg"><img id="download" src="http://www.211sq.com/asset/image/211apk.png"></ul>
             </div>
 
 		</div>

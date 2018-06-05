@@ -53,6 +53,7 @@ public class PostService {
         newsMap.put("location", String.valueOf(location));
         newsMap.put("newstype", String.valueOf(newsType));
         newsMap.put("page", String.valueOf(curPage-1));
+        newsMap.put("pageSize", String.valueOf(limit));
         int allCount = 0;
         try {
             String getCountResp = jerseyClient.getHttp(GET_NEWS_COUNT, newsMap);

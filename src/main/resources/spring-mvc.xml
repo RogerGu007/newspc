@@ -67,6 +67,7 @@
                         <value>/addorremovefavoritenews.do</value>
                         <value>/clearfav.do</value>
                         <value>/MyPost.do</value>
+                        <value>/download.do</value>
                     </list>
                 </property>
             </bean>
