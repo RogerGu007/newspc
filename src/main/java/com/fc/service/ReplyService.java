@@ -46,7 +46,6 @@ public class ReplyService {
         params.put("page", String.valueOf(page));
         params.put("pageSize", "20");
         try {
-//            String comments = httpClientOperateService.doGet(GET_COMMENTS, cond);
             String comments = jerseyClient.getHttp(GET_COMMENTS, params);
             CommentsResultGson commentsResultGson = GsonUtils.fromJson(comments, CommentsResultGson.class);
             if (commentsResultGson.getRetCode() == RET_CODE_OK) {

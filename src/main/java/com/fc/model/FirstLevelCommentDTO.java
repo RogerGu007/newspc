@@ -1,6 +1,11 @@
 package com.fc.model;
 
+import org.springframework.util.StringUtils;
+
 import java.util.List;
+
+import static com.fc.entity.Constant.DEFAULT_AVATAR;
+import static com.fc.entity.Constant.DOMAIN_HOST;
 
 public class FirstLevelCommentDTO extends BaseDTO {
     private Long 	newsID;
@@ -26,6 +31,13 @@ public class FirstLevelCommentDTO extends BaseDTO {
     }
 
     public String getAvatarUrl() {
+        if (StringUtils.isEmpty(avatarUrl)) {
+            avatarUrl = DEFAULT_AVATAR;
+        }
+
+        if (!avatarUrl.contains("http")) {
+            avatarUrl = String.format("http://%s/asset/%s", DOMAIN_HOST, avatarUrl);
+        }
         return avatarUrl;
     }
 

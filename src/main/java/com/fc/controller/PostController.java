@@ -77,7 +77,6 @@ public class PostController {
         //获取帖子信息
         NewsDetailDTO newsDetailDTO = postService.getPostDetail(newsid);
         //获取评论信息
-//        List<Reply> replyList = replyService.listReply(newsid);
         List<FirstLevelCommentDTO> replyList = replyService.listReply(newsid, 0);
         //判断用户是否已经点赞
         boolean liked = false;

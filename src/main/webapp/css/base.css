@@ -471,6 +471,21 @@ body{
     color: #2480ff;
 }
 
+.main-left .post-list .post-content .post-other .post-other-left .forjob a{
+    width:35px;
+    height:28px;
+    border:1px solid #ffa62e;
+    color: #ffa62e;
+}
+
+.main-left .post-list .post-content .post-other .post-other-left .needworker a{
+    /*display:block;*/
+    width:35px;
+    height:28px;
+    border:1px solid #b40bff;
+    color: #b40bff;
+}
+
 /*.main-left .post-list .post-content .post-other .post-other-left .advertise a:hover{*/
     /*color: #FF0000;*/
 /*}*/

@@ -34,6 +34,7 @@
                             <li><a href="MyFavourite.do?userid=${cookie.userId.value}">我的收藏</a></li>
                             <li><a href="MyPost.do?userid=${cookie.userId.value}">我的发帖</a></li>
                             <li><a id="logout" onclick="logout()">退出登录</a></li>
+                            <li><a id="more" onclick="window.location = '/df/download.do'">更多</a></li>
                         </ul>
                     </li>
                 </c:when>

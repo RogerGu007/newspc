@@ -15,7 +15,10 @@
 		text-align: center;
 		height: 200px;
 		max-width: 1000px;
-		font-size: 40px;}
+		font-size: 40px;
+		left: 50%;
+		top: 50%;
+	}
 	.test .download-button{
 		height: 100px;
 		width: 400px;
@@ -24,15 +27,20 @@
 		background-color: #00B091;
 		color: #fff;
 		font: 23px/38px "微软雅黑";
+		left: 50%;
+		top: 50%;
 	}
 </style>
 
+<%--<div class="test">--%>
+	<%--<a><img src="http://www.211sq.com/asset/image/首页.jpg"></a>--%>
+<%--</div>--%>
 <div class="test">
 	<a><img src="http://www.211sq.com/asset/image/download2.png"></a>
 </div>
-<br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
 <div class="test">
-	<button class="download-button" href="http://www.211sq.com/asset/apk/211sq.apk">点击下载APP</button>
+	<button class="download-button" onclick="window.location = 'http://www.211sq.com/asset/apk/211sq.apk'">点击下载APP</button>
 </div>
 
 <%@ include file="footer.jsp" %>
@@ -51,7 +59,7 @@
     function loadHtml(){
         var div = document.createElement('div');
         div.id = 'weixin-tip';
-        div.innerHTML = '<p><img src="http://47.100.197.44/asset/image/live_weixin.png" alt="微信打开"/></p>';
+        div.innerHTML = '<p><img src="http://www.211sq.com/asset/image/live_weixin.png" alt="微信打开"/></p>';
         document.body.appendChild(div);
     }
 

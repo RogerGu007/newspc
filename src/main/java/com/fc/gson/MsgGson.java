@@ -33,7 +33,8 @@ public class MsgGson {
     private String publishSourceAvatarUrl;
     private String publishSourceLinkUrl;
 
-    private String 	detailContent;
+    private String detailContent;
+    private String tag;
 
     public void setContent(String content) {
         this.content = content;
@@ -212,5 +213,13 @@ public class MsgGson {
 
     public void setDetailContent(String detailContent) {
         this.detailContent = detailContent;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

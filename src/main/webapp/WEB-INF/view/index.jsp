@@ -94,6 +94,12 @@
                                                 <c:when test="${post.tag != null and post.tag == '置顶'}">
                                                     <span class="stick"><a>${post.tag}</a></span>
                                                 </c:when>
+                                                <c:when test="${post.tag != null and post.tag == '求职'}">
+                                                    <span class="forjob"><a>${post.tag}</a></span>
+                                                </c:when>
+                                                <c:when test="${post.tag != null and post.tag == '招聘'}">
+                                                    <span class="needworker"><a>${post.tag}</a></span>
+                                                </c:when>
                                             </c:choose>
                                             <span class="post-username"><a href="toProfile.do?loginUserId=${cookie.userId.value}&toUserId=${post.publisherId}">${post.publishSource}</a></span>
                                             <c:choose>
