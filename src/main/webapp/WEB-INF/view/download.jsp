@@ -8,40 +8,59 @@
 	<link rel="stylesheet" type="text/css" href="css/base.css">
 </head>
 <body>
+<%@ include file="header.jsp" %>
 <style type="text/css">
-	*{margin:0; padding:0;}
-	img{max-width: 100%; height: auto;}
-	.test{
-		text-align: center;
-		height: 200px;
-		max-width: 1000px;
-		font-size: 40px;
-		left: 50%;
-		top: 50%;
+	*{
+		margin:0;
+		padding:0;
 	}
-	.test .download-button{
-		height: 100px;
-		width: 400px;
-		text-align: center;
-		border-radius: 3px;
-		background-color: #00B091;
-		color: #fff;
-		font: 23px/38px "微软雅黑";
-		left: 50%;
-		top: 50%;
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+	.test {
+		position: relative;
+	}
+	#btn {
+		font-size: 40px;
+		letter-spacing: 10px;
+		position: absolute;
+		top: 60%;
+		left: 20%;
+		width: 500px;
+		background: url("http://www.211sq.com/asset/image/downbutton.JPG") no-repeat;
 	}
 </style>
 
-<%--<div class="test">--%>
-	<%--<a><img src="http://www.211sq.com/asset/image/首页.jpg"></a>--%>
-<%--</div>--%>
-<div class="test">
-	<a><img src="http://www.211sq.com/asset/image/download2.png"></a>
+<div class="main w clearfix">
+	<div class="main-left">
+		<div class="test">
+			<img src="http://www.211sq.com/asset/image/downloadpage2.jpg" width="100%">
+			<input type="button" id="btn" onclick="window.location = 'http://www.211sq.com/asset/apk/211sq.apk'"/>
+		</div>
+	</div>
+
+	<div class="main-right">
+		<div class="hot-user">
+			<div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;最近访问</div></div>
+			<ul class="hot-user-list">
+				<c:forEach items="${hotUserList}" var="user">
+					<li class="clearfix">
+						<a href="${user.headUrl}" class="hot-user-image"><img src="${user.headUrl}"></a>
+						<a href="${user.headUrl}" class="hot-user-name">${user.username}</a>
+					</li>
+				</c:forEach>
+			</ul>
+		</div>
+
+		<div class="hot-user">
+			<div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;app下载</div></div>
+			<ul class="myimg"><img id="download" src="http://www.211sq.com/asset/image/211apk.png"></ul>
+		</div>
+
+	</div>
 </div>
-<br><br><br><br><br><br><br><br><br><br><br><br>
-<div class="test">
-	<button class="download-button" onclick="window.location = 'http://www.211sq.com/asset/apk/211sq.apk'">点击下载APP</button>
-</div>
+
 
 <%@ include file="footer.jsp" %>
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>

@@ -17,14 +17,17 @@
 	<!-- 中间主体板块 -->
 	<div class="main w clearfix">
 		<div class="buttons clearfix">
-			<a href="#" id="login-button" class="selected"><span class="glyphicon glyphicon-user"></span>&nbsp;登录</a>
+			<a href="#" id="login-button" class="selected"><span class="glyphicon glyphicon-user"></span>&nbsp;登陆</a>
 			<%--<a href="#" id="register-button" class="unselected"><span class="glyphicon glyphicon-pencil"></span>&nbsp;注册</a>--%>
 		</div>
 		<div class="contents">
 			<div id="login-area">
 				<form action="login.do?phoneno=${phoneno}&smscode=${smscode}" method="post">
 				<%--<form>--%>
+					<%--<div>sss</div>--%>
 					<div class="error-message">${error}</div>
+					<div id="tip">● 首次通过验证码登陆即可完成注册</div>
+					<br>
 					<div class="email">
 						手机号&nbsp;
 						<input id="login-phone" type="text" name="phoneno" value="${phoneno}" required>
@@ -33,6 +36,7 @@
 						验证码&nbsp;
 						<input id="login-sms" type="text" name="smscode" value="${smscode}" required>
 					</div>
+					<br>
 					<button type="button" id="get-smscode">获取验证码</button>
 					<button type="button" id="login-submit">立即登录</button>
 				</form>

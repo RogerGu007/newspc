@@ -270,7 +270,7 @@ body{
     float: left;
     width: 690px;
     border: 1px solid #E0E0E0;
-
+    padding-left: 0px;
 }
 
 
@@ -503,8 +503,6 @@ body{
     width: 260px;
 }
 
-
-
 /*主体右侧活跃用户模块*/
 .main-right .hot-user{
     padding: 0 10px 14px;
@@ -512,7 +510,6 @@ body{
     margin-bottom: 10px;
     background-color: #fff;
 }
-
 
 .main-right .hot-user .hot-user-title{
     float: left;
@@ -605,7 +602,6 @@ body{
 .login2 #down-menu li a:hover{
     background-color: #333;
 }
-
 
 
 

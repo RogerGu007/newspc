@@ -29,7 +29,7 @@
 					<div class="user-info">
 						<div class="user-name">${newsdetail.publisher_name}</div>
 						<div class="post-time">
-                            编辑于 ${fn:substring(newsdetail.postDate, 0, 19)}
+                            发布于 ${fn:substring(newsdetail.postDate, 0, 19)}
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <span class="like" id="like${newsdetail.newsID}">&#10084;</span>
                         </div>

@@ -53,6 +53,11 @@
     font: 16px/36px "微软雅黑";
 }
 
+.main .contents #tip{
+    font: 18px/36px "微软雅黑";
+    /*color: #030002;*/
+}
+
 #login-area input,
 #register-area input{
     border: 1px solid #d4d4d4;

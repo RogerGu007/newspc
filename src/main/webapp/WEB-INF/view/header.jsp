@@ -7,16 +7,19 @@
         <h1 class="logo">
             <a href="listTopic.do">211社区</a>
         </h1>
-        <ul class="left-nav">
-            <li class="current-nav"><a href="listTopic.do">首页</a></li>
+        <ul class="left-nav" id="left-nav">
+            <%--<li class="current-nav"><a href="listTopic.do" target="_blank">首页</a></li>--%>
+            <li><a href="listTopic.do">首页</a></li>
             <c:choose>
                 <c:when test="${cookie.location.value eq null || cookie.location.value eq ''}">
                     <li><a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0">招聘</a></li>
                     <li><a href="listPostByTime.do?curPage=1&location=21&newsType=3&subNewsType=0">鹊桥</a></li>
+                    <li><a href="download.do">下载APP</a></li>
                 </c:when>
                 <c:otherwise>
                     <li><a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=2&subNewsType=0">招聘</a></li>
                     <li><a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=3&subNewsType=0">鹊桥</a></li>
+                    <li><a href="download.do">下载APP</a></li>
                 </c:otherwise>
             </c:choose>
         </ul>
@@ -34,13 +37,13 @@
                             <li><a href="MyFavourite.do?userid=${cookie.userId.value}">我的收藏</a></li>
                             <li><a href="MyPost.do?userid=${cookie.userId.value}">我的发帖</a></li>
                             <li><a id="logout" onclick="logout()">退出登录</a></li>
-                            <li><a id="more" onclick="window.location = '/df/download.do'">更多</a></li>
+                            <%--<li><a id="more" onclick="window.location = '/df/download.do'">更多</a></li>--%>
                         </ul>
                     </li>
                 </c:when>
                 <c:otherwise>
                     <li class="login">
-                        <a href="toLogin.do">登录</a>
+                        <a href="toLogin.do">登录/注册</a>
                     </li>
                 </c:otherwise>
             </c:choose>
@@ -63,6 +66,13 @@
         var avatarObj = document.getElementById("avatarUrl");
         if (avatarObj != null)
             avatarObj.setAttribute("src", avatarUrl);
+
+//        var as = document.getElementById('left-nav').getElementsByTagName('a');
+//        for (var i = 0; i < as.length; i++) as[i].onclick = function () {
+//            this.parentNode.style.setProperty("backgroundColor", "#f00");
+//            this.parentNode.style.color = '#fff';
+//        }
+
     }
 
     function logout() {
