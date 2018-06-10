@@ -28,6 +28,7 @@ public class MsgGson {
     private String		createBy;
 
     private String     publishSource;
+    private String     publishAvatar;
 
     private Integer	commentCount;
     private String publishSourceAvatarUrl;
@@ -170,6 +171,17 @@ public class MsgGson {
 
     public void setHasDetail(Boolean hasDetail) {
         this.hasDetail = hasDetail;
+    }
+
+    public String getPublishAvatar() {
+        if (!StringUtils.isEmpty(publishAvatar) && !publishAvatar.contains("http")) {
+            publishAvatar = String.format("http://%s/asset/%s", DOMAIN_HOST, publishAvatar);
+        }
+        return publishAvatar;
+    }
+
+    public void setPublishAvatar(String publishAvatar) {
+        this.publishAvatar = publishAvatar;
     }
 
     public String getPublishSourceAvatarUrl() {

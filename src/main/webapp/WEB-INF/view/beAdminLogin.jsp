@@ -32,6 +32,7 @@
 						密&nbsp;&nbsp;&nbsp;码&nbsp;
 						<input id="password" type="password" name="password" value="${password}" required>
 					</div>
+					<br>
 					<button type="button" id="admin-login-submit">立即登录</button>
 				</form>
 			</div>

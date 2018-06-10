@@ -6,13 +6,11 @@
 <head>
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="css/wangEditor.css">
 	<link rel="stylesheet" type="text/css" href="css/base.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>
 <%@ include file="header.jsp" %>
-
 
 	<!-- 中间主体板块 -->
 	<div class="main w clearfix">
@@ -37,30 +35,10 @@
 						<input id="login-sms" type="text" name="smscode" value="${smscode}" required>
 					</div>
 					<br>
-					<button type="button" id="get-smscode">获取验证码</button>
+					<button type="button" id="get-smscode" >获取验证码</button>
 					<button type="button" id="login-submit">立即登录</button>
 				</form>
 			</div>
-			<%--<div id="register-area">--%>
-				<%--<form action="register.do" method="post">--%>
-					<%--<div id="error-message" class="error-message">${error}</div>--%>
-					<%--<div class="email">--%>
-						<%--邮箱&nbsp;--%>
-						<%--<input type="text" name="email" value="${email}" id="email" required>--%>
-					<%--</div>--%>
-					<%--<div class="password">--%>
-						<%--密码&nbsp;--%>
-						<%--<input type="password" name="password" id="password" required>--%>
-					<%--</div>--%>
-					<%--<div class="password relative clearfix">--%>
-						<%--<span style="position: absolute;left: -30px;">重复密码&nbsp;</span>--%>
-						<%--<input type="password" name="repassword" id="repassword" required style="position: absolute;left: 40px;">--%>
-					<%--</div>--%>
-					<%--<div class="relative">--%>
-						<%--<button id="register-submit">立即注册</button>--%>
-					<%--</div>--%>
-				<%--</form>--%>
-			<%--</div>--%>
 		</div>
 	</div><!-- 主体结束 -->
 
@@ -98,12 +76,15 @@
                 url:"getsmscode.do",
                 data:{phoneno:$("#login-phone").val()},
                 success:function(response){
-                    if (response.errcode != "0")
+                    if (response.errcode != "0") {
                         alert(response.errmsg);
-                    else
+                        return;
+					} else
                         alert("验证码发送成功！");
                 }
             });
+            //60秒之前才能点击
+			timeCycle(this);
         });
 
 		//登陆
@@ -147,6 +128,23 @@
             return unescape(arr[2]);
         }
         return null;
+    }
+
+    var countdown = 60;
+    function timeCycle(val) {
+        if (countdown == 0) {
+            val.removeAttribute("disabled");
+            val.innerHTML = "获取验证码";
+            countdown = 60;
+        } else {
+            val.setAttribute("disabled", true);
+			val.html
+            val.innerHTML = "重新发送(" + countdown + ")";
+            countdown--;
+        }
+        setTimeout(function() {
+            timeCycle(val)
+        },1000)
     }
 
 </script>

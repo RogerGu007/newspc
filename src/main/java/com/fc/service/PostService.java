@@ -30,6 +30,8 @@ public class PostService {
 
     Logger logger = Logger.getLogger(PostService.class.getName());
 
+    private static Integer DEFAULT_PAGE_SIZE = 15;
+
 //    public int publishPost(Post post) {
 //        //构造帖子
 //        post.setPublishTime(MyUtil.formatDate(new Date()));
@@ -46,14 +48,13 @@ public class PostService {
     //按时间列出帖子
     public PageBean<MsgGson> listPostByTime(int location, int newsType, int subNewsType, int curPage) {
         //每页记录数，从哪开始
-        int limit = 20;
-        int offset = (curPage-1) * limit;
+//        int offset = (curPage-1) * DEFAULT_PAGE_SIZE;
         //获得总记录数，总页数
         Map<String, String> newsMap = new HashMap<>();
         newsMap.put("location", String.valueOf(location));
         newsMap.put("newstype", String.valueOf(newsType));
         newsMap.put("page", String.valueOf(curPage-1));
-        newsMap.put("pageSize", String.valueOf(limit));
+        newsMap.put("pageSize", String.valueOf(DEFAULT_PAGE_SIZE));
         int allCount = 0;
         try {
             String getCountResp = jerseyClient.getHttp(GET_NEWS_COUNT, newsMap);
@@ -65,12 +66,12 @@ public class PostService {
         }
 
         int allPage = 0;
-        if (allCount <= limit) {
+        if (allCount <= DEFAULT_PAGE_SIZE) {
             allPage = 1;
-        } else if (allCount / limit == 0) {
-            allPage = allCount / limit;
+        } else if (allCount / DEFAULT_PAGE_SIZE == 0) {
+            allPage = allCount / DEFAULT_PAGE_SIZE;
         } else {
-            allPage = allCount / limit + 1;
+            allPage = allCount / DEFAULT_PAGE_SIZE + 1;
         }
         PageBean<MsgGson> pageBean = new PageBean<>(allPage, curPage);
 
@@ -117,6 +118,7 @@ public class PostService {
                 newsDetailDTO.setPostDate(msgGson.getPostDate());
                 newsDetailDTO.setPublisher_id(msgGson.getPublisherId());
                 newsDetailDTO.setPublisher_name(msgGson.getPublishSource());
+                newsDetailDTO.setPublisher_avatar_url(msgGson.getPublishAvatar());
                 newsDetailDTO.setSubject(msgGson.getContent());
                 newsDetailDTO.setFavorite(msgGson.getFavorite());
                 newsDetailDTO.setDetailContent(msgGson.getDetailContent());
@@ -125,15 +127,13 @@ public class PostService {
                 //用户自己的发帖
                 if (msgGson.getSource().equals(OURSITE.getSourceDesc())) {
                     List<String> imageList = msgGson.getImagePaths();
-                    for (String image : imageList) {
-                        detailContent += renderImageHtml(image);
+                    if (imageList != null) {
+                        for (String image : imageList) {
+                            detailContent += renderImageHtml(image);
+                        }
                     }
                     newsDetailDTO.setDetailContent(detailContent);
                 }
-
-                //获取用户名
-                UserInfoGson userInfo = userService.getProfile(String.valueOf(msgGson.getPublisherId()));
-                newsDetailDTO.setPublisher_avatar_url(userInfo.getAvatarUrl());
             }
         } catch (Exception e) {
             logger.warn(GET_NEWS_DETAIL + " failed! " + e.getMessage());

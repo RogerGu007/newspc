@@ -114,7 +114,7 @@
                                             <input type="hidden" name="newsid" value="${reply.newsID}"/>
                                             <input type="hidden" name="rid" value="${reply.id}"/>
                                             <input type="hidden" name="fromuserid"  value= "${cookie.userId.value}"/>
-                                            <input type="hidden" name="touserid" value="${newsdetail.publisher_id}"/>
+                                            <input type="hidden" name="touserid" value="${reply.userID}"/>
                                             <textarea id="s${reply.id}" name="content" ></textarea>
                                             <button type="submit" class="commentButton">回复</button>
                                         </form>

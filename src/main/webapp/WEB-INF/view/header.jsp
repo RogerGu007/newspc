@@ -9,17 +9,17 @@
         </h1>
         <ul class="left-nav" id="left-nav">
             <%--<li class="current-nav"><a href="listTopic.do" target="_blank">首页</a></li>--%>
-            <li><a href="listTopic.do">首页</a></li>
+            <li><a href="listTopic.do" id="0">首页</a></li>
             <c:choose>
                 <c:when test="${cookie.location.value eq null || cookie.location.value eq ''}">
-                    <li><a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0">招聘</a></li>
-                    <li><a href="listPostByTime.do?curPage=1&location=21&newsType=3&subNewsType=0">鹊桥</a></li>
-                    <li><a href="download.do">下载APP</a></li>
+                    <li><a href="listPostByTime.do?curPage=1&location=21&newsType=2&subNewsType=0" id="1">招聘</a></li>
+                    <li><a href="listPostByTime.do?curPage=1&location=21&newsType=3&subNewsType=0" id="2">鹊桥</a></li>
+                    <li><a href="download.do" id="3">下载APP</a></li>
                 </c:when>
                 <c:otherwise>
-                    <li><a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=2&subNewsType=0">招聘</a></li>
-                    <li><a href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=3&subNewsType=0">鹊桥</a></li>
-                    <li><a href="download.do">下载APP</a></li>
+                    <li><a id="5" href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=2&subNewsType=0">招聘</a></li>
+                    <li><a id="6" href="listPostByTime.do?curPage=1&location=${cookie.location.value}&newsType=3&subNewsType=0">鹊桥</a></li>
+                    <li><a id="7" href="download.do">下载APP</a></li>
                 </c:otherwise>
             </c:choose>
         </ul>
@@ -47,11 +47,6 @@
                     </li>
                 </c:otherwise>
             </c:choose>
-
-             <%--<li>--%>
-                    <%--<a href="#"><span class="glyphicon glyphicon-search"></span></a>--%>
-                <%--</li>--%>
-                <%--<li><input type="text"></li>--%>
         </ul>
     </div>
 </div>
@@ -68,11 +63,16 @@
             avatarObj.setAttribute("src", avatarUrl);
 
 //        var as = document.getElementById('left-nav').getElementsByTagName('a');
-//        for (var i = 0; i < as.length; i++) as[i].onclick = function () {
-//            this.parentNode.style.setProperty("backgroundColor", "#f00");
-//            this.parentNode.style.color = '#fff';
-//        }
+        var as = $(".left-nav a");
+        if (getCookie("newstype") == null || getCookie("newstype") == '')
+            as[0].parentNode.className = 'current-nav';
+        else
+            as[getCookie("newstype")].parentNode.className = 'current-nav';
 
+        for (var i = 0; i < as.length; i++) as[i].onclick = function () {
+            var index = parseInt(this.id)%4;
+            setCookie("newstype", index);
+        }
     }
 
     function logout() {
@@ -103,5 +103,12 @@
             return unescape(arr[2]);
         }
         return null;
+    }
+
+    function setCookie(name,value){
+        var Days = 30;//此 cookie 将被保存 30 天
+        var exp = new Date();//new Date("December 31, 9998");
+        exp.setTime(exp.getTime() + Days*24*60*60*1000);
+        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
     }
 </script>
