@@ -78,13 +78,13 @@
                 success:function(response){
                     if (response.errcode != "0") {
                         alert(response.errmsg);
-                        return;
-					} else
+					} else {
                         alert("验证码发送成功！");
+                        //60秒之前才能点击
+                        timeCycle(document.getElementById("get-smscode") ,true);
+					}
                 }
             });
-            //60秒之前才能点击
-			timeCycle(this);
         });
 
 		//登陆
@@ -131,19 +131,34 @@
     }
 
     var countdown = 60;
-    function timeCycle(val) {
+    if ((getCookie("timeout") != null && getCookie("timeout") != '') || getCookie("timeout") == 0) {
+        countdown = getCookie("timeout");
+//        alert(countdown);
+        timeCycle(document.getElementById("get-smscode"), false);
+	}
+
+    function timeCycle(val, flag) {
+        //flag标志是刷新的，还是点击按钮的
         if (countdown == 0) {
             val.removeAttribute("disabled");
             val.innerHTML = "获取验证码";
-            countdown = 60;
+            delCookie("timeout");
+            return;
         } else {
-            val.setAttribute("disabled", true);
-			val.html
-            val.innerHTML = "重新发送(" + countdown + ")";
-            countdown--;
+            if (!flag && countdown == 60) {
+                val.removeAttribute("disabled");
+                val.innerHTML = "获取验证码";
+                delCookie("timeout");
+                return;
+			} else {
+                val.setAttribute("disabled", true);
+                val.innerHTML = "重新发送(" + countdown + ")";
+                countdown--;
+                setCookie("timeout", countdown);
+			}
         }
         setTimeout(function() {
-            timeCycle(val)
+            timeCycle(val, true);
         },1000)
     }
 
