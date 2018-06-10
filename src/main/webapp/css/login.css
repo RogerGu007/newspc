@@ -87,13 +87,13 @@
 }
 
 #login-area button{
-    width: 200px;
-    bottom: 0;
+    width: 180px;
+    bottom: 0px;
     text-align: center;
     border-radius: 3px;
     background-color: #00B091;
     color: #fff;
-    font: 14px/40px "微软雅黑";
+    font: 16px/40px "微软雅黑";
 }
 
 #login-area button#forget-password{

@@ -22,8 +22,8 @@ body{
 }
 
 .m-left .user-image img{
-    width: 100px;
-    height: 100px;
+    width: 130px;
+    height: 130px;
     border-radius: 3px;
 }
 
@@ -34,10 +34,25 @@ body{
 }
 
 .m-left .user-info .user-name{
-    font: 600 18px/1.8 "微软雅黑";
+    font: 600 22px/1.8 "微软雅黑";
     color: #222;
 }
-
+.m-left .user-info .user-phone{
+    font: 400 15px/1.8 "微软雅黑";
+    color: #222;
+}
+.m-left .user-info .user-sex{
+    font: 400 15px/1.8 "微软雅黑";
+    color: #222;
+}
+.m-left .user-info .user-school{
+    font: 400 15px/1.8 "微软雅黑";
+    color: #222;
+}
+.m-left .user-info .user-verified{
+    font: 400 15px/1.8 "微软雅黑";
+    color: #222;
+}
 
 /*两个按钮*/
 .m-left .user-button{
@@ -48,12 +63,12 @@ body{
 .m-left .user-button a{
     position: absolute;
     height: 32px;
-    width: 100px;
+    width: 120px;
     text-align: center;
 /*    background-color: rgb(0, 176, 145);
     color: rgb(255, 255, 255);*/
     border-radius: 3px;
-    font: 14px/32px 微软雅黑;
+    font: 16px/32px 微软雅黑;
 }
 
 .m-left .user-button a.button-chat{
@@ -71,7 +86,7 @@ body{
 
 .m-left .user-post .user-post-title{
     position: relative;
-    font: 700 18px/1.8 "微软雅黑";
+    font: 700 20px/1.8 "微软雅黑";
     color: #333;
     padding-left: 7px;
     padding-bottom: 10px;
@@ -101,12 +116,12 @@ body{
     position: absolute;
     bottom: 2px;
     right: 2px;
-    font-size: 12px;
+    font-size: 14px;
     color: #666;
 }
 
 .m-left .user-post .user-post-list li a{
-    font: 15px/2 "微软雅黑";
+    font: 16px/2 "微软雅黑";
     color: #259;
 }
 
@@ -114,7 +129,14 @@ body{
     text-decoration: underline;
 }
 
-
+.undo{
+    font-size:16px;
+    width: 70px;
+    height: 30px;
+    /*cursor:pointer;*/
+    color: #fffbf0;
+    background-color: #00B091;
+}
 
 
 /*右部分*/
@@ -151,6 +173,8 @@ body{
     background-color: #eee;
     color: #888;
 }
+
+
 
 
 

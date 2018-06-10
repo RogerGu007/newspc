@@ -20,9 +20,13 @@
 			<div class="user-image"><img src="${user.avatarUrl}"></div>
 			<div class="user-info">
 				<div class="user-name">${user.nickName}</div>
+				<!-- 填充用 -->
+				<div class="user-sex">&nbsp;</div>
+				<div class="user-sex">&nbsp;</div>
+				<div class="user-sex">&nbsp;</div>
+				<div class="user-sex">&nbsp;</div>
 			</div>
-
-			<div class="clearfix" style="border-bottom: 0px dashed #ddd;"></div>
+			<div class="clearfix" style="border-bottom: 1px dashed #ddd;"></div>
 			<div class="user-button">
 				<a class="button-follow">清空收藏列表</a>
 			</div>

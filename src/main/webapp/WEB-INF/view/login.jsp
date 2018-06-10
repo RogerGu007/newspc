@@ -28,11 +28,11 @@
 					<br>
 					<div class="email">
 						手机号&nbsp;
-						<input id="login-phone" type="text" name="phoneno" value="${phoneno}" required>
+						<input id="login-phone" type="text" name="phoneno" value="${phoneno}" style="width: 300px" required>
 					</div>
 					<div class="smscode">
 						验证码&nbsp;
-						<input id="login-sms" type="text" name="smscode" value="${smscode}" required>
+						<input id="login-sms" type="text" name="smscode" value="${smscode}" style="width: 300px" required>
 					</div>
 					<br>
 					<button type="button" id="get-smscode" >获取验证码</button>

@@ -45,7 +45,7 @@
     border-radius: 12px;
     padding: 0px 12px;
     border: 1px solid #EAEAEA;
-    font: 14px/20px "微软雅黑";
+    font: 17px/25px "微软雅黑";
     color: #222;
     background-color: #fff;
     text-decoration: none;
@@ -84,10 +84,17 @@
     float: left;
 }
 
+.main-left .topic-list .topic-odd a{
+    font: 18px/25px "微软雅黑";
+}
+
 .main-left .topic-list div.topic-even{
     float: right;
 }
 
+.main-left .topic-list .topic-even a{
+    font: 18px/25px "微软雅黑";
+}
 
 .main-left .topic-list .topic-image img{
     width: 58px;
@@ -102,13 +109,13 @@
 
 .main-left .topic-list .topic-content a.topic-name{
     display: block;
-    font: 600 15px/20px "微软雅黑";
+    font: 16px/20px "微软雅黑";
     color: #0b9074;
 }
 
 .main-left .topic-list .topic-content a.topic-desc{
     display: block;
-    font: 14px/20px "微软雅黑";
+    font: 14px/22px "微软雅黑";
     color: #000;
 }
 

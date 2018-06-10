@@ -15,7 +15,7 @@
 	<div class="main w clearfix">
 		<div class="main-left">
 			<div class="share">
-				<div class="share-left"><span class="glyphicon glyphicon-th-large"></span>&nbsp;话题广场</div>
+				<div class="share-left"><span class="glyphicon glyphicon-th-large"></span>&nbsp;&nbsp;话题广场</div>
 			</div>
 			<div class="topic-root">
 				<div class="topic-root-wrap">

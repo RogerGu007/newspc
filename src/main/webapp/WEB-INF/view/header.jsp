@@ -28,7 +28,7 @@
             <c:choose>
                 <c:when test="${cookie.isLogin != null && cookie.isLogin.value == 1}">
                     <li class="login2 relative">
-                        <a href="toMyProfile.do" id="profile">
+                        <a href="toMyProfile.do?userid=${cookie.userId.value}" id="profile">
                             <%--<img id="avatarUrl" src="${cookie.avatarUrl.value}">--%>
                             <img id="avatarUrl" src="">
                         </a>

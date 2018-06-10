@@ -2,11 +2,9 @@ package com.fc.controller;
 
 import com.fc.gson.MsgGson;
 import com.fc.gson.NewsSubjectResultGson;
+import com.fc.gson.RetResultGson;
 import com.fc.model.*;
-import com.fc.service.PostService;
-import com.fc.service.ReplyService;
-import com.fc.service.TopicService;
-import com.fc.service.UserService;
+import com.fc.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +31,9 @@ public class PostController {
 
     @Autowired
     private ReplyService replyService;
+
+    @Autowired
+    private NewsService newsService;
 
 
     //去发帖的页面
@@ -95,5 +96,13 @@ public class PostController {
         NewsDetailDTO newsDetailDTO = postService.getPostDetail(newsid);
         //向模型中添加数据
         return newsDetailDTO;
+    }
+
+    //获取帖子详情
+    @RequestMapping(value = "/deleteSelfNews.do", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    public @ResponseBody
+    RetResultGson deleteSelfNews(Long newsid){
+        RetResultGson resultGson = newsService.deleteNews(newsid.toString());
+        return resultGson;
     }
 }

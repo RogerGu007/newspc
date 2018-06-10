@@ -72,15 +72,15 @@
                                 <div class="post-content">
                                     <div class="post-title">
                                         <a href="toPost.do?newsid=${post.ID}">${post.content}</a>
-                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                         <c:choose>
                                             <c:when test="${cookie.sessionID != null && cookie.sessionID != ''}">
+                                                <span>&nbsp;&nbsp;</span>
                                                 <button class="admin-edit-button" id="edit${post.ID}">编辑</button>
                                             </c:when>
                                         </c:choose>
-                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                         <c:choose>
                                             <c:when test="${cookie.sessionID != null && cookie.sessionID != ''}">
+                                                <span>&nbsp;&nbsp;</span>
                                                 <button class="admin-delete-button" id="delete${post.ID}">删除</button>
                                             </c:when>
                                         </c:choose>

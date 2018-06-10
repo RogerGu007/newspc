@@ -66,6 +66,7 @@
                         <value>/getIsFavorite.do</value>
                         <value>/addorremovefavoritenews.do</value>
                         <value>/clearfav.do</value>
+                        <value>/deleteSelfNews.do</value>
                         <value>/MyPost.do</value>
                         <value>/download.do</value>
                     </list>

@@ -9,7 +9,7 @@
 }
 
 .main-left .post-content .post-title{
-    font: 600 16px/30px "微软雅黑";
+    font: 600 21px/30px "微软雅黑";
     width: 650px;
     padding: 20px;
 }
@@ -27,8 +27,8 @@
 }
 
 .main-left .post-content .post-user .user-image img{
-    height: 50px;
-    width: 50px;
+    height: 60px;
+    width: 60px;
     border-radius: 25px;
 }
 
@@ -37,12 +37,12 @@
 }
 
 .main-left .post-content .post-user .user-info .user-name{
-    font: 12px/2 "微软雅黑";
+    font: 15px/2 "微软雅黑";
     color: #f2cf2e;
 }
 
 .main-left .post-content .post-user .user-info .post-time{
-    font: 12px/2 "微软雅黑";
+    font: 13px/2 "微软雅黑";
     color: #999;
 }
 
@@ -61,7 +61,7 @@
 .main-left .post-content .post-desc{
     padding: 20px;
     margin-bottom: 30px;
-    font: 14px/1.5 "微软雅黑";
+    font: 16px/1.5 "微软雅黑";
 }
 
 .main-left .post-content .post-desc img{
@@ -89,7 +89,7 @@
 }
 
 .main-left .post-reply .post-reply-title h2{
-    font: 600 16px/26px "微软雅黑";
+    font: 600 18px/26px "微软雅黑";
     color: #000;
 }
 
@@ -103,7 +103,7 @@
     border-radius: 3px;
     background-color: #00B091;
     color: #fff;
-    font: 14px/28px "微软雅黑";   
+    font: 16px/28px "微软雅黑";
 }
 
 /*中部回帖列表项内容*/
@@ -134,17 +134,17 @@
 }
 
 .main-left .post-reply .post-reply-item .item-info .item-user-name a{
-    font: 12px/2.2 "微软雅黑";
+    font: 14px/2.2 "微软雅黑";
     color: #f2cf2e;
 }
 
 .main-left .post-reply .post-reply-item .item-info .item-content{
-    font: 14px/2.2 "微软雅黑";
+    font: 15px/2.2 "微软雅黑";
     color: #000;
 }
 
 .main-left .post-reply .post-reply-item .item-info .item-date{
-    font: 12px/2.2 "微软雅黑";
+    font: 13px/2.2 "微软雅黑";
     color: #999;
 }
 
@@ -258,14 +258,14 @@
 .main-left .post-reply-textarea .reply-button{
     position: absolute;
     right: 20px;
-    bottom: 15px;
+    bottom: 40px;
     height: 28px;
     width: 70px;
     text-align: center;
     border-radius: 3px;
     background-color: #00B091;
     color: #fff;
-    font: 14px/28px "微软雅黑";
+    font: 16px/28px "微软雅黑";
 }
 .item-content > img{
     width:590px;
