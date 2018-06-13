@@ -3,7 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<meta http-equiv="Content-type" content="text/html"/>
+	<title>211社区-校园生活工作情报站,招聘求职交友一站式服务</title>
+	<meta name="keywords" content="校园,招聘,求职,交友,鹊桥,校园生活,工作情报站,211,社区,高校bbs">
+	<meta name="description" content="校园生活工作情报站,招聘求职交友一站式服务,各大高校招聘、求职、交友">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/base.css">
 	<link rel="stylesheet" type="text/css" href="css/topic.css">
