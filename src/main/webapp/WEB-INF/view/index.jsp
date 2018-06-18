@@ -191,7 +191,7 @@
 					<c:forEach items="${hotUserList}" var="user">
 						<li class="clearfix">
 							<a href="${user.headUrl}" class="hot-user-image"><img src="${user.headUrl}"></a>
-							<a href="${user.headUrl}" class="hot-user-name">${user.username}</a>
+							<a href="${user.linkUrl}" class="hot-user-name">${user.username}</a>
 						</li>
 					</c:forEach>
 				</ul>
@@ -203,7 +203,7 @@
 					<c:forEach items="${userList}" var="user">
 						<li class="clearfix">
 							<a href="${user.headUrl}" class="hot-user-image"><img src="${user.headUrl}"></a>
-							<a href="${user.headUrl}" class="hot-user-name">${user.username}</a>
+							<a href="${user.linkUrl}" class="hot-user-name">${user.username}</a>
 						</li>
 					</c:forEach>
 				</ul>

@@ -9,6 +9,7 @@ public class UserDTO {
     private String username;
     private String headUrl;
     private String school;
+    private String linkUrl;
 
     public UserDTO() {}
 
@@ -48,11 +49,20 @@ public class UserDTO {
         this.school = school;
     }
 
-    public static UserDTO buildUserDto(Integer uid, String username, String headUrl) {
+    public String getLinkUrl() {
+        return linkUrl;
+    }
+
+    public void setLinkUrl(String linkUrl) {
+        this.linkUrl = linkUrl;
+    }
+
+    public static UserDTO buildUserDto(Integer uid, String username, String headUrl, String linkUrl) {
         UserDTO userDTO = new UserDTO();
         userDTO.setUid(uid);
         userDTO.setUsername(username);
         userDTO.setHeadUrl(headUrl);
+        userDTO.setLinkUrl(linkUrl);
         return userDTO;
     }
 }

@@ -94,16 +94,16 @@ public class UserService {
 
     public List<UserDTO> listUserByTime() {
         List<UserDTO> userDTOList = new ArrayList<UserDTO>() {{
-            add(UserDTO.buildUserDto(9, "水木清华",
-                    BBSEnum.userIdToBBS(9L).getAvatarUrl()));
-            add(UserDTO.buildUserDto(3, "日月光华",
-                    BBSEnum.userIdToBBS(3L).getAvatarUrl()));
-            add(UserDTO.buildUserDto(2, "饮水思源",
-                    BBSEnum.userIdToBBS(2L).getAvatarUrl()));
-            add(UserDTO.buildUserDto(15, "梧桐树",
-                    BBSEnum.userIdToBBS(15L).getAvatarUrl()));
-            add(UserDTO.buildUserDto(7, "小百合",
-                    BBSEnum.userIdToBBS(7L).getAvatarUrl()));
+            add(UserDTO.buildUserDto(9, "水木清华", BBSEnum.userIdToBBS(9L).getAvatarUrl(),
+                    BBSEnum.userIdToBBS(9L).getLinkUrl()));
+            add(UserDTO.buildUserDto(3, "日月光华", BBSEnum.userIdToBBS(3L).getAvatarUrl(),
+                    BBSEnum.userIdToBBS(3L).getLinkUrl()));
+            add(UserDTO.buildUserDto(2, "饮水思源", BBSEnum.userIdToBBS(2L).getAvatarUrl(),
+                    BBSEnum.userIdToBBS(2L).getLinkUrl()));
+            add(UserDTO.buildUserDto(15, "梧桐树", BBSEnum.userIdToBBS(15L).getAvatarUrl(),
+                    BBSEnum.userIdToBBS(15L).getLinkUrl()));
+            add(UserDTO.buildUserDto(7, "小百合", BBSEnum.userIdToBBS(7L).getAvatarUrl(),
+                    BBSEnum.userIdToBBS(7L).getLinkUrl()));
         }};
 
         return userDTOList;
@@ -111,16 +111,16 @@ public class UserService {
 
     public List<UserDTO> listUserByHot() {
         List<UserDTO> userDTOList = new ArrayList<UserDTO>() {{
-            add(UserDTO.buildUserDto(9, "水木清华",
-                    BBSEnum.userIdToBBS(9L).getAvatarUrl()));
-            add(UserDTO.buildUserDto(3, "日月光华",
-                    BBSEnum.userIdToBBS(3L).getAvatarUrl()));
-            add(UserDTO.buildUserDto(2, "饮水思源",
-                    BBSEnum.userIdToBBS(2L).getAvatarUrl()));
-            add(UserDTO.buildUserDto(15, "梧桐树",
-                    BBSEnum.userIdToBBS(15L).getAvatarUrl()));
-            add(UserDTO.buildUserDto(7, "小百合",
-                    BBSEnum.userIdToBBS(7L).getAvatarUrl()));
+            add(UserDTO.buildUserDto(9, "水木清华", BBSEnum.userIdToBBS(9L).getAvatarUrl(),
+                    BBSEnum.userIdToBBS(9L).getLinkUrl()));
+            add(UserDTO.buildUserDto(3, "日月光华", BBSEnum.userIdToBBS(3L).getAvatarUrl(),
+                    BBSEnum.userIdToBBS(3L).getLinkUrl()));
+            add(UserDTO.buildUserDto(2, "饮水思源", BBSEnum.userIdToBBS(2L).getAvatarUrl(),
+                    BBSEnum.userIdToBBS(2L).getLinkUrl()));
+            add(UserDTO.buildUserDto(15, "梧桐树", BBSEnum.userIdToBBS(15L).getAvatarUrl(),
+                    BBSEnum.userIdToBBS(15L).getLinkUrl()));
+            add(UserDTO.buildUserDto(7, "小百合", BBSEnum.userIdToBBS(7L).getAvatarUrl(),
+                    BBSEnum.userIdToBBS(7L).getLinkUrl()));
         }};
         return userDTOList;
     }
