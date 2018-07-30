@@ -289,39 +289,39 @@
 				<div class="clearfix"><div class="hot-user-title"><span></span>&nbsp;推荐论坛</div></div>
 				<ul class="hot-user-list">
 					<li class="clearfix">
-						<a rel="nofollow" href="http://www.newsmth.net" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/tsing.jpg"></a>
+						<a rel="nofollow" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/tsing.jpg"></a>
 						<a rel="nofollow" href="http://www.newsmth.net" class="hot-user-name">水木清华</a>
 					</li>
 					<li class="clearfix">
-						<a rel="nofollow" href="https://bbs.pku.edu.cn/v2/home.php" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/pku.jpg"></a>
+						<a rel="nofollow" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/pku.jpg"></a>
 						<a rel="nofollow" href="https://bbs.pku.edu.cn/v2/home.php" class="hot-user-name">北大未名</a>
 					</li>
 					<li class="clearfix">
-						<a rel="nofollow" href="https://bbs.fudan.edu.cn/bbs/top10" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/fudan.jpg"></a>
+						<a rel="nofollow" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/fudan.jpg"></a>
 						<a rel="nofollow" href="https://bbs.fudan.edu.cn/bbs/top10" class="hot-user-name">日月光华</a>
 					</li>
 					<li class="clearfix">
-						<a rel="nofollow" href="https://bbs.sjtu.edu.cn" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/sjtu.jpg"></a>
+						<a rel="nofollow" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/sjtu.jpg"></a>
 						<a rel="nofollow" href="https://bbs.sjtu.edu.cn" class="hot-user-name">饮水思源</a>
 					</li>
                     <li class="clearfix">
-                        <a rel="nofollow" href="https://bbs.tongji.net/" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/tj.jpg"></a>
+                        <a rel="nofollow" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/tj.jpg"></a>
                         <a rel="nofollow" href="https://bbs.tongji.net/" class="hot-user-name">同济之声</a>
                     </li>
                     <li class="clearfix">
-                        <a rel="nofollow" href="http://bbs.nju.edu.cn/" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/nju.jpg"></a>
+                        <a rel="nofollow" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/nju.jpg"></a>
                         <a rel="nofollow" href="http://bbs.nju.edu.cn/" class="hot-user-name">小百合</a>
                     </li>
                     <li class="clearfix">
-                        <a rel="nofollow" href="http://www.zju1.com/" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/zju.jpg"></a>
+                        <a rel="nofollow" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/zju.jpg"></a>
                         <a rel="nofollow" href="http://www.zju1.com/" class="hot-user-name">梧桐树</a>
                     </li>
                     <li class="clearfix">
-                        <a rel="nofollow" href="http://bbs.whu.edu.cn" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/whu.jpg"></a>
+                        <a rel="nofollow" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/whu.jpg"></a>
                         <a rel="nofollow" href="http://bbs.whu.edu.cn" class="hot-user-name">珞珈山水</a>
                     </li>
                     <li class="clearfix">
-                        <a rel="nofollow" href="http://bbs.iecnu.com/" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/iecnu.jpg"></a>
+                        <a rel="nofollow" class="hot-user-image"><img src="http://www.211sq.com/asset/image/university/iecnu.jpg"></a>
                         <a rel="nofollow" href="http://bbs.iecnu.com/" class="hot-user-name">爱在华师</a>
                     </li>
 				</ul>
@@ -365,15 +365,9 @@
     });
 	
 	function locationChange(location) {
-	    setCookie("location", location);
+	    setCookie("location", location, 30*24*60*60*1000);
 	}
 
-    function setCookie(name,value){
-        var Days = 30;//此 cookie 将被保存 30 天
-        var exp = new Date();//new Date("December 31, 9998");
-        exp.setTime(exp.getTime() + Days*24*60*60*1000);
-        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
-    }
 </script>
 </body>
 </html>

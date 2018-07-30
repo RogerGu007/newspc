@@ -58,31 +58,14 @@
                         window.location.reload();
 					} else {
                         alert("登陆成功");
-                        setCookie("sessionID", response.sessionID);
-                        setCookie("adminID", response.ID);
+                        setCookie("sessionID", response.sessionID, 15*60*1000);
+                        setCookie("adminID", response.ID, 15*60*1000);
 						window.location.href = "editPost.do";
                     }
                 }
             });
         });
 	});
-
-    //两个参数，一个是cookie的名子，一个是值
-    function setCookie(name,value){
-        var minutes = 15;//此 cookie 将被保存 15 分钟
-        var exp = new Date();//new Date("December 31, 9998");
-        exp.setTime(exp.getTime() + minutes*15*60*1000);
-        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
-    }
-
-    //取cookies函数
-    function getCookie(name){
-        var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
-        if (arr != null) {
-            return unescape(arr[2]);
-        }
-        return null;
-    }
 
 </script>
 </body>

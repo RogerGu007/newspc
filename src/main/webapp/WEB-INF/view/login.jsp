@@ -89,8 +89,8 @@
 
 		//登陆
         $("#login-submit").click(function() {
-            setCookie("phoneno", $("#login-phone").val());
-            setCookie("smscode", $("#login-sms").val());
+            setCookie("phoneno", $("#login-phone").val(), 30*24*60*60*1000);
+            setCookie("smscode", $("#login-sms").val(), 30*24*60*60*1000);
             $.ajax({
                 type:"POST",
                 url:"login.do",
@@ -102,9 +102,9 @@
                         window.location.reload();
 					} else {
                         alert("登陆成功");
-                        setCookie("isLogin", "1");
-                        setCookie("userId", response.userId);
-                        setCookie("avatarUrl", response.avatarUrl);
+                        setCookie("isLogin", "1", 30*24*60*60*1000);
+                        setCookie("userId", response.userId, 30*24*60*60*1000);
+                        setCookie("avatarUrl", response.avatarUrl, 30*24*60*60*1000);
 //                        window.history.go(-1);
 						window.location.href = document.referrer;
                     }
@@ -112,23 +112,6 @@
             });
         });
 	});
-
-    //两个参数，一个是cookie的名子，一个是值
-    function setCookie(name,value){
-        var Days = 30;//此 cookie 将被保存 30 天
-        var exp = new Date();//new Date("December 31, 9998");
-        exp.setTime(exp.getTime() + Days*24*60*60*1000);
-        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
-    }
-
-    //取cookies函数
-    function getCookie(name){
-        var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
-        if (arr != null) {
-            return unescape(arr[2]);
-        }
-        return null;
-    }
 
     var countdown = 60;
     if ((getCookie("timeout") != null && getCookie("timeout") != '') || getCookie("timeout") == 0) {
@@ -154,7 +137,7 @@
                 val.setAttribute("disabled", true);
                 val.innerHTML = "重新发送(" + countdown + ")";
                 countdown--;
-                setCookie("timeout", countdown);
+                setCookie("timeout", countdown, 30*24*60*60*1000);
 			}
         }
         setTimeout(function() {

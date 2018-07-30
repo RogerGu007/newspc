@@ -190,7 +190,7 @@
 				<ul class="hot-user-list">
 					<c:forEach items="${hotUserList}" var="user">
 						<li class="clearfix">
-							<a href="${user.headUrl}" class="hot-user-image"><img src="${user.headUrl}"></a>
+							<a class="hot-user-image"><img src="${user.headUrl}"></a>
 							<a href="${user.linkUrl}" class="hot-user-name">${user.username}</a>
 						</li>
 					</c:forEach>
@@ -202,7 +202,7 @@
 				<ul class="hot-user-list">
 					<c:forEach items="${userList}" var="user">
 						<li class="clearfix">
-							<a href="${user.headUrl}" class="hot-user-image"><img src="${user.headUrl}"></a>
+							<a class="hot-user-image"><img src="${user.headUrl}"></a>
 							<a href="${user.linkUrl}" class="hot-user-name">${user.username}</a>
 						</li>
 					</c:forEach>
@@ -238,7 +238,7 @@
             $("#subNewsTypeSpan").show();
         }
 
-        setCookie("location", $('#locationSelect').val());
+        setCookie("location", $('#locationSelect').val(), 30*24*60*60*1000);
     });
     
     function locationChange() {
@@ -248,7 +248,8 @@
             + '&subNewsType=' + $('#subNewsTypeSelect').val()
             + '&location=' + location;
 
-        setCookie("location", location);
+        //cookie保存30天
+        setCookie("location", location, 30*24*60*60*1000);
     }
 
     $(".admin-edit-button").click(function () {
@@ -274,22 +275,6 @@
             });
         }
     });
-
-    function setCookie(name,value){
-        var Days = 30;//此 cookie 将被保存 30 天
-        var exp = new Date();//new Date("December 31, 9998");
-        exp.setTime(exp.getTime() + Days*24*60*60*1000);
-        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
-    }
-
-    function getCookie(name){
-        var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
-        if (arr != null) {
-            return unescape(arr[2]);
-        }
-        return null;
-    }
-
 </script>
 </body>
 </html>
